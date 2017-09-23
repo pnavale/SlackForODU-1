@@ -196,10 +196,18 @@ var textfield = $("input[name=user]");
 
             });
 });
+  $( document ).ready(function() {
+   $("#login").hide();
+});
+
+function goToLogin(){
+  $("#workspace").hide();
+  $("#login").show();
+}
 
 </script>
 <div style="text-align: center;">
-<div class="container">
+<div class="container" id="workspace">
   <div class="login-container workspace-container">
             <div id="output"></div>
             <img src="../images/logo.png">
@@ -220,14 +228,12 @@ var textfield = $("input[name=user]");
         <input type="checkbox"> Can't check this
       </label> -->
     </div>
-   
-    
-    <button type="submit" class="btn btn-primary btn-success">Continue</button>
+    <button type="submit" class="btn btn-primary btn-success" onclick="goToLogin();" >Continue</button>
   </form>
 </div>
 </div>
 </div>
-<div class="container">
+<div class="container" id="login">
   <div class="login-container">
             <div id="output"></div>
             <div class="avatar"></div>
