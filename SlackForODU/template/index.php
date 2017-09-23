@@ -1,0 +1,24 @@
+<html>
+<body>
+
+<h1>Add your workspace URL</h1>
+
+<div class="container">
+  <form>
+    <div class="form-group row">
+      <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="you@example.com">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-sm" id="smFormGroupInput" placeholder="you@example.com">
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
