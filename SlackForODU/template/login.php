@@ -5,6 +5,8 @@
 <?php 
 $username=$_POST['username'];
 $password=$_POST['password'];
+    echo "<script>console.log( 'Debug Objects: " . $username . "' );</script>";
+
 $query_users  = "SELECT * FROM users where username='$username' and password='$password";
 $result_users = mysqli_query($connection, $query_users);
 //$result_client3 = mysqli_query($connection, $query_client);
