@@ -35,5 +35,19 @@
   		return $data;
     }
 
+    function select_users($username, $password){
+    global $connection;
+
+    $query_login  = "SELECT * FROM users WHERE username = $username and password = $password" ;
+    $result_login = mysqli_query($connection, $query_login);
+    confirm_query($result_login);
+    if($result = mysqli_fetch_assoc($result_login)) {
+      echo $result;
+      return $result;
+    } else {
+      return null;
+    }
+  }
+
 //End of  Get Check Number
 ?>
