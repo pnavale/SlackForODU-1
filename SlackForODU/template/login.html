@@ -232,36 +232,16 @@ function goToLogin(){
             <div id="output"></div>
             <div class="avatar"></div>
             <div class="form-box">
-                <form action="login.php" method="post">
+                <form action="login.php" method="POST">
                     <input type="text" name="username" placeholder="username">
                     <input type="password" name="password" placeholder="password">
-                    <button class="btn btn-info btn-block login" type="submit">Login</button>
+                    <button class="btn btn-info btn-block login" type="submit" name="submit" onClick="">Login</button>
                 </form>
             </div>
         </div>
         
 </div>
-<?php
-  include("./includes/db_connection.php");
-  include("./includes/functions.php"); 
-?>
-<?php 
-$username=$_POST['username'];
-$password=$_POST['password'];
 
-$query_users  = "SELECT * FROM users where username='$username' and password='$password";
-$result_users = mysqli_query($connection, $query_users);
-//$result_client3 = mysqli_query($connection, $query_client);
-$login = select_users($username,$password);
-
-if($login != null){
-    echo "valid data";
-}
-
-?>
-<?php
-  require_once("./includes/footer.php");
-?>
 </body>
 </html>
   
