@@ -9,29 +9,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>LPR Portal</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <title>Slack For ODU</title>
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="../dist/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="../dist/css/buttons.dataTables.min.css" rel="stylesheet">
-    <link href="../dist/css/styles.css" rel="stylesheet">
+<!--    <link href="../style/styles.css" rel="stylesheet">-->
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="./src/clockpicker.css" rel="stylesheet" type="text/css">
-    <link href="../vendor/bootstrap-datepicker-1.6.4-dist/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css">
-    <link href="../vendor/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../dist/css/bootstrapValidator.css"/>
-    <link href="./src/bootstrap-switch.css" rel="stylesheet" type="text/css">
-    <link href="./src/fullcalendar.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../dist/css/bootstrap-formhelpers.min.css"/>
+      <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- Latest Jquery compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <style type="text/css">
     .box{

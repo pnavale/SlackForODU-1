@@ -64,6 +64,9 @@ include 'includes/htmlheader.php';
      -moz-transform: rotateZ(-2deg);
       -ms-transform: rotateZ(-2deg);
 }
+        label{
+            font-size: 14px;
+        }
         
     </style>
 </head>
@@ -71,55 +74,50 @@ include 'includes/htmlheader.php';
     <h2><p style="text-align:right;"><a href="register.php">Register</a> | <a href="login.php">Login</a></p></h2>
     <br><br><br><br>
     <div class="login-container">
-     <center><h4>Login to enter in your slack workspace</h4></center>
+     <center><h4>Sign in to your workspace URL</h4></center>
 <img src="../images/logo.png">
         <br><br><br><br>
 <form action="" method="POST">
- <input type="text" class="form-control" name="user" placeholder="username or email id"><br />
- <input type="password" class="form-control" name="pass" placeholder="password"><br />	
-    <br><br> 
+ <input type="text" class="form-control" name="url" placeholder="slack url"><br />
+     <label>.slack.com</label>
+    <br><br> <br>
 <input type="submit" value="Login" class="btn" name="submit" />
 </form>
     </div>
 <?php
 if(isset($_POST["submit"])){
 
-if(!empty($_POST['user']) && !empty($_POST['pass'])) {
-	$user=$_POST['user'];
-	$pass=$_POST['pass'];
+if(!empty($_POST['url'])) {
+	$url=$_POST['url'];
 
 	$con=mysql_connect('localhost','root','') or die(mysql_error());
 	mysql_select_db('slack') or die("cannot select DB");
 
-	$query=mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");
-	$numrows=mysql_num_rows($query);
+$query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
+    $numrows=mysql_num_rows($query);
+    echo $numrows;
 	if($numrows!=0)
 	{
 	while($row=mysql_fetch_assoc($query))
 	{
-	$dbusername=$row['username'];
-	$dbpassword=$row['password'];
-    $dbworkspace_id=$row['workspace_id'];
+	$dbwkurl=$row['url'];
+	$dbwk_id=$row['wk_id'];
 	}
-    
-   global $dbwk_id;
-        echo $dbwk_id;
-	if($user == $dbusername && $pass == $dbpassword 
-       //&& $dbwk_id == $dbworkspace_id 
-      )
-	{
-	session_start();
-	$_SESSION['sess_user']=$user;
-
-	/* Redirect browser */
-	header("Location: member.php");
-	}
+    header("Location: login.php");
+//	if($user == $dbusername && $pass == $dbpassword)
+//	{
+//	session_start();
+//	$_SESSION['sess_user']=$user;
+//
+//	/* Redirect browser */
+//	
+//	}
 	} else {
-	echo "Invalid username or password!";
+	echo "Invalid workspace url!";
 	}
 
 } else {
-	echo "All fields are required!";
+	echo "Please enter your workspace url!";
 }
 }
 ?>
