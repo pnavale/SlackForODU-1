@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 create database slack;
 
-use slackl
+use slack;
 
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
