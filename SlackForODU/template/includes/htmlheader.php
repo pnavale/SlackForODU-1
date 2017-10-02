@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Slack For ODU</title>
+    <title>Slack for ODU</title>
 
     <!-- Custom CSS -->
-<!--    <link href="../style/styles.css" rel="stylesheet">-->
-
+    <link href="../style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <!-- Custom Fonts -->
       <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
