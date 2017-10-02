@@ -45,7 +45,8 @@ a:hover { text-decoration:underline; }
     margin-bottom: 100px;
     margin-right: 150px;
     margin-left: 80px;
-  font-family: 'Shadows Into Light', cursive !important;
+/*  font-family: 'Shadows Into Light', cursive !important;  */
+    font-family: 'Lato', sans-serif;
     color: palevioletred;
 /*    font-family: verdana;*/
     font-size: 100%;
