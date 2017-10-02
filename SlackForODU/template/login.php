@@ -73,15 +73,8 @@ include 'includes/htmlheader.php';
     <div class="login-container">
      <center><h4>Login to enter in your slack workspace</h4></center>
 <img src="../images/logo.png">
-        <br><br><br><br>
-<form action="" method="POST">
- <input type="text" class="form-control" name="user" placeholder="username or email id"><br />
- <input type="password" class="form-control" name="pass" placeholder="password"><br />	
-    <br><br> 
-<input type="submit" value="Login" class="btn" name="submit" />
-</form>
-    </div>
-<?php
+        <br><br>
+        <?php
 if(isset($_POST["submit"])){
 
 if(!empty($_POST['user']) && !empty($_POST['pass'])) {
@@ -101,10 +94,9 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	$dbpassword=$row['password'];
     $dbworkspace_id=$row['workspace_id'];
 	}
-    
-   global $dbwk_id;
-        echo $dbwk_id;
-	if($user == $dbusername && $pass == $dbpassword && $dbwk_id == $dbworkspace_id )
+    session_start();
+        
+	if($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id )
 	{
 	
 	$_SESSION['sess_user']=$user;
@@ -112,6 +104,10 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	/* Redirect browser */
 	header("Location: member.php");
 	}
+    if($user == $dbusername && $pass == $dbpassword){
+       echo "Sorry, You are not linked with this workspace!"; 
+    }    
+        
 	} else {
 	echo "Invalid username or password!";
 	}
@@ -121,6 +117,17 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 }
 }
 ?>
+        
+        <br><br>
+        
+<form action="" method="POST">
+ <input type="text" class="form-control" name="user" placeholder="username or email id"><br />
+ <input type="password" class="form-control" name="pass" placeholder="password"><br />	
+    <br><br> 
+<input type="submit" value="Login" class="btn" name="submit" />
+</form>
+    </div>
+
 
 </body>
 </html>
