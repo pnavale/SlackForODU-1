@@ -1,0 +1,35 @@
+<style>
+
+/*right and left dash boards*/
+.wrap {
+width: 100%;
+overflow:auto;
+}
+
+.fleft {
+    float:left; 
+    width: 15%;
+background:#330033;
+    height: 730px;
+}
+
+.fright {
+float: right;
+    background:#f2f2f2;
+    height: 730px;
+    width: 85%;
+}
+
+/*chat box*/
+
+    #chatbox { 
+        position: absolute; 
+        visibility: visible; 
+        left: 250px; 
+        top: 680px;
+        height: 100px; 
+        width: 120px; 
+        z-index: 200; }  
+}
+
+</style>
