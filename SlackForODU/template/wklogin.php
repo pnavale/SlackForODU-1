@@ -13,12 +13,12 @@ include 'includes/htmlheader.php';
 <body>
   
     <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
-    <br><br><br><br>
+    <br><br>
     <div class="login-container">
      <center><h4>Sign in to your workspace URL</h4></center>
          <br>
 <img src="../images/logo.png">
-        <br><br><br><br>
+        <br><br>
   <?php
     global $error;
 if(isset($_POST["submit"])){
