@@ -17,7 +17,6 @@ include 'includes/htmlheader.php';
     <div class="login-container">
      <center><h4>Sign in to your workspace URL</h4></center>
 <img src="../images/logo.png">
-        <br><br>
   <?php
     global $error;
 if(isset($_POST["submit"])){
@@ -55,11 +54,11 @@ $query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
 }
 }
 ?>
- <br><br>    
+ <br>   
 <form action="" method="POST">
  <input type="text" class="form-control" name="url" placeholder="slack workspace url" required><br />
      <label>.slack.com</label>
-    <br><br> <br>
+    <br>
 <input type="submit" value="Continue &#8594;" class="btn btn-success" name="submit" />
 </form>
 
