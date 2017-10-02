@@ -88,7 +88,7 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	$user=$_POST['user'];
 	$pass=$_POST['pass'];
 
-	$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
+	$con=mysql_connect('localhost','root','') or die(mysql_error());
 	mysql_select_db('slack') or die("cannot select DB");
 
 	$query=mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");
@@ -104,11 +104,9 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
     
    global $dbwk_id;
         echo $dbwk_id;
-	if($user == $dbusername && $pass == $dbpassword 
-       //&& $dbwk_id == $dbworkspace_id 
-      )
+	if($user == $dbusername && $pass == $dbpassword && $dbwk_id == $dbworkspace_id )
 	{
-	session_start();
+	
 	$_SESSION['sess_user']=$user;
 
 	/* Redirect browser */
