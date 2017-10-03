@@ -41,8 +41,6 @@ CREATE TABLE `channel` (
 -- Dumping data for table `channel`
 --
 
-INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`) VALUES
-('ch1', 'general', 'mater', '2017-09-04 09:27:20');
 
 -- --------------------------------------------------------
 
@@ -149,6 +147,11 @@ ALTER TABLE `login`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
+INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`) VALUES
+('ch1', 'general', 'default', '2017-09-04 09:27:20'),
+('ch2', 'random', 'default', '2017-10-02 03:11:04'),
+('ch3', 'foodie', 'sally', '2017-10-01 07:15:00'),
+('ch4', 'travel', 'mater', '2017-09-04 05:15:26');
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
