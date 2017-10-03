@@ -17,14 +17,17 @@ include 'includes/htmlheader.php';
     <div class="login-container">
      <center><h4>Sign in to your workspace URL</h4></center>
 <img src="../images/logo.png">
+         <div class="error-msg" style="margin-left: -2%;">
+<!--            <span class="material-icons">warning</span>-->
+             <span style="font-size:14px;">
   <?php
     global $error;
 if(isset($_POST["submit"])){
 
 if(!empty($_POST['url'])) {
 	$url=$_POST['url'];
-	$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-    //$con=mysql_connect('localhost','root','') or die(mysql_error());
+	//$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
+    $con=mysql_connect('localhost','root','') or die(mysql_error());
 	mysql_select_db('slack') or die("cannot select DB");
 $query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
     $numrows=mysql_num_rows($query);
@@ -45,7 +48,7 @@ $query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
 	    header("Location: login.php");
 	}
 	} else {
-	echo "Invalid workspace url!";
+	echo "We couldn’t find your workspace";
    // header("Location:wklogin.php");
 	}
 
@@ -54,11 +57,12 @@ $query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
 }
 }
 ?>
+            </span>    </div>
  <br>   
 <form action="" method="POST">
- <input type="text" class="form-control" name="url" placeholder="slack workspace url" required><br />
+ <input type="text" class="form-control" name="url" placeholder="slack workspace url" required>
      <label>.slack.com</label>
-    <br>
+    <br><br>
 <input type="submit" value="Continue &#8594;" class="btn btn-success" name="submit" />
 </form>
 
