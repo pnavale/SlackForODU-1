@@ -8,7 +8,11 @@ include 'includes/db_connection.php';
 <head>
 <title>Login</title>
     <style> 
+<<<<<<< HEAD
         
+=======
+     
+>>>>>>> 3a1bc7b5627301fe919c6d37de8348045730a1f6
     </style>
 </head>
 <body>
