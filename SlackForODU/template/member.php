@@ -1,5 +1,6 @@
 <?php
 include 'includes/htmlheader.php';
+include 'includes/db_connection.php';
 ?>
 <?php 
 session_start();
@@ -48,9 +49,9 @@ if(!isset($_SESSION["sess_user"])){
          <?php
             $channels = array();
 if($_SESSION['sess_user']){
-    $con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-    //$con=mysql_connect('localhost','root','') or die(mysql_error());
-	mysql_select_db('slack') or die("cannot select DB");
+//    $con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
+//    //$con=mysql_connect('localhost','root','') or die(mysql_error());
+//	mysql_select_db('slack') or die("cannot select DB");
     $query=mysql_query("SELECT * FROM channel");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
