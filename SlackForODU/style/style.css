@@ -112,35 +112,6 @@ input[type=submit] {
     width: 100%;
     font-size: 16px;
 }
-
-/*dashboard css*/
-/*right and left dash boards*/
-.wrap {
-width: 100%;
-overflow:auto;
-}
-
-.fleft {
-    float:left; 
-    width: 12%;
-background:#330033;
-    height: 930px;
-}
-
-.fright {
-float: right;
-    background:#f2f2f2;
-    height: 930px;
-    width: 88%;
-}
-
-
-/*dashboard css*/
-@charset "utf-8";
-/* CSS Document */
-
-/* ---------- GENERAL ---------- */
-
 body {
 	margin: 0;
 }
@@ -200,7 +171,7 @@ p { margin: 0; }
 	font-size: 12px;
 	right: 24px;
 	position: fixed;
-	width: 87%;
+	width: 83% !important;
 }
 
 #live-chat header {

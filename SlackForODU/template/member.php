@@ -16,7 +16,7 @@ if(!isset($_SESSION["sess_user"])){
         span{
             font-size: 20px;
         }
-        a{
+        .names, a{
             font-size: 18px;
         }
     </style>
@@ -24,13 +24,12 @@ if(!isset($_SESSION["sess_user"])){
 <body>
     <center><h1>Welcome to Slack for ODU</h1></center>
     
-<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php" class="pull-right">Logout</a></h2>
+<h2>Welcome, <?=$_SESSION['sess_user_fullname'];?>! <a href="logout.php" class="pull-right">Logout</a></h2>
 <?php
 }
 ?>
-
-<div class="wrap">
-    <div class="fleft">
+<div class="row">
+<div class="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="background-color:#2c2d30;">
         <div class = "Users" style="color:#DCDCDC;">
             <a href="#"><span>
          <?php
@@ -74,11 +73,11 @@ if($_SESSION['sess_user']){
    // header("Location:wklogin.php");
 	}
 
-} else {
-	echo "Something went wrong!";
-}
+} 
+//            else {
+//	echo "Something went wrong!";
+//}
 ?>
-            </p>
         
         
         
@@ -92,7 +91,7 @@ if($_SESSION['sess_user']){
             <span>Direct Messages </span>
              <a href="#">
           <span style="color:#F5F5F5;margin-left:18%;" class="glyphicon glyphicon-plus-sign"></span>
-                 <a style='color:#FFFFFF;' href='#'><span style='color:#f27670;'>&hearts;</span>slackbot<br></a>
+                 <div class="names" style='color:#FFFFFF;' href='#' onclick='privateChat("slackbot");return false;'><span style='color:#f27670;'>&hearts;</span>slackbot<br></div>
             
          <?php
             $members = array();
@@ -114,13 +113,17 @@ if($_SESSION['sess_user']){
         
 	}
     foreach ($members as $value) {
+        $cname='';
+         $uname = $value['username'];
+        
         if($value['username'] == $_SESSION['sess_user']){
-            echo "<a style='color:#FFFFFF;' href='#'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br>";
+            $cname=$uname;
+            echo "<div class='names' style='color:#FFFFFF;' onclick='<?php  ?>'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br> </div>";
         }
         else{
-              echo "<a style='color:#FFFFFF;' href='#'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br>";
+              echo "<div  class='names' style='color:#FFFFFF;' onclick='<?php clickPrivateChat($uname); ?>'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> </div>";
         }
-      
+
     }    
         
 	} else {
@@ -128,19 +131,21 @@ if($_SESSION['sess_user']){
    // header("Location:wklogin.php");
 	}
 
-} else {
-	echo "Something went wrong!";
-}
-?>    </a><br>
+} 
+//                 else {
+//	echo "Something went wrong!";
+//}
+?>    <br>
+            </a>
     </div>
-        
     </div>
-    
-    <div class="fright">
+    <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
  
         <?php
 include 'chat.php';
 ?>
+    </div>
+    </div>
 </body>
 </html>
 

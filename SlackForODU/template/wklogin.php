@@ -1,5 +1,6 @@
 <?php
 include 'includes/htmlheader.php';
+include 'includes/db_connection.php';
 ?>
 
 <!doctype html>
@@ -27,8 +28,8 @@ if(isset($_POST["submit"])){
 if(!empty($_POST['url'])) {
 	$url=$_POST['url'];
 	//$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-    $con=mysql_connect('localhost','root','') or die(mysql_error());
-	mysql_select_db('slack') or die("cannot select DB");
+//    $con=mysql_connect('localhost','root','') or die(mysql_error());
+//	mysql_select_db('slack') or die("cannot select DB");
 $query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
     $numrows=mysql_num_rows($query);
     //echo $numrows;

@@ -1,19 +1,16 @@
 <?php
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
+session_start();
+if(!$_SESSION['wkid']){
+    header("Location: wklogin.php");
+}
+
 ?>
 
 <!doctype html>
 <html>
 <head>
-<title>Login</title>
-    <style> 
-<<<<<<< HEAD
-        
-=======
-     
->>>>>>> 3a1bc7b5627301fe919c6d37de8348045730a1f6
-    </style>
 </head>
 <body>
    <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
@@ -42,14 +39,21 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	{
 	$dbusername=$row['username'];
 	$dbpassword=$row['password'];
+    $dbfullname=$row['full_name'];
+    $dbgroup_id=$row['group_id'];
     $dbworkspace_id=$row['workspace_id'];
+    $dbprofile_pic=$row['profile_pic'];
+    $dbchannel=$row['channel_id'];   
 	}
-    session_start();
+    
         
 	if($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id )
 	{
-	
-	$_SESSION['sess_user']=$user;
+	$_SESSION['sess_user']=$dbusername;
+    $_SESSION['sess_user_fullname']=$dbfullname;
+    $_SESSION['sess_user_profile_pic']=$dbprofile_pic;
+    $_SESSION['sess_user_wk']=$dbworkspace_id;
+    $_SESSION['sess_user_ch']=$dbchannel;
 
 	/* Redirect browser */
 	header("Location: member.php");
