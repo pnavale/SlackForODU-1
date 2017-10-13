@@ -1,4 +1,4 @@
 <?php
-header("Location: wklogin.php");
+header("Location: template/wklogin.php");
 die();
 ?>
