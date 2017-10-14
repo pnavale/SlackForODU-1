@@ -8,7 +8,6 @@ if(!isset($_SESSION["sess_user"])){
 	header("location:login.php");
 } else {
 ?>
-<!doctype html>
 <html>
 <head>
 <title>Welcome</title>
@@ -30,28 +29,38 @@ if(!isset($_SESSION["sess_user"])){
 ?>
 <div class="row">
 <div class="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="background-color:#2c2d30;">
-        <div class = "Users" style="color:#DCDCDC;">
-            <a href="#"><span>
+    <div class="row">
+        <div class ="col-sm-0 col-md-8 col-lg-8 col-xs-0" style="color:#DCDCDC;">
+           
          <?php
             echo $_SESSION['wkurl'];
-              ?></span></a>
-            <span style="color:#DCDCDC;margin-left:50%;" class="material-icons" style="font-size:36px">add_alert</span>
+              ?>
         </div>
-        
+         <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0" style="color:#DCDCDC;">
+              <a href="#">
+            <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span></a>
+    </div>
+    </div>
         <br><br>
-        <div class = "Channel" style="color:#DCDCDC;">
+     <div class="row">
+        <div class = "Channel col-sm-0 col-md-8 col-lg-8 col-xs-0" style="color:#DCDCDC;">   
             <span>Channels </span>
+         </div>
+         <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0">
              <a href="#">
-          <span style="color:#F5F5F5;margin-left:44%;" class="glyphicon glyphicon-plus-sign"></span>
+          <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
         </a><br>
-            
+         </div>
+         </div>
+          <form method="GET">  
          <?php
             $channels = array();
+                $cname='slackbot';
 if($_SESSION['sess_user']){
 //    $con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
 //    //$con=mysql_connect('localhost','root','') or die(mysql_error());
 //	mysql_select_db('slack') or die("cannot select DB");
-    $query=mysql_query("SELECT * FROM channel");
+    $query=mysql_query("SELECT * FROM channel where channel_creator='default'");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
     $numrows=mysql_num_rows($query);
@@ -63,35 +72,53 @@ if($_SESSION['sess_user']){
 	 array_push($channels, $row);
         
 	}
+    }
+    $wk_id=$_SESSION['wkid'];
+    $query=mysql_query("SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'");
+    //creator='".$_SESSION['sess_user']."' or
+    //creator='default'
+    $numrows=mysql_num_rows($query);
+    //echo $numrows;
+	if($numrows!=0)
+	{
+	while($row=mysql_fetch_assoc($query))
+	{
+	 array_push($channels, $row);
+        
+	} }
+        
     foreach ($channels as $value) {
         
-        echo "<a style='color:#FFFFFF;' href='#'>"."#".$value['channel_name']."<br>";
+        echo "<input type='radio' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br>";
     }    
-        
-	} else {
-//	echo "We couldn’t find your workspace";
-   // header("Location:wklogin.php");
-	}
-
-} 
+     echo "<input type = 'submit' value='Channel' />";     
+	} 
 //            else {
 //	echo "Something went wrong!";
 //}
 ?>
-        
-        
-        
-        
-        
-        
-        </div>
+           
+            </form>   
         <div class = "Direct Messages"  style="color:#DCDCDC;">  
         
     <br><br>
+<?php
+function clickPrivateChat($selectedName) {
+    $cname=$selectedName; 
+    return $cname;
+    }
+?>        
+            <div class="row">
+            <div class ="col-sm-0 col-md-8 col-lg-8 col-xs-0">
             <span>Direct Messages </span>
+            </div>
+            <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0">
              <a href="#">
-          <span style="color:#F5F5F5;margin-left:18%;" class="glyphicon glyphicon-plus-sign"></span>
-                 <div class="names" style='color:#FFFFFF;' href='#' onclick='privateChat("slackbot");return false;'><span style='color:#f27670;'>&hearts;</span>slackbot<br></div>
+                 <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
+                </div>
+                </div>
+            <form method="GET">
+                 <input type='radio' name='pc' style='color:#FFFFFF;' href='#' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br>
             
          <?php
             $members = array();
@@ -99,7 +126,6 @@ if($_SESSION['sess_user']){
 	//$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
     $con=mysql_connect('localhost','root','') or die(mysql_error());
 	mysql_select_db('slack') or die("cannot select DB");
-    $wk_id = $_SESSION['wkid'];
     $query=mysql_query("SELECT * FROM users where workspace_id='$wk_id'");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -112,20 +138,19 @@ if($_SESSION['sess_user']){
 	 array_push($members, $row);
         
 	}
+
     foreach ($members as $value) {
-        $cname='';
          $uname = $value['username'];
         
         if($value['username'] == $_SESSION['sess_user']){
-            $cname=$uname;
-            echo "<div class='names' style='color:#FFFFFF;' onclick='<?php  ?>'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br> </div>";
+            echo "<input type='radio' name='pc' class='names' style='color:#FFFFFF;' value='".$value['username']."' ><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br> ";
         }
         else{
-              echo "<div  class='names' style='color:#FFFFFF;' onclick='<?php clickPrivateChat($uname); ?>'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> </div>";
+              echo "<input type='radio' name='pc' class='names' style='color:#FFFFFF;' value='".$value['username']."'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> ";
         }
 
     }    
-        
+     echo "<input type = 'submit' value='Go' />";   
 	} else {
 //	echo "We couldn’t find your workspace";
    // header("Location:wklogin.php");
@@ -136,17 +161,25 @@ if($_SESSION['sess_user']){
 //	echo "Something went wrong!";
 //}
 ?>    <br>
-            </a>
+       </form>     </a>
     </div>
     </div>
-    <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
+    
+        <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
  
         <?php
+$channelSelected='';
+if(isset($_GET["ch"])){
+$cname='';
+$channelSelected=$_GET['ch'];
+}
+if(isset($_GET["pc"])){
+$channelSelected='';
+$cname=$_GET['pc'];
+}
 include 'chat.php';
 ?>
     </div>
-    </div>
-</body>
 </html>
 
 

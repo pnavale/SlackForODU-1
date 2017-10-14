@@ -1,8 +1,52 @@
 <?php
 include 'includes/functions.php';
-
- $chats = array();
+if($cname!=''){
+    $cname=$_SESSION['sess_user'];
+}
+$chats = array();
 if($_SESSION['sess_user']){
+    if($channelSelected != ''){
+        
+    $query=mysql_query("SELECT * FROM channel WHERE channel_name='".$channelSelected."'");
+    $numrows=mysql_num_rows($query);
+    //echo $numrows;
+	if($numrows!=0)
+	{
+	while($row=mysql_fetch_assoc($query))
+	{
+	$channel_idSelected=$row['channel_id'];
+	$msg=$row['msg_body'];
+//    $cdate=new DateTime($row['create_date']);
+//    $displayDate=date_format($cdate, 'h:i');
+    array_push($chats, $row);
+	}
+
+	} else {
+	echo "No message yet.";
+   // header("Location:wklogin.php");
+	}    
+        
+    $query=mysql_query("SELECT * FROM message WHERE channel_id='".$channelSelected."'");
+    $numrows=mysql_num_rows($query);
+    //echo $numrows;
+	if($numrows!=0)
+	{
+	while($row=mysql_fetch_assoc($query))
+	{
+//	$currentThread=$row['thread_id'];
+//	$msg=$row['msg_body'];
+//    $cdate=new DateTime($row['create_date']);
+//    $displayDate=date_format($cdate, 'h:i');
+    array_push($chats, $row);
+	}
+
+	} else {
+	echo "No message yet.";
+   // header("Location:wklogin.php");
+	}
+    }
+    else{
+
     $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."'");
     $numrows=mysql_num_rows($query);
     //echo $numrows;
@@ -21,6 +65,29 @@ if($_SESSION['sess_user']){
 	echo "No message yet.";
    // header("Location:wklogin.php");
 	}
+            
+    }
+    //Profile Pic
+    if($_SESSION['sess_user']!= $cname){
+        $query=mysql_query("SELECT * FROM users WHERE username='".$cname."'");
+    $numrows=mysql_num_rows($query);
+    //echo $numrows;
+	if($numrows!=0)
+	{
+	while($row=mysql_fetch_assoc($query))
+	{
+	$profile_pic=$row['profile_pic'];
+	}
+
+	} else {
+	//echo "No message yet.";
+   // header("Location:wklogin.php");
+	}   
+    }
+    else
+    {
+      $profile_pic = $_SESSION['sess_user_profile_pic'];   
+    }
     
   }
 ?>
@@ -58,7 +125,7 @@ if($_SESSION['sess_user']){
                     ?>
 				<div class="chat-message clearfix">
 					
-					<img src="../images/<?php echo $_SESSION['sess_user_profile_pic'] ?>" alt="profile pic" width="32" height="32">
+					<img src="../images/<?php echo $profile_pic ?>" alt="profile pic" width="32" height="32">
 
 					<div class="chat-message-content clearfix">
 						
@@ -85,7 +152,7 @@ if($_SESSION['sess_user']){
 				<fieldset>
 					
 					<input type="text" placeholder="Type your message…" name="message" autofocus>
-					<input type="submit" value="Send" class="btn btn-success" name="submit" />
+<!--					<input type="submit" value="Send" class="btn" name="submit" />-->
 
 				</fieldset>
 
@@ -100,14 +167,19 @@ if($_SESSION['sess_user']){
 
   <?php 
     if($_SESSION['sess_user']){
-    if (isset($_POST['submit'])){ 
+    if (isset($_POST['message'])){ 
 	$message=verify_input($_POST['message']);
     $subject='private';
-	$creator_id=$_SESSION['sess_user'];
-	$thread_id='th1';
-	$channel_id='ch1';
-	$group_id='g1';
-	$recipient_id='mcqueen';
+	$creator_id=$cname;
+	$thread_id='p'+$cname;
+    if($cname){
+     $channel_id='';   
+    }else
+    {
+       $channel_id='';    
+    }
+	$group_id='';
+	$recipient_id=$_SESSION['sess_user'];
 
     mysql_query("insert into message (subject,creator_id,msg_body,create_date,thread_id,channel_id,group_id,recipient_id)
 	values('$subject','$creator_id','$message',NOW(),'$thread_id','$channel_id','$group_id','$recipient_id')
