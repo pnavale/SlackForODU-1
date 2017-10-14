@@ -59,7 +59,7 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	header("Location: member.php");
 	}
     if($user == $dbusername && $pass == $dbpassword){
-       echo "It seems you doesn't have an account for that workspace yet."; 
+       echo "It seems you don't have an account for this workspace!"; 
     }    
         
 	} else {
