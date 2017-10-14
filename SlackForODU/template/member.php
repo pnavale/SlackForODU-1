@@ -30,23 +30,23 @@ if(!isset($_SESSION["sess_user"])){
 <div class="row">
 <div class="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="background-color:#2c2d30;">
     <div class="row">
-        <div class ="col-sm-0 col-md-8 col-lg-8 col-xs-0" style="color:#DCDCDC;">
+        <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;">
            
          <?php
             echo $_SESSION['wkurl'];
               ?>
         </div>
-         <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0" style="color:#DCDCDC;">
+         <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="color:#DCDCDC;">
               <a href="#">
             <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span></a>
     </div>
     </div>
         <br><br>
      <div class="row">
-        <div class = "Channel col-sm-0 col-md-8 col-lg-8 col-xs-0" style="color:#DCDCDC;">   
+        <div class = "Channel col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;">   
             <span>Channels </span>
          </div>
-         <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0">
+         <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0">
              <a href="#">
           <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
         </a><br>
@@ -109,10 +109,10 @@ function clickPrivateChat($selectedName) {
     }
 ?>        
             <div class="row">
-            <div class ="col-sm-0 col-md-8 col-lg-8 col-xs-0">
+            <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0">
             <span>Direct Messages </span>
             </div>
-            <div class ="col-sm-0 col-md-4 col-lg-4 col-xs-0">
+            <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0">
              <a href="#">
                  <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
                 </div>
