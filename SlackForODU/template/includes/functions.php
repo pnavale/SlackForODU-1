@@ -14,12 +14,12 @@
 	function verify_input($data) {
 		global $connection;
   		$data = htmlspecialchars($data);
-  		$data = mysqli_real_escape_string($connection,$data);
+  		$data = mysql_real_escape_string($data);
   		return $data;
     }
     function verify_in($data) {
 		global $connection;
-  		$data = mysqli_real_escape_string($connection,$data);
+  		$data = mysql_real_escape_string($data);
   		return $data;
     }
 	

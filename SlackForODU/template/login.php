@@ -27,9 +27,6 @@ if(isset($_POST["submit"])){
 if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	$user=$_POST['user'];
 	$pass=$_POST['pass'];
-    //$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-//    $con=mysql_connect('localhost','root','') or die(mysql_error());
-//	mysql_select_db('slack') or die("cannot select DB");
 
 	$query=mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");
 	$numrows=mysql_num_rows($query);
@@ -70,6 +67,7 @@ if(!empty($_POST['user']) && !empty($_POST['pass'])) {
 	echo "All fields are required!";
 }
 }
+mysql_close($connection);                 
 ?>
              </span></div>
         <br><br>

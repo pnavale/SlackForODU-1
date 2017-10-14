@@ -1,9 +1,14 @@
 <?php
+include 'includes/htmlheader.php';
+include 'includes/db_connection.php';
 include 'includes/functions.php';
+?>
+<?php
 if($cname!=''){
     $cname=$_SESSION['sess_user'];
 }
 $chats = array();
+$channelObject = array();
 if($_SESSION['sess_user']){
     if($channelSelected != ''){
         
@@ -15,10 +20,10 @@ if($_SESSION['sess_user']){
 	while($row=mysql_fetch_assoc($query))
 	{
 	$channel_idSelected=$row['channel_id'];
-	$msg=$row['msg_body'];
-//    $cdate=new DateTime($row['create_date']);
-//    $displayDate=date_format($cdate, 'h:i');
-    array_push($chats, $row);
+//	$msg=$row['msg_body'];
+////    $cdate=new DateTime($row['create_date']);
+////    $displayDate=date_format($cdate, 'h:i');
+//    array_push($chats, $row);
 	}
 
 	} else {
@@ -26,9 +31,9 @@ if($_SESSION['sess_user']){
    // header("Location:wklogin.php");
 	}    
         
-    $query=mysql_query("SELECT * FROM message WHERE channel_id='".$channelSelected."'");
+    $query=mysql_query("SELECT * FROM message WHERE channel_id='".$channel_idSelected."'");
     $numrows=mysql_num_rows($query);
-    //echo $numrows;
+    $chats = array();   
 	if($numrows!=0)
 	{
 	while($row=mysql_fetch_assoc($query))
@@ -38,8 +43,8 @@ if($_SESSION['sess_user']){
 //    $cdate=new DateTime($row['create_date']);
 //    $displayDate=date_format($cdate, 'h:i');
     array_push($chats, $row);
-	}
-
+	}   
+    
 	} else {
 	echo "No message yet.";
    // header("Location:wklogin.php");
@@ -110,7 +115,11 @@ if($_SESSION['sess_user']){
 			
 			<a href="#" class="chat-close">x</a>
 
-			<h4><?php echo ucwords($cname) ?></h4>
+			<h4><?php 
+                if($channelSelected){
+                    echo "#".$channelSelected;
+                }else
+                echo ucwords($cname) ?></h4>
 
 			<span class="chat-message-counter">3</span>
 
@@ -125,7 +134,7 @@ if($_SESSION['sess_user']){
                     ?>
 				<div class="chat-message clearfix">
 					
-					<img src="../images/<?php echo $profile_pic ?>" alt="profile pic" width="32" height="32">
+					<img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
 
 					<div class="chat-message-content clearfix">
 						
@@ -168,26 +177,31 @@ if($_SESSION['sess_user']){
   <?php 
     if($_SESSION['sess_user']){
     if (isset($_POST['message'])){ 
+    if($_POST['message']!=''){
 	$message=verify_input($_POST['message']);
-    $subject='private';
-	$creator_id=$cname;
-	$thread_id='p'+$cname;
+    $subject=$channelSelected;
+	$creator_id=$_SESSION['sess_user'];
+	//$thread_id='p'+$cname;
     if($cname){
-     $channel_id='';   
+     $channel_id='';
+     $recipient_id=$cname;
     }else
     {
-       $channel_id='';    
+       $channel_id=$channel_idSelected;
+       $recipient_id='';
     }
 	$group_id='';
-	$recipient_id=$_SESSION['sess_user'];
+    $profile_pic=$_SESSION['sess_user_profile_pic'];
 
-    mysql_query("insert into message (subject,creator_id,msg_body,create_date,thread_id,channel_id,group_id,recipient_id)
-	values('$subject','$creator_id','$message',NOW(),'$thread_id','$channel_id','$group_id','$recipient_id')
+    mysql_query("insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
+	values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')
 	")or die(mysql_error());
- 
-
+ $_POST['message']='';
+unset($_POST['message']);
 } 
+}
 }else {
 	echo "Something went wrong!";
 }
+mysql_close($connection);
 ?>

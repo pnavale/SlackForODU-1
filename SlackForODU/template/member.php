@@ -30,7 +30,7 @@ if(!isset($_SESSION["sess_user"])){
 <div class="row">
 <div class="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="background-color:#2c2d30;">
     <div class="row">
-        <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;">
+        <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;font-size: 24px;">
            
          <?php
             echo $_SESSION['wkurl'];
@@ -57,9 +57,6 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-//    $con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-//    //$con=mysql_connect('localhost','root','') or die(mysql_error());
-//	mysql_select_db('slack') or die("cannot select DB");
     $query=mysql_query("SELECT * FROM channel where channel_creator='default'");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -73,7 +70,6 @@ if($_SESSION['sess_user']){
         
 	}
     }
-    $wk_id=$_SESSION['wkid'];
     $query=mysql_query("SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -123,10 +119,8 @@ function clickPrivateChat($selectedName) {
          <?php
             $members = array();
             if($_SESSION['sess_user']){
-	//$con=mysql_connect('localhost','admin','M0n@rch$') or die(mysql_error());
-    $con=mysql_connect('localhost','root','') or die(mysql_error());
 	mysql_select_db('slack') or die("cannot select DB");
-    $query=mysql_query("SELECT * FROM users where workspace_id='$wk_id'");
+    $query=mysql_query("SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'");
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
     $numrows=mysql_num_rows($query);
@@ -177,9 +171,11 @@ if(isset($_GET["pc"])){
 $channelSelected='';
 $cname=$_GET['pc'];
 }
+mysql_close($connection);
 include 'chat.php';
 ?>
     </div>
+    </body>
 </html>
 
 
