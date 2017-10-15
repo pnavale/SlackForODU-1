@@ -23,7 +23,7 @@ if(!isset($_SESSION["sess_user"])){
 <body>
     <center><h1>Welcome to Slack for ODU</h1></center>
     
-<h2>Welcome, <?=$_SESSION['sess_user_fullname'];?>! <a href="logout.php" class="pull-right">Logout</a></h2>
+<h3>Welcome, <?=$_SESSION['sess_user_fullname'];?>! <a href="logout.php" class="pull-right">Logout</a></h3>
 <?php
 }
 ?>
