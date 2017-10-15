@@ -173,9 +173,8 @@ p { margin: 0; }
 #live-chat {
 	bottom: 0;
 	font-size: 12px;
-	right: 24px;
 	position: relative;
-	width: 103% !important;
+	width: 100% !important;
 }
 
 #live-chat header {
