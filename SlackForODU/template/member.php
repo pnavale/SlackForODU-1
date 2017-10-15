@@ -8,9 +8,7 @@ if(!isset($_SESSION["sess_user"])){
 	header("location:login.php");
 } else {
 ?>
-<html>
-<head>
-<title>Welcome</title>
+
     <style>           
         span{
             font-size: 20px;
@@ -19,7 +17,6 @@ if(!isset($_SESSION["sess_user"])){
             font-size: 18px;
         }
     </style>
-</head>
 <body>
     <center><h1>Welcome to Slack for ODU</h1></center>
     
@@ -113,8 +110,8 @@ function clickPrivateChat($selectedName) {
                  <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
                 </div>
                 </div>
-            <form name="usersForm" method="GET">
-                 <input type='radio' name='pc' style='color:#FFFFFF;' href='#' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br>
+            <form name="usersForm" method="GET" style="font-size: 20px;">
+                 <input type='radio' name='pc' style='color:#FFFFFF;' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br>
             
          <?php
             $members = array();
@@ -158,7 +155,6 @@ function clickPrivateChat($selectedName) {
        </form>   
     </div>
     </div>
-     </div>
         <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
  
         <?php
@@ -175,7 +171,7 @@ mysql_close($connection);
 include 'chat.php';
 ?>
     </div>
+    </div>
     </body>
-</html>
 
 

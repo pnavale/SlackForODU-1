@@ -1,5 +1,4 @@
 <?php
-include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
 ?>
@@ -27,7 +26,7 @@ if($_SESSION['sess_user']){
 	}
 
 	} else {
-	echo "No message yet.";
+//	echo "No message yet.";
    // header("Location:wklogin.php");
 	}    
         
@@ -46,7 +45,7 @@ if($_SESSION['sess_user']){
 	}   
     
 	} else {
-	echo "No message yet.";
+//	echo "No message yet.";
    // header("Location:wklogin.php");
 	}
     }
@@ -67,7 +66,7 @@ if($_SESSION['sess_user']){
 	}
 
 	} else {
-	echo "No message yet.";
+//	echo "No message yet.";
    // header("Location:wklogin.php");
 	}
             
@@ -76,17 +75,7 @@ if($_SESSION['sess_user']){
   }
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-
-	<meta charset="UTF-8">
-	<title>Live Chat</title>
-
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
-
-</head>
-<body>
 
 	<div id="live-chat">
 		
@@ -160,9 +149,6 @@ if($_SESSION['sess_user']){
 		</div> <!-- end chat -->
 
 	</div> <!-- end live-chat -->
-	
-</body>
-</html>
 
   <?php 
     if($_SESSION['sess_user']){
