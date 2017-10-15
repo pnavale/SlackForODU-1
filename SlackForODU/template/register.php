@@ -17,7 +17,7 @@ include 'includes/db_connection.php';
    
 <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
     <div class="login-container">
-     <center><h2>Sign up to your workspace</h2></center>
+     <center><h4>Sign up to your workspace</h4></center>
          <br>
 <img src="../images/logo.png">
         <br><br><br><br>
