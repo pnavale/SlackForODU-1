@@ -174,8 +174,8 @@ p { margin: 0; }
 	bottom: 0;
 	font-size: 12px;
 	right: 24px;
-	position: fixed;
-	width: 83% !important;
+	position: relative;
+	width: 103% !important;
 }
 
 #live-chat header {
@@ -252,7 +252,7 @@ p { margin: 0; }
 }
 
 .chat-history {
-	max-height: 560px;
+	max-height: 600px;
 	padding: 8px 24px;
 	overflow-y: scroll;
     min-height: 200px;
