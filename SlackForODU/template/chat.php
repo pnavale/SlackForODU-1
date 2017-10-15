@@ -4,9 +4,9 @@ include 'includes/db_connection.php';
 include 'includes/functions.php';
 ?>
 <?php
-if($cname!=''){
-    $cname=$_SESSION['sess_user'];
-}
+//if($cname!=''){
+//    $cname=$_SESSION['sess_user'];
+//}
 $chats = array();
 $channelObject = array();
 if($_SESSION['sess_user']){
@@ -52,7 +52,7 @@ if($_SESSION['sess_user']){
     }
     else{
 
-    $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."' and channel_id=''");
+    $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."' and channel_id='' and recipient_id='".$_SESSION['sess_user']."'");
     $numrows=mysql_num_rows($query);
     //echo $numrows;
 	if($numrows!=0)
