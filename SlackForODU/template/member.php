@@ -113,7 +113,7 @@ function clickPrivateChat($selectedName) {
                  <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
                 </div>
                 </div>
-            <form method="GET">
+            <form name="usersForm" method="GET">
                  <input type='radio' name='pc' style='color:#FFFFFF;' href='#' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br>
             
          <?php
@@ -155,10 +155,10 @@ function clickPrivateChat($selectedName) {
 //	echo "Something went wrong!";
 //}
 ?>    <br>
-       </form>     </a>
+       </form>   
     </div>
     </div>
-    
+     </div>
         <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
  
         <?php

@@ -52,7 +52,7 @@ if($_SESSION['sess_user']){
     }
     else{
 
-    $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."'");
+    $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."' and channel_id=''");
     $numrows=mysql_num_rows($query);
     //echo $numrows;
 	if($numrows!=0)
@@ -71,27 +71,6 @@ if($_SESSION['sess_user']){
    // header("Location:wklogin.php");
 	}
             
-    }
-    //Profile Pic
-    if($_SESSION['sess_user']!= $cname){
-        $query=mysql_query("SELECT * FROM users WHERE username='".$cname."'");
-    $numrows=mysql_num_rows($query);
-    //echo $numrows;
-	if($numrows!=0)
-	{
-	while($row=mysql_fetch_assoc($query))
-	{
-	$profile_pic=$row['profile_pic'];
-	}
-
-	} else {
-	//echo "No message yet.";
-   // header("Location:wklogin.php");
-	}   
-    }
-    else
-    {
-      $profile_pic = $_SESSION['sess_user_profile_pic'];   
     }
     
   }
@@ -118,8 +97,10 @@ if($_SESSION['sess_user']){
 			<h4><?php 
                 if($channelSelected){
                     echo "#".$channelSelected;
-                }else
-                echo ucwords($cname) ?></h4>
+                }else{
+                    echo ucwords($cname);
+                }
+                 ?></h4>
 
 			<span class="chat-message-counter">3</span>
 
