@@ -109,10 +109,19 @@ if($_SESSION['sess_user']){
 		<div class="chat">
 			
 			<div class="chat-history">
+              
 				 <?php
+                $prevDate='';
                 foreach ($chats as $value) {
-                    $crdate=date_format(new DateTime($value['create_date']),'h:i');
+                    $crfdate=date_format(new DateTime($value['create_date']),'l, F j, Y');
+                    $crdate=date_format(new DateTime($value['create_date']),'g:i a');
                     ?>
+                <center><?php 
+                    if(strcmp($crfdate, $prevDate)>0){
+                    echo $crfdate;
+                    $prevDate=$crfdate;
+                    }
+                    ?></center>
 				<div class="chat-message clearfix">
 					
 					<img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
@@ -135,7 +144,7 @@ if($_SESSION['sess_user']){
              ?>
 			</div> <!-- end chat-history -->
             
-			<p class="chat-feedback">Your partner is typing…</p>
+<!--			<p class="chat-feedback">Your partner is typing…</p>-->
 
 			<form action="#" method="post">
 
