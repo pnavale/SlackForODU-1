@@ -252,7 +252,7 @@ p { margin: 0; }
 }
 
 .chat-history {
-	height: 694px;
+	max-height: 650px;
 	padding: 8px 24px;
 	overflow-y: scroll;
 }
