@@ -190,7 +190,6 @@
         ")or die(mysql_error());
      $_POST['message']='';
     unset($_POST['message']);
-    header("location: member.php");
     exit;
     } 
     }
