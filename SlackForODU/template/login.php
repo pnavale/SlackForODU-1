@@ -78,8 +78,8 @@ if(isset($_POST["submit"]))
         <br><br>
         
 <form action="" method="POST">
- <input type="text" class="form-control" name="user" placeholder="username or email id" required><br>
- <input type="password" class="form-control" name="pass" placeholder="password" required><br>	
+ <input type="text" class="form-control" name="user" placeholder="username or email id" ><br>
+ <input type="password" class="form-control" name="pass" placeholder="password" ><br>	
 <label class="checkbox normal inline_block" style="
     margin-left: -18%;
 "><input type="checkbox" name="remember" checked=""> Remember me</label>

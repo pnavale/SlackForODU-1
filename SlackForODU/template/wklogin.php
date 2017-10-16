@@ -59,7 +59,7 @@ mysql_close($connection);
             </span>    </div>
  <br>   
 <form action="" method="POST">
- <input type="text" class="form-control" name="url" placeholder="slack workspace url" required>
+ <input type="text" class="form-control" name="url" placeholder="slack workspace url">
      <label>.slack.com</label>
     <br><br>
 <input type="submit" value="Continue &#8594;" class="btn btn-success" name="submit" />
