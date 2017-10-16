@@ -71,33 +71,6 @@ CREATE TABLE `message` (
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_date`, `thread_id`, `channel_id`, `group_id`, `recipient_id`, `profile_pic`) VALUES
-(105, 'travel', 'mater', 'Hey', '2017-10-14 19:29:20', 0, 'ch4', '', '', '1.png'),
-(106, 'travel', 'sally', 'hey', '2017-10-14 19:29:59', 0, 'ch4', '', '', '2.png'),
-(107, 'travel', 'doc', 'hey', '2017-10-14 19:30:23', 0, 'ch4', '', '', '3.png'),
-(108, 'travel', 'sally', 'what is the plan for today ?', '2017-10-14 19:31:31', 0, 'ch4', '', '', '2.png'),
-(109, '', 'sally', 'Hey', '2017-10-14 19:57:20', 0, '', '', 'sally', '2.png'),
-(110, '', 'mater', 'Hey', '2017-10-15 13:37:00', 0, '', '', 'mater', '1.png'),
-(111, '', 'mater', 'Hey', '2017-10-15 13:37:06', 0, '', '', 'mater', '1.png'),
-(112, '', 'mater', 'Hey', '2017-10-15 13:39:24', 0, '', '', 'doc', '1.png'),
-(113, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 13:49:41', 0, 'ch4', '', '', '3.png'),
-(114, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 13:49:45', 0, 'ch4', '', '', '3.png'),
-(115, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:03:43', 0, 'ch4', '', '', '3.png'),
-(116, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:04:02', 0, 'ch4', '', '', '3.png'),
-(117, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:05:02', 0, 'ch4', '', '', '3.png'),
-(118, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:05:30', 0, 'ch4', '', '', '3.png'),
-(119, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:06:06', 0, 'ch4', '', '', '3.png'),
-(120, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:06:21', 0, 'ch4', '', '', '3.png'),
-(121, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:07:02', 0, 'ch4', '', '', '3.png'),
-(122, 'travel', 'doc', '&lt;form name=&quot;sub&quot; method=&quot;post&quot; action=&quot;index.php?act=show_chars_info&quot;&gt;', '2017-10-15 14:08:16', 0, 'ch4', '', '', '3.png'),
-(123, 'travel', 'mater', 'hey', '2017-10-15 17:30:19', 0, 'ch4', '', '', '1.png'),
-(124, 'travel', 'mater', 'hey', '2017-10-15 17:30:22', 0, 'ch4', '', '', '1.png'),
-(125, '', 'mater', 'hey', '2017-10-15 17:51:52', 0, '', '', 'sally', '1.png'),
-(126, '', 'mater', 'hey', '2017-10-15 17:33:57', 0, '', '', 'sally', '1.png'),
-(127, '', 'sally', 'hey', '2017-10-15 17:53:09', 0, '', '', 'mater', '2.png'),
-(128, '', 'sally', 'Hello there', '2017-10-15 19:36:41', 0, '', '', 'mater', '2.png'),
-(129, '', 'sally', 'gsdhwwh', '2017-10-15 19:36:56', 0, '', '', 'mater', '2.png'),
-(130, '', 'sally', 'gsdhwwh', '2017-10-15 19:37:39', 0, '', '', 'mater', '2.png');
 
 -- --------------------------------------------------------
 
