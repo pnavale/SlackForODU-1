@@ -141,7 +141,7 @@ function clickPrivateChat($selectedName) {
         }
 
     }    
-     echo "<input type = 'submit' value='Go' />";   
+     echo "<input type = 'submit' value='Go' name='go' style='color:black;'/>";   
 	} else {
 //	echo "We couldn’t find your workspace";
    // header("Location:wklogin.php");
@@ -152,7 +152,7 @@ function clickPrivateChat($selectedName) {
 //	echo "Something went wrong!";
 //}
 ?>    <br>
-       </form>   
+       </form>
     </div>
     </div>
         <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
