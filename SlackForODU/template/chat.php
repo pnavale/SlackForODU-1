@@ -154,10 +154,15 @@
                 <form action="#" method="post">
 
                     <fieldset>
-
-                        <input type="text" placeholder="Type your message…" name="message" autofocus>
-    <!--					<input type="submit" value="Send" class="btn" name="submit" />-->
-
+                        <div class="row">
+                            <div class="col-sm-11 col-md-11 col-lg-11 col-xs-11">
+                        <input  type="text" placeholder="Type your message…" name="message" autofocus>
+                                  </div>
+                                   <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1">
+    					<input  type="submit" value="Send" class="btn" name="submit" />
+<!--                               style="position: absolute; left: -9999px"-->
+                            </div>
+                            </div>
                     </fieldset>
 
                 </form>
