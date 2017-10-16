@@ -9,8 +9,8 @@
 //  $db = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 
 // Create connection
-$connection=mysql_connect('localhost','root','');
-//$connection=mysql_connect('localhost','admin','M0n@rch$');
+//$connection=mysql_connect('localhost','root','');
+$connection=mysql_connect('localhost','admin','M0n@rch$');
 //mysql_select_db('slack',$connection)or die(mysql_error());
 mysql_select_db('slack',$connection)or die(mysql_error());
 
