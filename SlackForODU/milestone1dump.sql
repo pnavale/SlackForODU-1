@@ -8,7 +8,8 @@
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+02:00";
+SET time_zone = "-05:00";
+SET time_zone = 'US/Eastern';
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
