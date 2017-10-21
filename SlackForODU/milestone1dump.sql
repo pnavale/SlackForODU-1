@@ -8,8 +8,6 @@
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET GLOBAL time_zone = "-05:00";
-SET GLOBAL time_zone = 'US/Eastern';
 SET @@global.time_zone = '+00:00';
 
 

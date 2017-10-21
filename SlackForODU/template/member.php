@@ -54,27 +54,27 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query=mysql_query("SELECT * FROM channel where channel_creator='default'");
+    $query="SELECT * FROM channel where channel_creator='default'";
+    $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
-    $numrows=mysql_num_rows($query);
     //echo $numrows;
-	if($numrows!=0)
+	if($result-> num_rows>0)
 	{
-	while($row=mysql_fetch_assoc($query))
+	while($row=$result->fetch_assoc())
 	{
 	 array_push($channels, $row);
         
 	}
     }
-    $query=mysql_query("SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'");
+    $query="SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'";
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
-    $numrows=mysql_num_rows($query);
+   $result= $connection->query($query);
     //echo $numrows;
-	if($numrows!=0)
+	if($result-> num_rows>0)
 	{
-	while($row=mysql_fetch_assoc($query))
+	while($row=$result->fetch_assoc())
 	{
 	 array_push($channels, $row);
         
@@ -116,15 +116,15 @@ function clickPrivateChat($selectedName) {
          <?php
             $members = array();
             if($_SESSION['sess_user']){
-	mysql_select_db('slack') or die("cannot select DB");
-    $query=mysql_query("SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'");
+	mysqli_select_db($connection,'slack') or die("cannot select DB");
+    $query="SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'";
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
-    $numrows=mysql_num_rows($query);
+    $result= $connection->query($query);
     //echo $numrows;
-	if($numrows!=0)
+	if($result-> num_rows>0)
 	{
-	while($row=mysql_fetch_assoc($query))
+	while($row=$result->fetch_assoc())
 	{
 	 array_push($members, $row);
         
@@ -167,7 +167,7 @@ if(isset($_GET["pc"])){
 $channelSelected='';
 $cname=$_GET['pc'];
 }
-mysql_close($connection);
+mysqli_close($connection);
 include 'chat.php';
 ?>
     </div>

@@ -11,12 +11,12 @@
     if($_SESSION['sess_user']){
         if($channelSelected != ''){
 
-        $query=mysql_query("SELECT * FROM channel WHERE channel_name='".$channelSelected."'");
-        $numrows=mysql_num_rows($query);
+        $query="SELECT * FROM channel WHERE channel_name='".$channelSelected."'";
+        $result= $connection->query($query);
         //echo $numrows;
-        if($numrows!=0)
+        if($result-> num_rows>0)
         {
-        while($row=mysql_fetch_assoc($query))
+        while($row=$result->fetch_assoc())
         {
         $channel_idSelected=$row['channel_id'];
     //	$msg=$row['msg_body'];
@@ -30,12 +30,12 @@
        // header("Location:wklogin.php");
         }    
 
-        $query=mysql_query("SELECT * FROM message WHERE channel_id='".$channel_idSelected."'");
-        $numrows=mysql_num_rows($query);
+        $query="SELECT * FROM message WHERE channel_id='".$channel_idSelected."'";
+        $result= $connection->query($query);
         $chats = array();   
-        if($numrows!=0)
+        if($result-> num_rows>0)
         {
-        while($row=mysql_fetch_assoc($query))
+        while($row=$result->fetch_assoc())
         {
     //	$currentThread=$row['thread_id'];
     //	$msg=$row['msg_body'];
@@ -51,12 +51,12 @@
         }
         else{
 
-        $query=mysql_query("SELECT * FROM message WHERE creator_id='".$cname."' and channel_id='' and recipient_id='".$_SESSION['sess_user']."'");
-        $numrows=mysql_num_rows($query);
+        $query="SELECT * FROM message WHERE creator_id='".$cname."' and channel_id='' and recipient_id='".$_SESSION['sess_user']."'";
+        $result= $connection->query($query);
         //echo $numrows;
-        if($numrows!=0)
+        if($result-> num_rows>0)
         {
-        while($row=mysql_fetch_assoc($query))
+        while($row=$result->fetch_assoc())
         {
     //	$currentThread=$row['thread_id'];
     //	$msg=$row['msg_body'];
@@ -64,12 +64,12 @@
     //    $displayDate=date_format($cdate, 'h:i');
         array_push($chats, $row);
         }
-        $query=mysql_query("SELECT * FROM message WHERE creator_id='".$_SESSION['sess_user']."' and channel_id='' and recipient_id='".$cname."'");
-        $numrows=mysql_num_rows($query);
+        $query="SELECT * FROM message WHERE creator_id='".$_SESSION['sess_user']."' and channel_id='' and recipient_id='".$cname."'";
+        $result= $connection->query($query);
         //echo $numrows;
-        if($numrows!=0)
+        if($result-> num_rows>0)
         {
-        while($row=mysql_fetch_assoc($query))
+        while($row=$result->fetch_assoc())
         {
     //	$currentThread=$row['thread_id'];
     //	$msg=$row['msg_body'];
@@ -190,7 +190,7 @@
         $group_id='';
         $profile_pic=$_SESSION['sess_user_profile_pic'];
 
-        mysql_query("insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
+        $connection->query("insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
         values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')
         ")or die(mysql_error());
      $_POST['message']='';
@@ -201,5 +201,5 @@
     }else {
         echo "Something went wrong!";
     }
-    mysql_close($connection);
+    mysqli_close($connection);
     ?>

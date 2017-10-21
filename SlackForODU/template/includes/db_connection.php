@@ -9,14 +9,14 @@
 //  $db = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
 
 // Create connection
-//$connection=mysql_connect('localhost','root','');
-$connection=mysql_connect('localhost','admin','M0n@rch$');
+$connection=mysqli_connect('localhost','root','');
+//$connection=mysql_connect('localhost','admin','M0n@rch$');
 //mysql_select_db('slack',$connection)or die(mysql_error());
-mysql_select_db('slack',$connection)or die(mysql_error());
+mysqli_select_db($connection,'slack')or die(mysqli_error($connection));
 
 
   // Test if connection succeeded
-  if(mysql_error()) {
+  if(mysqli_error($connection)) {
     die("Database connection failed" );
   }
 ?>

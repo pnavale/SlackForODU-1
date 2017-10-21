@@ -29,13 +29,13 @@
 			if(!empty($_POST['url']))
 			{
 				$url=$_POST['url'];
-				$query=mysql_query("SELECT * FROM workspace WHERE url='".$url."'");
-    				$numrows=mysql_num_rows($query);
+				$query="SELECT * FROM workspace WHERE url='".$url."'";
+    				$result= $connection->query($query);
     				//echo $numrows;
-				if($numrows!=0)
+                if ($result-> num_rows>0) 
 				{
-					while($row=mysql_fetch_assoc($query))
-					{
+					while($row=$result->fetch_assoc())
+					{ 
 						$dbwkurl=$row['url'];
 						$dbwk_id=$row['wk_id'];
 					}
@@ -60,7 +60,7 @@
 	
 		}
 		
-		mysql_close($connection);
+		mysqli_close($connection);
 	?>
 	</span>
     </div>

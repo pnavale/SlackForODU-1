@@ -30,11 +30,12 @@ if(isset($_POST["submit"]))
 		$user=$_POST['user'];
 		$pass=$_POST['pass'];
 
-		$query=mysql_query("SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'");
-		$numrows=mysql_num_rows($query);
-		if($numrows!=0)
+		$query="SELECT * FROM users WHERE username='".$user."' AND password='".$pass."'";
+            				$result= $connection->query($query);
+
+		if($result-> num_rows>0)
 		{
-			while($row=mysql_fetch_assoc($query))
+			while($row=$result->fetch_assoc())
 			{
 				$dbusername=$row['username'];
 				$dbpassword=$row['password'];
@@ -72,7 +73,7 @@ if(isset($_POST["submit"]))
 		echo "All fields are required!";
 	 }
 }
-	mysql_close($connection);                 
+	mysqli_close($connection);                 
 ?>
              </span></div>
         <br><br>
