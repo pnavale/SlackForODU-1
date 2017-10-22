@@ -3,7 +3,17 @@
     include 'includes/functions.php';
  include 'chatHistory.php';
     ?>
+<!--script>
+    function emojiClick(reaction,person){
+        $.post('member.php', {variable: reaction});
+        <!--?php
+        $reaction=?><script>  reaction</script>;
+        ?php $person=?><script>  person</script;
 
+<!--       ?> -->
+<!--    }-->
+  
+<!--/script-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
         <div id="live-chat">
@@ -54,6 +64,8 @@
                             <h5><?php echo ucwords($value['creator_id']) ?></h5>
 
                             <p><?php echo $value['msg_body'] ?></p>
+                            <span values="emoji=+1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('+1','<?php echo $value['creator_id']?>');" class="emoji" >&#128077;</span>
+                             <span values="emoji=-1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('-1','<?php echo $value['creator_id']?>');" class="emoji" >&#x1F44E;</span>
 
                         </div> <!-- end chat-message-content -->
 
@@ -86,7 +98,6 @@
             </div> <!-- end chat -->
 
         </div> <!-- end live-chat -->
-
       <?php 
         if($_SESSION['sess_user']){
         if (isset($_POST['message'])){ 
@@ -108,7 +119,7 @@
 
         $connection->query("insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
         values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')
-        ")or die(mysql_error());
+        ")or die( mysqli_close($connection));
      $_POST['message']='';
     unset($_POST['message']);
             

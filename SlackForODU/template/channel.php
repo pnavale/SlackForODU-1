@@ -57,7 +57,7 @@ if(isset($_POST["cancel"])){
 <p> Channels are where your members communicate. They're best when organized around a topic- #foodie.</p>
       <br><br>
 <!--<p><span class="error">* required field.</span></p>-->
-<span class="error"><?php echo $error; ?></span>
+<span class="error"><?php if(isset($error)){ echo $error; } ?></span>
  <br><br>
 <form method="POST">  
   Name <input type="text" class="form-control" name="name" placeholder="# e.g. foodie" value="<?php echo $name;?>">
