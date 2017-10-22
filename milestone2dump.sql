@@ -177,9 +177,6 @@ INSERT INTO `workspace` (`wk_id`, `url`, `purpose`, `wk_created`, `wk_creator`, 
 
 --
 -- Indexes for table `channel`
---
-ALTER TABLE `channel`
-  ADD PRIMARY KEY (`channel_id`);
 
 --
 -- Indexes for table `message`
