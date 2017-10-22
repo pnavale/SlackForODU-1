@@ -31,7 +31,7 @@ if(isset($_POST["submit"]))
         echo $channel_id;
         $uchannel_id='ch'.$channel_id;
         $user=$_SESSION['sess_user'];
-        $result=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created)    values('$uchannel_id','$name','$user',NOW());
+        $result=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,purpose,invites)    values('$uchannel_id','$name','$user',NOW(),'$purpose','$invites');
         ");
         if($result){
             header("Location: member.php");

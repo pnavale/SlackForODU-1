@@ -286,3 +286,11 @@ p { margin: 0; }
 .grey-font{
     color:grey;
 }
+.emoji{
+color:	#FFC928;
+cursor: pointer;
+}
+.emoji:hover{
+color :#D6A732;
+text-decoration: none;
+}
