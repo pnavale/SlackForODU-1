@@ -213,6 +213,5 @@ ALTER TABLE `message`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 ALTER TABLE `channel`
-  ADD PRIMARY KEY (`channel_id`),
-  ADD UNIQUE KEY `channel_name` (`channel_name`);
+  ADD PRIMARY KEY (`channel_name`);
 COMMIT;
