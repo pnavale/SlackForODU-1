@@ -8,13 +8,7 @@
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-<<<<<<< HEAD
--- SET GLOBAL time_zone = "-05:00";
--- SET GLOBAL time_zone = 'US/Eastern';
-SET @@global.time_zone = '+00:00';
-=======
 SET time_zone = "+00:00";
->>>>>>> f37223070fa6c3fbc224532259f74b3748a0a3db
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -217,3 +211,8 @@ ALTER TABLE `message`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER TABLE `channel`
+  ADD PRIMARY KEY (`channel_id`),
+  ADD UNIQUE KEY `channel_name` (`channel_name`);
+COMMIT;
