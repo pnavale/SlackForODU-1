@@ -3,14 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2017 at 11:59 PM
+-- Generation Time: Oct 22, 2017 at 08:44 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET GLOBAL time_zone = "-05:00";
-SET GLOBAL time_zone = 'US/Eastern';
-SET @@global.time_zone = '+00:00';
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,28 +25,29 @@ SET @@global.time_zone = '+00:00';
 --
 -- Table structure for table `channel`
 --
-create database slack;
-
-use slack;
 
 CREATE TABLE `channel` (
   `channel_id` varchar(20) NOT NULL,
   `channel_name` varchar(20) NOT NULL,
   `channel_creator` varchar(20) NOT NULL,
   `channel_created` datetime NOT NULL,
-  `wk_id` varchar(20) NOT NULL
+  `wk_id` varchar(20) NOT NULL,
+  `purpose` text NOT NULL,
+  `invites` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `channel`
 --
 
-INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`) VALUES
-('ch1', 'general', 'default', '2017-09-04 09:27:20', ''),
-('ch2', 'random', 'default', '2017-10-02 03:11:04', ''),
-('ch3', 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2'),
-('ch4', 'travel', 'mater', '2017-09-04 05:15:26', 'wk1'),
-('ch5', 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1');
+INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`) VALUES
+('ch1', 'general', 'default', '2017-09-04 09:27:20', '', '', ''),
+('ch2', 'random', 'default', '2017-10-02 03:11:04', '', '', ''),
+('ch3', 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ''),
+('ch4', 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ''),
+('ch5', 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ''),
+('ch6', 'testing', 'mater', '2017-10-21 21:04:55', '', '', ''),
+('ch7', 'testing', 'mater', '2017-10-22 12:20:36', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -66,13 +65,41 @@ CREATE TABLE `message` (
   `channel_id` varchar(20) DEFAULT NULL,
   `group_id` varchar(20) NOT NULL,
   `recipient_id` varchar(20) NOT NULL,
-  `profile_pic` varchar(20) NOT NULL
+  `profile_pic` varchar(20) NOT NULL,
+  `reaction` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `message`
 --
 
+INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_date`, `thread_id`, `channel_id`, `group_id`, `recipient_id`, `profile_pic`, `reaction`) VALUES
+(1, '', 'mater', 'Hey', '2017-10-21 19:54:19', 0, '', '', 'sally', '1.png', 0),
+(2, '', 'mater', 'Hey', '2017-10-21 19:54:33', 0, '', '', 'sally', '1.png', 0),
+(3, '', 'mater', 'Hey', '2017-10-21 19:55:33', 0, '', '', 'sally', '1.png', 0),
+(4, '', 'mater', 'Hey', '2017-10-21 19:55:55', 0, '', '', 'sally', '1.png', 0),
+(5, '', 'mater', 'Hey', '2017-10-21 19:56:05', 0, '', '', 'sally', '1.png', 0),
+(6, '', 'mater', 'Hey', '2017-10-21 19:56:31', 0, '', '', 'sally', '1.png', 0),
+(7, '', 'mater', 'Hey', '2017-10-21 19:56:39', 0, '', '', 'sally', '1.png', 0),
+(8, 'random', 'mater', 'hey', '2017-10-21 19:56:46', 0, 'ch2', '', '', '1.png', 0),
+(9, 'random', 'mater', 'hey', '2017-10-21 19:56:50', 0, 'ch2', '', '', '1.png', 0),
+(10, 'random', 'mater', 'hello', '2017-10-21 19:57:01', 0, 'ch2', '', '', '1.png', 0),
+(11, 'random', 'mater', 'd', '2017-10-21 19:57:45', 0, 'ch2', '', '', '1.png', 0),
+(12, 'travel', 'mater', 'hey', '2017-10-21 19:58:42', 0, 'ch4', '', '', '1.png', 0),
+(13, 'travel', 'mater', 'hey', '2017-10-21 19:58:45', 0, 'ch4', '', '', '1.png', 0),
+(14, 'travel', 'mater', 'hey', '2017-10-21 19:58:49', 0, 'ch4', '', '', '1.png', 0),
+(15, 'travel', 'mater', 'hey', '2017-10-21 19:58:51', 0, 'ch4', '', '', '1.png', 0),
+(16, 'travel', 'mater', 'hello', '2017-10-21 19:58:55', 0, 'ch4', '', '', '1.png', 0),
+(17, 'travel', 'mater', 'hello', '2017-10-21 19:59:34', 0, 'ch4', '', '', '1.png', 0),
+(18, 'fitness', 'mater', 'off mood', '2017-10-21 19:59:44', 0, 'ch5', '', '', '1.png', 0),
+(19, 'fitness', 'mater', 'nothing much', '2017-10-21 20:00:00', 0, 'ch5', '', '', '1.png', 0),
+(20, 'fitness', 'mater', 'nothing much', '2017-10-21 20:00:49', 0, 'ch5', '', '', '1.png', 0),
+(21, 'fitness', 'mater', 'dhfhfh', '2017-10-21 20:00:53', 0, 'ch5', '', '', '1.png', 0),
+(22, 'fitness', 'mater', 'jjj', '2017-10-21 20:00:56', 0, 'ch5', '', '', '1.png', 0),
+(23, 'fitness', 'mater', 'jjkfdf', '2017-10-21 20:01:00', 0, 'ch5', '', '', '1.png', 0),
+(24, 'fitness', 'mater', '$chats = array();     $channelObject = array();     if($_SESSION[\'sess_user\']){         if($channelSelected != \'\'){          $query=&quot;SELECT * FROM channel WHERE channel_name=\'&quot;.$channelSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {         $channel_idSelected=$row[\'channel_id\'];     //	$msg=$row[\'msg_body\'];     ////    $cdate=new DateTime($row[\'create_date\']);     ////    $displayDate=date_format($cdate, \'h:i\');     //    array_push($chats, $row);         }          } else {     //	echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }              $query=&quot;SELECT * FROM message WHERE channel_id=\'&quot;.$channel_idSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         $chats = array();            if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //	$currentThread=$row[\'thread_id\'];     //	$msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }             } else {     //	echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }         }         else{          $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$cname.&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $num', '2017-10-21 20:01:10', 0, 'ch5', '', '', '1.png', 0),
+(25, 'fitness', 'mater', '$chats = array();     $channelObject = array();     if($_SESSION[\'sess_user\']){         if($channelSelected != \'\'){          $query=&quot;SELECT * FROM channel WHERE channel_name=\'&quot;.$channelSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {         $channel_idSelected=$row[\'channel_id\'];     //	$msg=$row[\'msg_body\'];     ////    $cdate=new DateTime($row[\'create_date\']);     ////    $displayDate=date_format($cdate, \'h:i\');     //    array_push($chats, $row);         }          } else {     //	echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }              $query=&quot;SELECT * FROM message WHERE channel_id=\'&quot;.$channel_idSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         $chats = array();            if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //	$currentThread=$row[\'thread_id\'];     //	$msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }             } else {     //	echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }         }         else{          $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$cname.&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //	$currentThread=$row[\'thread_id\'];     //	$msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }         $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$cname.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //	$currentThread=$row[\'thread_id\'];     //	$msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }          }         } else {          }          }        }', '2017-10-21 20:01:15', 0, 'ch5', '', '', '1.png', 0),
+(26, '', 'mater', 'hey', '2017-10-22 13:48:29', 0, '', '', 'mater', '1.png', 0);
 
 -- --------------------------------------------------------
 
@@ -177,7 +204,7 @@ ALTER TABLE `workspace`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
