@@ -25,18 +25,21 @@ if(isset($_POST["submit"]))
 				$channel_id=$row['channel_id'];
                 }
                 }
-        echo $channel_id;
         $channel_id=substr("$channel_id", 2,2 );
         $channel_id=$channel_id+1;
-        echo $channel_id;
         $uchannel_id='ch'.$channel_id;
         $user=$_SESSION['sess_user'];
-        $result=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created)    values('$uchannel_id','$name','$user',NOW());
+        $wk_id=$_SESSION['wkid'];
+
+        $result1=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,wk_id)    values('$uchannel_id','$name','$user',NOW(),'$wk_id');
         ");
-        if($result){
+        if($result1){
             header("Location: member.php");
         }
-        
+        else{
+          $error="This channel already exist. Please use different name to start the new channel or go to dashboard to see this channel.";
+        }
+  
     }else{
         echo 'Please enter the channel name.';
     }
@@ -54,6 +57,8 @@ if(isset($_POST["cancel"])){
 <p> Channels are where your members communicate. They're best when organized around a topic- #foodie.</p>
       <br><br>
 <!--<p><span class="error">* required field.</span></p>-->
+<span class="error"><?php echo $error; ?></span>
+ <br><br>
 <form method="POST">  
   Name <input type="text" class="form-control" name="name" placeholder="# e.g. foodie" value="<?php echo $name;?>">
     <span class="grey-font">Names must be lowercase, without spaces or periods, and shorter than 22 characters.</span>
