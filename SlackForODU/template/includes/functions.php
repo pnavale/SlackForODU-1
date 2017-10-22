@@ -13,23 +13,26 @@
 
 	function verify_input($data) {
 		global $connection;
+        $data = trim($data);
   		$data = htmlspecialchars($data);
-  		$data = mysql_real_escape_string($data);
+  		$data = mysqli_real_escape_string($connection,$data);
   		return $data;
     }
     function verify_in($data) {
 		global $connection;
-  		$data = mysql_real_escape_string($data);
+        $data = trim($data);
+  		$data = mysqli_real_escape_string($connection,$data);
   		return $data;
     }
 	
 	function verify_output($data) {
   		//$data = stripcslashes($data);
+        $data = trim($data);
   		$data = htmlspecialchars_decode($data);
   		return $data;
     }
     function verify_out($data) {
-
+        $data = trim($data);
   		$data = stripcslashes($data);
   		return $data;
     }

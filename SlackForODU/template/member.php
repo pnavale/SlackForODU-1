@@ -44,7 +44,7 @@ if(!isset($_SESSION["sess_user"])){
             <span>Channels </span>
          </div>
          <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0">
-             <a href="#">
+             <a href="channel.php">
           <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
         </a><br>
          </div>
@@ -82,9 +82,8 @@ if($_SESSION['sess_user']){
         
     foreach ($channels as $value) {
         
-        echo "<input type='radio' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br>";
-    }    
-     echo "<input type = 'submit' value='Channel' />";     
+        echo "<a href='member.php?ch=".$value['channel_name']."' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br></a>";
+    }       
 	} 
 //            else {
 //	echo "Something went wrong!";
@@ -111,7 +110,7 @@ function clickPrivateChat($selectedName) {
                 </div>
                 </div>
             <form name="usersForm" method="GET" style="font-size: 20px;">
-                 <input type='radio' name='pc' style='color:#FFFFFF;' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br>
+                <a href='#' name='pc' style='color:#FFFFFF;' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br></a>
             
          <?php
             $members = array();
@@ -134,14 +133,13 @@ function clickPrivateChat($selectedName) {
          $uname = $value['username'];
         
         if($value['username'] == $_SESSION['sess_user']){
-            echo "<input type='radio' name='pc' class='names' style='color:#FFFFFF;' value='".$value['username']."' ><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br> ";
+            echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."' ><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br></a>";
         }
         else{
-              echo "<input type='radio' name='pc' class='names' style='color:#FFFFFF;' value='".$value['username']."'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> ";
+              echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> </a>";
         }
 
     }    
-     echo "<input type = 'submit' value='Go' name='go' style='color:black;'/>";   
 	} else {
 //	echo "We couldn’t find your workspace";
    // header("Location:wklogin.php");

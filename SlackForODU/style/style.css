@@ -283,3 +283,6 @@ p { margin: 0; }
 .channel{
       color: white !important; 
 }
+.grey-font{
+    color:grey;
+}
