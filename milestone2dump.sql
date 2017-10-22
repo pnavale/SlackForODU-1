@@ -49,7 +49,7 @@ INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel
 ('ch3', 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ''),
 ('ch4', 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ''),
 ('ch5', 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ''),
-('ch6', 'testing', 'mater', '2017-10-21 21:04:55', '', '', '');
+('ch6', 'testing', 'mater', '2017-10-21 21:04:55', 'wk1', '', '');
 
 -- --------------------------------------------------------
 
