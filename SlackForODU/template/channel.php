@@ -23,7 +23,7 @@ echo ctype_space($name);
 	if(!empty($_POST['name']))
 	{ 
     if(ctype_space($name) && ctype_lower($name) && ctype_punct($name) ){
-      echo $error="Please enter channel name without spaces or period annd should be in lowercase.";
+      echo $error="Please enter channel name in lowercase without spaces or period.";
     }else{
 		$purpose=$_POST['purpose'];
         $invites=$_POST['invites'];
@@ -49,7 +49,7 @@ echo ctype_space($name);
             //header("Location: member.php");
         }
         else{
-          $error="This channel already exist. Please use different name to start the new channel or go to dashboard to see this channel.";
+          $error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
         }
   
     }
@@ -67,7 +67,7 @@ if(isset($_POST["cancel"])){
 <div class="login-container" style="width:600px">
 <h2>Create a Channel</h2>
       <br><br>
-<p> Channels are where your members communicate. They're best when organized around a topic- #foodie.</p>
+<p> Channels are where your members communicate. They're best when organized around a topic. E.g. <b>#foodie</b>.</p>
       <br><br>
 <!--<p><span class="error">* required field.</span></p>-->
 <span class="error"><?php if(isset($error)){ echo $error; } ?></span>
@@ -90,7 +90,7 @@ if(isset($_POST["cancel"])){
   <option>Audi</option>
 </datalist>
 
-    <span class="grey-font">Select up to 100 people to add this channel.</span>
+    <span class="grey-font">Select up to 100 people to add into this channel.</span>
 <!--  <span class="error"><?php echo $invitesErr;?></span>-->
   <br><br>
 <div class="btn-group" style="width:100%;">
