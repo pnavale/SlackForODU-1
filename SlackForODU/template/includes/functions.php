@@ -36,5 +36,22 @@
   		$data = stripcslashes($data);
   		return $data;
     }
+    function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+    function verify_email($data){
+      $email = test_input($data);
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return false;
+    }
+    else{
+      return true;
+    }
+    }
+
 
 ?>

@@ -1,18 +1,30 @@
 <?php
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
+include 'includes/functions.php';
 session_start();
 ?>
 <?php
 // define variables and set to empty values
 $nameErr = $purposeErr = $invitesErr = "";
 $name = $purpose = $c = $invites= "";
-
-if(isset($_POST["submit"]))
+if(strpos($string, " ") !== false)
 {
+   echo "44";
+}
+
+echo var_dump(preg_match('/\s/',' '));
+echo ctype_lower('ddd Dd');
+echo ctype_punct('jsgdghs.');
+if(isset($_POST["submit"]))
+{ $name=verify_input($_POST['name']);
+echo $name;
+echo ctype_space($name);
 	if(!empty($_POST['name']))
-	{
-		$name=$_POST['name'];
+	{ 
+    if(ctype_space($name) && ctype_lower($name) && ctype_punct($name) ){
+      echo $error="Please enter channel name without spaces or period annd should be in lowercase.";
+    }else{
 		$purpose=$_POST['purpose'];
         $invites=$_POST['invites'];
         $query="SELECT * FROM channel ORDER BY channel_id DESC LIMIT 1";
@@ -34,12 +46,13 @@ if(isset($_POST["submit"]))
         $result1=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,wk_id)    values('$uchannel_id','$name','$user',NOW(),'$wk_id');
         ");
         if($result1){
-            header("Location: member.php");
+            //header("Location: member.php");
         }
         else{
           $error="This channel already exist. Please use different name to start the new channel or go to dashboard to see this channel.";
         }
   
+    }
     }else{
         echo 'Please enter the channel name.';
     }
@@ -60,7 +73,7 @@ if(isset($_POST["cancel"])){
 <span class="error"><?php if(isset($error)){ echo $error; } ?></span>
  <br><br>
 <form method="POST">  
-  Name <input type="text" class="form-control" name="name" placeholder="# e.g. foodie" value="<?php echo $name;?>">
+  Name <input type="text" class="form-control" name="name" maxlength="22"  placeholder="# e.g. foodie" value="<?php echo $name;?>">
     <span class="grey-font">Names must be lowercase, without spaces or periods, and shorter than 22 characters.</span>
 <!--  <span class="error">* <?php echo $nameErr;?></span>-->
   <br><br>  <br><br>

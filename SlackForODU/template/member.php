@@ -25,7 +25,7 @@ if(!isset($_SESSION["sess_user"])){
 }
 ?>
 <div class="row">
-<div class="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="background-color:#2c2d30;">
+<div class="col-sm-0 col-md-3 col-lg-3 col-xs-0" style="background-color:#2c2d30;">
     <div class="row">
         <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;font-size: 24px;">
            
@@ -153,7 +153,7 @@ function clickPrivateChat($selectedName) {
        </form>
     </div>
     </div>
-        <div class="col-sm-12 col-md-10 col-lg-10 col-xs-12">
+        <div class="col-sm-12 col-md-9 col-lg-9 col-xs-12">
  
         <?php
 $channelSelected='';
