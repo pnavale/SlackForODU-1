@@ -18,7 +18,9 @@ Username: <input type="text" class="form-control" name="user" ><br>
 Password: <input type="password"  class="form-control" name="pass" ><br>
 Email ID: <input type="email" class="form-control" name="email" ><br>
 Full Name: <input type="text"  class="form-control" name="fullname" ><br>	
-
+Upload your profile pic: 
+    <input type="file" name="fileToUpload" id="fileToUpload"><br>
+    <input type="submit" class="btn btn-basic" value="Upload your profile pic" name="submit"><br><br>
 <input type="submit" class="btn btn-success" value="Next" name="submit" />
             
   
