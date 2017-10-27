@@ -64,9 +64,23 @@
                             <h5><?php echo ucwords($value['creator_id']) ?></h5>
 
                             <p><?php echo $value['msg_body'] ?></p>
-                            <span values="emoji=+1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('+1','<?php echo $value['creator_id']?>');" class="emoji" >&#128077;</span>
-                             <span values="emoji=-1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('-1','<?php echo $value['creator_id']?>');" class="emoji" >&#x1F44E;</span>
+                            <a href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('+1','<?php echo $value['creator_id']?>');" class="emoji" >&#128077;</a>
+                             <a href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('-1','<?php echo $value['creator_id']?>');" class="emoji" >&#x1F44E;</a>
+                                  <form action="#" method="post">
 
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10">
+                        <input  type="text" placeholder="Type your message…" name="message" autofocus>
+                                  </div>
+                                   <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                        <input  type="submit" value="Reply" class="btn" name="reply" />
+<!--                               style="position: absolute; left: -9999px"-->
+                            </div>
+                            </div>
+                    </fieldset>
+
+                </form>
                         </div> <!-- end chat-message-content -->
 
                     </div> <!-- end chat-message -->
@@ -126,6 +140,9 @@
     exit;
     } 
     }
+
+
+    
     }else {
         echo "Something went wrong!";
     }
