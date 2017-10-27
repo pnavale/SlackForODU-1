@@ -42,7 +42,7 @@ CREATE TABLE `channel` (
   `channel_created` datetime NOT NULL,
   `wk_id` varchar(20) NOT NULL,
   `purpose` text NOT NULL,
-  `invites` text NOT NULL
+  `invites` text NOT NULL,  `channel_type` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
