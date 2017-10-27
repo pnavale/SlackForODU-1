@@ -8,19 +8,11 @@ session_start();
 // define variables and set to empty values
 $nameErr = $purposeErr = $invitesErr = "";
 $name = $purpose = $c = $invites= "";
-//if(strpos($string, " ") !== false)
-//{
-//   echo "44";
-//}
-
-//echo var_dump(preg_match('/\s/',' '));
-//echo ctype_lower('ddd Dd');
-//echo ctype_punct('jsgdghs.');
 if(isset($_POST["submit"]))
 { $name=verify_input($_POST['name']);
 	if(!empty($_POST['name']))
 	{ 
-    if(ctype_space($name) && ctype_lower($name) && ctype_punct($name) ){
+    if($_POST['name']==''){
       echo $error="Please enter channel name in lowercase without spaces or period.";
     }else{
 		$purpose=$_POST['purpose'];
