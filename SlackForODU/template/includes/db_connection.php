@@ -7,7 +7,7 @@
 //  // 1. Create a database connection
 //  $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 //  $db = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-
+echo "i m here";
 // Create connection
 //$connection=mysqli_connect('localhost','root','');
 $connection=mysqli_connect('localhost','admin','M0n@rch$');
