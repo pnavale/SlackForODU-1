@@ -7,10 +7,11 @@
 //  // 1. Create a database connection
 //  $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 //  $db = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-echo "i m here";
+
 // Create connection
 //$connection=mysqli_connect('localhost','root','');
 $connection=mysqli_connect('localhost','admin','M0n@rch$');
+echo $connection
 //mysql_select_db('slack',$connection)or die(mysql_error());
 mysqli_select_db($connection,'slack')or die(mysqli_error($connection));
 
