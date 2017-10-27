@@ -16,7 +16,7 @@ if(isset($_POST["submit"]))
     if($_POST['name']==''){
       echo $error="Please enter channel name in lowercase without spaces or period.";
     }else{
-		$purpose=$_POST['purpose'];
+		    $purpose=$_POST['purpose'];
         $invites=$_POST['invites'];
         $query="SELECT * FROM channel ORDER BY channel_id DESC LIMIT 1";
         $result= $connection->query($query);
@@ -35,10 +35,10 @@ if(isset($_POST["submit"]))
         $user=$_SESSION['sess_user'];
         $wk_id=$_SESSION['wkid'];
 
-        $result1=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,wk_id,channel_type)    values('$uchannel_id','$name','$user',NOW(),'$wk_id','$chType');
+        $result1=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,wk_id,channel_type,purpose,invites)    values('$uchannel_id','$name','$user',NOW(),'$wk_id','$chType','$purpose','$invites');
         ");
         if($result1){
-            //header("Location: member.php");
+          header("Location: member.php");
         }
         else{
           $error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
