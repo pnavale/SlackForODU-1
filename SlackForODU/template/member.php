@@ -115,7 +115,6 @@ function clickPrivateChat($selectedName) {
          <?php
             $members = array();
             if($_SESSION['sess_user']){
-	mysqli_select_db($connection,'slack') or die("cannot select DB");
     $query="SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'";
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
