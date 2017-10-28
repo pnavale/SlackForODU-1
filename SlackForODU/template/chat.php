@@ -309,7 +309,7 @@ if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         $msgid=$_GET["msg_id"];
         $msg_type="reply";
         $replied_by=$_SESSION['sess_user'];
-        $profile_pic=$_SESSION['profile_pic'];
+        $profile_pic=$_SESSION['sess_user_profile_pic'];
         echo $replyMsg;
         $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type,profile_pic) values('$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type','$profile_pic')";
             if (mysqli_query($connection, $sql)) {
