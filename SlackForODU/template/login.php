@@ -39,17 +39,17 @@ if(isset($_POST["submit"]))
 			{
 				$dbusername=$row['username'];
 				$dbpassword=$row['password'];
-    				$dbfullname=$row['full_name'];
-    				$dbgroup_id=$row['group_id'];
-    				$dbworkspace_id=$row['workspace_id'];
-    				$dbprofile_pic=$row['profile_pic'];
-    				$dbchannel=$row['channel_id'];   
+    			$dbfullname=$row['full_name'];
+    			$dbgroup_id=$row['group_id'];
+    			$dbworkspace_id=$row['workspace_id'];
+    			$dbprofile_pic=$row['profile_pic'];
+    			$dbchannel=$row['channel_id'];   
 			}
     
         
 		if($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id )
 		{
-			$_SESSION['sess_user']=$dbusername;
+				$_SESSION['sess_user']=$dbusername;
     			$_SESSION['sess_user_fullname']=$dbfullname;
     			$_SESSION['sess_user_profile_pic']=$dbprofile_pic;
     			$_SESSION['sess_user_wk']=$dbworkspace_id;

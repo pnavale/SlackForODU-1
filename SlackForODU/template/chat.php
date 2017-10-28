@@ -51,7 +51,7 @@
 
                             <span class="chat-time"><?php echo $crdate ?></span>
 
-                            <b><?php echo ucwords($value['creator_id']) ?></b>
+                            <b><?php echo ucwords($value['creator_id']); ?></b>
 
                             <p><?php echo $value['msg_body'];?>
                                 
@@ -115,8 +115,8 @@
                         ?></center>
                     <div class="chat-message clearfix">
 
-                        <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
- 
+<!--                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
+ --> 
                         <div class="chat-message-content clearfix">
 
                             <span class="chat-time"><?php echo $crdate ?></span>
@@ -283,7 +283,8 @@ $.ajax({type:'GET',
          });
 </script>
 <?php
-session_start();
+$profile=$_SESSION['sess_user_profile_pic'];
+echo $profile;
 if($_SESSION['sess_user']){
 if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         echo "nnjnjnj".$_GET["emoji"].$_GET["person"].$_GET["msgid"];
@@ -303,20 +304,26 @@ if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
       echo "Error updating record: " . mysqli_error($connection);
    }} 
     }
-    echo isset($_GET["msg_id"]);
+    
     if(isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])  ){
         $replyMsg=$_POST["reply_message"];
         $msgid=$_GET["msg_id"];
         $msg_type="reply";
         $replied_by=$_SESSION['sess_user'];
-        $profile_pic=$_SESSION['sess_user_profile_pic'];
-        echo $replyMsg;
-        $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type,profile_pic) values('$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type','$profile_pic')";
+        if($_SESSION['sess_user_profile_pic']){
+        $profile=$_SESSION['sess_user_profile_pic'];
+        }
+        else{
+            $profile="person.png";
+        }
+        $sql="insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
                 } else {
                     echo "Error updating record: " . mysqli_error($connection);
                    }} 
+            // }}
+    
 }
      mysqli_close($connection);
 ?>

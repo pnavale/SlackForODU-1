@@ -1,9 +1,9 @@
 <?php
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
+session_start();
 ?>
 <?php 
-session_start();
 if(!isset($_SESSION["sess_user"])){
 	header("location:login.php");
 } else {
