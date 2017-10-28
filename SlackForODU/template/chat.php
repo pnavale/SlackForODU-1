@@ -2,6 +2,7 @@
     include 'includes/db_connection.php';
     include 'includes/functions.php';
  include 'chatHistory.php';
+ // session_start();
     ?>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
@@ -55,8 +56,31 @@
                             <p><?php echo $value['msg_body'];?>
                                 
                             </p>
-                            <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" class="emoji" >&#128077;</a>
-                             <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>"  class="emoji" >&#x1F44E;</a>
+                            <?php 
+                            $plusReaction = array();
+                            $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='+1'";
+                            $result= $connection->query($query);
+                            //echo $numrows;
+                            if ($result-> num_rows>0) 
+                            {
+                            while($row=$result->fetch_assoc())
+                            {
+                                array_push($plusReaction, $row);
+                            }} 
+                            $minusReaction = array();
+                            $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='-1'";
+                            $result= $connection->query($query);
+                            //echo $numrows;
+                            if ($result-> num_rows>0) 
+                            {
+                            while($row=$result->fetch_assoc())
+                            {
+                                array_push($minusReaction, $row);
+                            }} 
+
+                            ?>
+                            <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo $value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" class="emoji" >&#128077;</a><span><?php echo count($plusReaction)?></span>
+                             <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>"  class="emoji" >&#x1F44E;</a><span><?php echo count($minusReaction)?></span>
                                   <form action="#" method="post">
 
                     <fieldset>
@@ -162,10 +186,10 @@ $.ajax({type:'GET',
 if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         echo "nnjnjnj".$_GET["emoji"].$_GET["person"].$_GET["msgid"];
         $emoji=$_GET["emoji"];
-        $person=$_GET["person"];
+        $person=$_SESSION['sess_user'];
         $msgid=$_GET["msgid"];
         $msg_type="reaction";
-        $sql="UPDATE message set reaction='".$emoji."', msg_type='".$msg_type."', channel_id='".$channel_idSelected."', reacted='".$person."' where msg_id='".$msgid."'";
+        $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
         if (mysqli_query($connection, $sql)) {
       echo "Record updated successfully";
    } else {
