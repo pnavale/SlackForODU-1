@@ -260,7 +260,6 @@ $.ajax({type:'GET',
           url: 'chat.php',
           data : {emoji:emoji,person:person,msgid:msgid},
           success: function(response){
-            console.log(data,emoji);
             console.log({emoji:emoji,person:person,msgid:msgid});
             return {emoji:emoji,person:person,msgid:msgid};
           }
