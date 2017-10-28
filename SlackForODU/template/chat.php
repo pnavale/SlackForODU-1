@@ -114,14 +114,9 @@
                         }
                         ?></center>
                     <div class="chat-message clearfix">
+                        <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
 
-<<<<<<< HEAD
-<!--                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
- --> 
-=======
-<!--                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24"> -->
- 
->>>>>>> 37e5002df73d9ff1c376340b420c2ac2630283b4
+
                         <div class="chat-message-content clearfix">
 
                             <span class="chat-time"><?php echo $crdate ?></span>
