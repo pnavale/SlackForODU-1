@@ -1,8 +1,8 @@
+ 
     <?php
     include 'includes/db_connection.php';
     include 'includes/functions.php';
  include 'chatHistory.php';
- // session_start();
     ?>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
@@ -79,8 +79,8 @@
                             }} 
 
                             ?>
-                            <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo $value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" class="emoji" >&#128077;</a><span><?php echo count($plusReaction)?></span>
-                             <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>"  class="emoji" >&#x1F44E;</a><span><?php echo count($minusReaction)?></span>
+                            <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo $value['msg_id']?>" class="emoji" >&#128077;</a><span><?php echo count($plusReaction)?></span>
+                             <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" class="emoji" >&#x1F44E;</a><span><?php echo count($minusReaction)?></span>
                                   <form action="#" method="post">
 
                     <fieldset>
@@ -179,24 +179,31 @@ $.ajax({type:'GET',
             return {emoji:emoji,person:person,msgid:msgid};
           }
         });
+    // $('.emoji').css('color','#9c7248');
     })
 </script>
 <?php
-
+session_start();
+if($_SESSION['sess_user']){
 if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         echo "nnjnjnj".$_GET["emoji"].$_GET["person"].$_GET["msgid"];
         $emoji=$_GET["emoji"];
         $person=$_SESSION['sess_user'];
         $msgid=$_GET["msgid"];
         $msg_type="reaction";
+        $query="SELECT * FROM Reply WHERE msg_id='".$msgid."' and reaction='".$emoji."' and replied_by='".$person."'";
+        $result= $connection->query($query);
+        if ($result-> num_rows>0) 
+            { echo "You can't like/dislike multiple times.";
+               }else{
         $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
         if (mysqli_query($connection, $sql)) {
       echo "Record updated successfully";
    } else {
       echo "Error updating record: " . mysqli_error($connection);
-   }
+   }} 
     }
-
+}
      mysqli_close($connection);
 ?>
 
