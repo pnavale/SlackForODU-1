@@ -284,7 +284,6 @@ $.ajax({type:'GET',
 </script>
 <?php
 $profile=$_SESSION['sess_user_profile_pic'];
-echo $profile;
 if($_SESSION['sess_user']){
 if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         echo "nnjnjnj".$_GET["emoji"].$_GET["person"].$_GET["msgid"];
