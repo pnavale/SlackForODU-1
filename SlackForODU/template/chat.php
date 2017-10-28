@@ -3,17 +3,6 @@
     include 'includes/functions.php';
  include 'chatHistory.php';
     ?>
-<!--script>
-    function emojiClick(reaction,person){
-        $.post('member.php', {variable: reaction});
-        <!--?php
-        $reaction=?><script>  reaction</script>;
-        ?php $person=?><script>  person</script;
-
-<!--       ?> -->
-<!--    }-->
-  
-<!--/script-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
         <div id="live-chat">
@@ -63,9 +52,11 @@
 
                             <h5><?php echo ucwords($value['creator_id']) ?></h5>
 
-                            <p><?php echo $value['msg_body'] ?></p>
-                            <a href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('+1','<?php echo $value['creator_id']?>');" class="emoji" >&#128077;</a>
-                             <a href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>" onclick="emojiClick('-1','<?php echo $value['creator_id']?>');" class="emoji" >&#x1F44E;</a>
+                            <p><?php echo $value['msg_body'];?>
+                                
+                            </p>
+                            <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=+1;person=<?php echo $value['creator_id']?>" class="emoji" >&#128077;</a>
+                             <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" values="emoji=-1;person=<?php echo $value['creator_id']?>"  class="emoji" >&#x1F44E;</a>
                                   <form action="#" method="post">
 
                     <fieldset>
@@ -136,15 +127,52 @@
         ")or die( mysqli_close($connection));
      $_POST['message']='';
     unset($_POST['message']);
-            
     exit;
     } 
     }
-
-
-    
     }else {
         echo "Something went wrong!";
     }
-    mysqli_close($connection);
+
     ?>
+
+<script type="text/javascript">
+    $('.emoji').on('click', function(e){
+        console.log($(this).data('href'));
+        var data = $(this).data('href');
+        // member.php?emoji=+1&person=mater&msgid=8
+        var url=data.substring(0,10);
+        var emoji= data.substring(17,19);
+        var msgid = data.substring(data.search('msgid=')+6,data.length);
+        var person=data.substring(27,data.search('&msgid='));
+console.log(url);
+$.ajax({type:'GET',
+          url: 'chat.php',
+          data : {emoji:emoji,person:person,msgid:msgid},
+          success: function(response){
+            console.log(data,emoji);
+            console.log({emoji:emoji,person:person,msgid:msgid});
+            return {emoji:emoji,person:person,msgid:msgid};
+          }
+        });
+    })
+</script>
+<?php
+
+if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
+        echo "nnjnjnj".$_GET["emoji"].$_GET["person"].$_GET["msgid"];
+        $emoji=$_GET["emoji"];
+        $person=$_GET["person"];
+        $msgid=$_GET["msgid"];
+        $msg_type="reaction";
+        $sql="UPDATE message set reaction='".$emoji."', msg_type='".$msg_type."', channel_id='".$channel_idSelected."', reacted='".$person."' where msg_id='".$msgid."'";
+        if (mysqli_query($connection, $sql)) {
+      echo "Record updated successfully";
+   } else {
+      echo "Error updating record: " . mysqli_error($connection);
+   }
+    }
+
+     mysqli_close($connection);
+?>
+
