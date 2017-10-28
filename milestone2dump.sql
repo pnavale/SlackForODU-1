@@ -130,22 +130,23 @@ CREATE TABLE `Reply` (
   `replied_at` datetime NOT NULL,
   `reaction` varchar(22) NOT NULL,
   `reply_type` varchar(20) NOT NULL,
-  `reply_id` int(11) NOT NULL
+  `reply_id` int(11) NOT NULL,
+  `profile_pic` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Reply`
 --
 
-INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`) VALUES
-(9, '', 'mater', '2017-10-28 14:34:19', '+1', 'reaction', 16),
-(10, '', 'mater', '2017-10-28 14:34:39', '+1', 'reaction', 17),
-(9, '', 'mater', '2017-10-28 17:28:29', '-1', 'reaction', 18),
-(9, 'nothing to say', 'mater', '2017-10-28 17:36:33', '', 'reply', 19),
-(9, 'its okay', 'mater', '2017-10-28 17:43:12', '', 'reply', 20),
-(9, 'la la', 'mater', '2017-10-28 17:44:29', '', 'reply', 21),
-(9, 'blah', 'mater', '2017-10-28 17:45:21', '', 'reply', 22),
-(9, 'na na', 'mater', '2017-10-28 18:25:33', '', 'reply', 23);
+INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`, `profile_pic`) VALUES
+(9, '', 'mater', '2017-10-28 14:34:19', '+1', 'reaction', 16, '1.png'),
+(10, '', 'mater', '2017-10-28 14:34:39', '+1', 'reaction', 17, '1.png'),
+(9, '', 'mater', '2017-10-28 17:28:29', '-1', 'reaction', 18, '1.png'),
+(9, 'nothing to say', 'mater', '2017-10-28 17:36:33', '', 'reply', 19, '1.png'),
+(9, 'its okay', 'mater', '2017-10-28 17:43:12', '', 'reply', 20, '1.png'),
+(9, 'la la', 'mater', '2017-10-28 17:44:29', '', 'reply', 21, '1.png'),
+(9, 'blah', 'mater', '2017-10-28 17:45:21', '', 'reply', 22, '1.png'),
+(9, 'na na', 'mater', '2017-10-28 18:25:33', '', 'reply', 23, '1.png');
 
 -- --------------------------------------------------------
 

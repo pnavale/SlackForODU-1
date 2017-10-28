@@ -1,4 +1,4 @@
- 
+
     <?php
     include 'includes/db_connection.php';
     include 'includes/functions.php';
@@ -51,7 +51,7 @@
 
                             <span class="chat-time"><?php echo $crdate ?></span>
 
-                            <h5><?php echo ucwords($value['creator_id']) ?></h5>
+                            <b><?php echo ucwords($value['creator_id']) ?></b>
 
                             <p><?php echo $value['msg_body'];?>
                                 
@@ -115,13 +115,13 @@
                         ?></center>
                     <div class="chat-message clearfix">
 
-<!--                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
- -->
+                        <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
+ 
                         <div class="chat-message-content clearfix">
 
                             <span class="chat-time"><?php echo $crdate ?></span>
 
-                            <h5><?php echo ucwords($value['replied_by']) ?></h5>
+                            <b><?php echo ucwords($value['replied_by']) ?></b>
 
                             <p><?php echo $value['reply_msg'];?>
                                 
@@ -309,8 +309,9 @@ if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
         $msgid=$_GET["msg_id"];
         $msg_type="reply";
         $replied_by=$_SESSION['sess_user'];
+        $profile_pic=$_SESSION['profile_pic'];
         echo $replyMsg;
-        $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
+        $sql="insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type,profile_pic) values('$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type','$profile_pic')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
                 } else {
