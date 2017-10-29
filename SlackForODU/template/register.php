@@ -42,7 +42,6 @@ if(!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email'])  
 	if($result-> num_rows<1)
 	{
 	$result=$connection->query("INSERT INTO users(username,password,email_id,group_id,full_name,workspace_id,channel_id,profile_pic,signup_date) VALUES('$user','$pass','$email','','$fullname','$wk_id','','',NOW())");
-
 	if($result){
 	echo "Account Successfully Created";
 	/* Redirect browser */

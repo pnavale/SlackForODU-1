@@ -308,6 +308,9 @@ text-decoration: none;
 .wkurl{
     cursor: pointer;
 }
+.alert{
+cursor: pointer;
+}
 .notification{
    display: none; 
      background-color: gray;

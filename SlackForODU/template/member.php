@@ -97,11 +97,8 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query="SELECT * FROM channel where channel_creator='default' and joined like '%".$_SESSION['sess_user']."%'";
+    $query="SELECT * FROM channel where channel_creator='default' or  joined like '%".$_SESSION['sess_user']."%'";
     $result= $connection->query($query);
-    //creator='".$_SESSION['sess_user']."' or
-    //creator='default'
-    //echo $numrows;
   if($result-> num_rows>0)
   {
   while($row=$result->fetch_assoc())
@@ -109,20 +106,7 @@ if($_SESSION['sess_user']){
    array_push($channels, $row);
         
   }
-    }
-    $query="SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'";
-    //creator='".$_SESSION['sess_user']."' or
-    //creator='default'
-   $result= $connection->query($query);
-    //echo $numrows;
-  if($result-> num_rows>0)
-  {
-  while($row=$result->fetch_assoc())
-  {
-   array_push($channels, $row);
-        
-  } }
-        
+    }   
     foreach ($channels as $value) {
         echo  "<div class ='col-sm-8 col-md-8 col-lg-8 col-xs-8'>";
         echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
@@ -156,7 +140,7 @@ if($_SESSION['sess_user']){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query="SELECT * FROM channel where channel_creator='default'";
+    $query="SELECT * FROM channel where channel_creator='default' or  joined like '%".$_SESSION['sess_user']."%'";
     $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -169,18 +153,6 @@ if($_SESSION['sess_user']){
         
 	}
     }
-    $query="SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'";
-    //creator='".$_SESSION['sess_user']."' or
-    //creator='default'
-   $result= $connection->query($query);
-    //echo $numrows;
-	if($result-> num_rows>0)
-	{
-	while($row=$result->fetch_assoc())
-	{
-	 array_push($channels, $row);
-        
-	} }
         
     foreach ($channels as $value) {
         
@@ -304,6 +276,7 @@ var alertClick=0;
   $('.wkurl').click(function(){
     if(click%2==0){
       $('.short-profile').css('display','block');
+      $('.notification').css('display','none');
     }else{
       $('.short-profile').css('display','none');
     }
@@ -315,6 +288,7 @@ var alertClick=0;
   $('.alert').click(function(){
     if(alertClick%2==0){
       $('.notification').css('display','block');
+      $('.short-profile').css('display','none');
     }else{
       $('.notification').css('display','none');
     }
