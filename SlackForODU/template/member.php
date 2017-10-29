@@ -41,8 +41,6 @@ if(!isset($_SESSION["sess_user"])){
     </div>
     </div>
     <div class="notification">
-    <div style='color:#FFFFFF;'>Invitations</div>
-    <div class="row">
              <?php
             $newchannels = array();
           if($_SESSION['sess_user']){
@@ -53,12 +51,17 @@ if(!isset($_SESSION["sess_user"])){
               //echo $numrows;
             if($result-> num_rows>0)
             {
+            echo "<div style='color:#FFFFFF;'>Invitations</div>
+                  <div class='row'>";
             while($row=$result->fetch_assoc())
             {
              array_push($newchannels, $row);
                   
             }
               }  
+              else{
+                echo "<div style='color:#FFFFFF;'>&#x1f61e;No alerts.";
+              }
               foreach ($newchannels as $value) {
                   echo  "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
                   echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
@@ -93,7 +96,7 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query="SELECT * FROM channel where channel_creator='default' and joined like %'".$_SESSION['sess_user']."'%";
+    $query="SELECT * FROM channel where channel_creator='default' and joined like '%".$_SESSION['sess_user']."%'";
     $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -253,26 +256,41 @@ function clickPrivateChat($selectedName) {
         <div class="col-sm-12 col-md-9 col-lg-9 col-xs-12">
  
         <?php
-$channelSelected='';
-if(isset($_GET["ch"])){
-$cname='';
-$channelSelected=$_GET['ch'];
-}
-if(isset($_GET["pc"])){
-$channelSelected='';
-$cname=$_GET['pc'];
-}
-echo isset($_GET["whichChannelJoined"]);
-if(isset($_GET["whichChannelJoined"])){
-        $whichChannelJoined=$_GET["whichChannelJoined"];
-        $currUser=$_SESSION['sess_user'];
-        $sql="update channel set joined='".$currUser."' where channel_name='".$whichChannelJoined."'";
-            if (mysqli_query($connection, $sql)) {
-                echo "Record updated successfully";
-                } else {
-                    echo "Error updating record: " . mysqli_error($connection);
-                   }
-}
+      $channelSelected='';
+      if(isset($_GET["ch"])){
+        $cname='';
+        $channelSelected=$_GET['ch'];
+      }
+      if(isset($_GET["pc"])){
+        $channelSelected='';
+        $cname=$_GET['pc'];
+      }
+      if(isset($_GET["whichChannelJoined"])){
+              $whichChannelJoined=$_GET["whichChannelJoined"];
+              $currUser=$_SESSION['sess_user'];
+              $inviteString = '';
+              $joinedString = '';
+              $query="SELECT * FROM channel where channel_name='".$whichChannelJoined."' and invites like '%".$currUser."%'";
+                      $result= $connection->query($query);
+                      if($result-> num_rows>0){
+                          while($row=$result->fetch_assoc()){
+                              $inviteString = $row['invites']; 
+                              $inviteString = str_replace($currUser, "", $inviteString);
+                              $joinedString = $row['joined']; 
+                              $joinedString = $joinedString.",".$currUser;
+                              $sql="update channel set joined='".$joinedString."' where channel_name='".$whichChannelJoined."'";
+                                  if (mysqli_query($connection, $sql)) {
+                                      echo "Joined channel successfully";
+                                      $sql="update channel set invites='".$inviteString."' where channel_name='".$whichChannelJoined."'";
+                                      if (mysqli_query($connection, $sql)) {
+                                            echo "Invite Accepted";
+                                        } else {
+                                              echo "Error deleting invite: " . mysqli_error($connection);
+                                        }    
+                                   }
+                          } 
+                      }
+      }
 
 mysqli_close($connection);
 include 'chat.php';

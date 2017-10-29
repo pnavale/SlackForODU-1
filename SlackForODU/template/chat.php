@@ -117,8 +117,8 @@ if(!isset($_SESSION)) {
                         }
                         ?></center>
                     <div class="chat-message clearfix">
-<!--                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
- -->
+                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
+
 
                         <div class="chat-message-content clearfix">
 
@@ -272,6 +272,7 @@ if(!isset($_SESSION)) {
     $('.reply').on('click', function(e){
         e.preventDefault();
         console.log($(this).attr('id'));
+        console.log($(this).attr('id'));
         var msgId = this.id.substring(3,this.id.length);
         var replyInput = 'reply'+msgId;
         var replyInput=$('#'+replyInput).val();
@@ -309,21 +310,22 @@ if(isset($_GET["emoji"]) ||isset($_GET["person"])|| isset($_GET["msgid"])){
       echo "Error updating record: " . mysqli_error($connection);
    }} 
     }
-    
+    $profile=$_SESSION['sess_user_profile_pic'];
     if(isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])  ){
         $replyMsg=$_POST["reply_message"];
         $msgid=$_GET["msg_id"];
         $msg_type="reply";
         $replied_by=$_SESSION['sess_user'];
-        if($_SESSION['sess_user_profile_pic']){
-        $profile=$_SESSION['sess_user_profile_pic'];
-        }
-        else{
-            $profile="person.png";
-        }
+        // if($_SESSION['sess_user_profile_pic']){
+        // $profile=$_SESSION['sess_user_profile_pic'];
+        // }
+        // else{
+        //     $profile="person.png";
+        // }
         $sql="insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
+                echo $profile;
                 } else {
                     echo "Error updating record: " . mysqli_error($connection);
                    }} 

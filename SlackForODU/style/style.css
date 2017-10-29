@@ -310,4 +310,5 @@ text-decoration: none;
 }
 .notification{
    display: none; 
+     background-color: gray;
 }
