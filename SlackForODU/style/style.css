@@ -13,7 +13,8 @@ a {
   }
   
 a:hover { text-decoration:underline; }
-  
+
+/* ------ Chatbox -------- */
 #chatbox {
     text-align:left;
     margin:0 auto;
@@ -41,7 +42,7 @@ a:hover { text-decoration:underline; }
   
 .msgln { margin:0 0 2px 0; }
 
-
+/* Body */
  body{       
     margin-top: 100px;
     margin-bottom: 100px;
@@ -73,6 +74,7 @@ html,body{
     height: 100%;
 }
 
+/* Login container style */
 .login-container{
     position: relative;
     width: 300px;
@@ -160,7 +162,7 @@ input {
 
 p { margin: 0; }
 
-.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix { *zoom: 1; } /* For IE 6/7 browser */
 .clearfix:before, .clearfix:after
 {
     content: "";
@@ -304,7 +306,6 @@ text-decoration: none;
     display: none;
     background-color: gray;
 }
-
 .wkurl{
     cursor: pointer;
 }
