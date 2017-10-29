@@ -1,7 +1,9 @@
 <?php
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
-session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
 ?>
 <?php 
 if(!isset($_SESSION["sess_user"])){
@@ -64,8 +66,8 @@ if(!isset($_SESSION["sess_user"])){
                   if(!$value['channel_type']){
                       $value['channel_type']="public";
                     }
-                  echo "<div><button value='".$value['channel_type']."'>Join</button>";
-                  echo "<button value='".$value['channel_type']."'>Cancel</button></div></div>";
+                  echo "<div><button class='join' value='".$value['channel_name']."'>Join</button>";
+                  echo "<button class='cancelbtn' value='".$value['channel_name']."'>Cancel</button></div></div>";
               }       
             } 
 //            else {
@@ -91,7 +93,7 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query="SELECT * FROM channel where channel_creator='default' and joined='1'";
+    $query="SELECT * FROM channel where channel_creator='default' and joined like %'".$_SESSION['sess_user']."'%";
     $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -260,6 +262,18 @@ if(isset($_GET["pc"])){
 $channelSelected='';
 $cname=$_GET['pc'];
 }
+echo isset($_GET["whichChannelJoined"]);
+if(isset($_GET["whichChannelJoined"])){
+        $whichChannelJoined=$_GET["whichChannelJoined"];
+        $currUser=$_SESSION['sess_user'];
+        $sql="update channel set joined='".$currUser."' where channel_name='".$whichChannelJoined."'";
+            if (mysqli_query($connection, $sql)) {
+                echo "Record updated successfully";
+                } else {
+                    echo "Error updating record: " . mysqli_error($connection);
+                   }
+}
+
 mysqli_close($connection);
 include 'chat.php';
 ?>
@@ -267,6 +281,7 @@ include 'chat.php';
     </div>
 <script type="text/javascript">
 var click=0;
+var alertClick=0;
   $('.wkurl').click(function(){
     if(click%2==0){
       $('.short-profile').css('display','block');
@@ -279,13 +294,24 @@ var click=0;
 
     
   $('.alert').click(function(){
-    if(click%2==0){
+    if(alertClick%2==0){
       $('.notification').css('display','block');
     }else{
       $('.notification').css('display','none');
     }
-    click++;
+    alertClick++;
     
   })
+$('.join').click(function(){
+  var whichChannelJoined=$(this).val();
+   console.log('join',whichChannelJoined);
+  $.ajax({type:'GET',
+          url: 'member.php',
+          data : {whichChannelJoined:whichChannelJoined},
+          success: function(response){
+            return {whichChannelJoined:whichChannelJoined};
+          }
+        });
+})
 </script>
 

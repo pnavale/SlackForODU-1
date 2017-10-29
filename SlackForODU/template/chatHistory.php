@@ -1,9 +1,12 @@
 <!--  <meta http-equiv="refresh" content="10">   
  -->
  <?php
-    //if($cname!=''){
-    //    $cname=$_SESSION['sess_user'];
-    //}
+if(!isset($_SESSION)) {
+ session_start();
+}
+    if($cname!=''){
+       $cname=$_SESSION['sess_user'];
+    }
 
     $chats = array();
     $channelObject = array();

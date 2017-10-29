@@ -3,6 +3,9 @@
     include 'includes/db_connection.php';
     include 'includes/functions.php';
  include 'chatHistory.php';
+if(!isset($_SESSION)) {
+ session_start();
+}
     ?>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
 
@@ -167,10 +170,10 @@
                     <form action="" method="post">
                     <fieldset>
                         <div class="row">
-                            <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10">
+                            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
                         <input  type="text" placeholder="Reply here…" id="<?php echo "reply".$value['msg_id'] ?>"  name="reply_message" autofocus>
                                   </div>
-                                   <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                                   <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
                                    <input  type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg".$value['msg_id'] ?>"/>
         
 <!--                               style="position: absolute; left: -9999px"-->
@@ -198,10 +201,10 @@
 
                     <fieldset>
                         <div class="row">
-                            <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10">
+                            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
                         <input  type="text" placeholder="Type your message…" name="message" autofocus>
                                   </div>
-                                   <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                                   <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
     					<input  type="submit" value="Send" class="btn" name="submit" />
 <!--                               style="position: absolute; left: -9999px"-->
                             </div>
@@ -256,7 +259,7 @@
         var msgid = data.substring(data.search('msgid=')+6,data.length);
         var person=data.substring(27,data.search('&msgid='));
 
-$.ajax({type:'GET',
+        $.ajax({type:'GET',
           url: 'chat.php',
           data : {emoji:emoji,person:person,msgid:msgid},
           success: function(response){
@@ -266,7 +269,8 @@ $.ajax({type:'GET',
         });
     // $('.emoji').css('color','#9c7248');
     })
-     $('.reply').click(function(){
+    $('.reply').on('click', function(e){
+        e.preventDefault();
         console.log($(this).attr('id'));
         var msgId = this.id.substring(3,this.id.length);
         var replyInput = 'reply'+msgId;
@@ -274,13 +278,15 @@ $.ajax({type:'GET',
         console.log(replyInput);
         console.log(msgId);
         $.ajax({type:'GET',
-          url: 'reply.php',
-          data : {msg_id:msgId,reply:replyInput},
-          success: function(response){
-            return {msg_id:msgId,reply:replyInput};
-          }
+            url: 'reply.php',
+            data : {
+                msg_id:msgId,
+                reply:replyInput
+            },
+            success: function(response){
+            }
         });
-         });
+    });
 </script>
 <?php
 $profile=$_SESSION['sess_user_profile_pic'];
