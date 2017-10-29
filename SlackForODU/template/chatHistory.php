@@ -18,14 +18,14 @@
         while($row=$result->fetch_assoc())
         {
         $channel_idSelected=$row['channel_id'];
-    //	$msg=$row['msg_body'];
-    ////    $cdate=new DateTime($row['create_date']);
-    ////    $displayDate=date_format($cdate, 'h:i');
-    //    array_push($chats, $row);
+       //	$msg=$row['msg_body'];
+       // $cdate=new DateTime($row['create_date']);
+       // $displayDate=date_format($cdate, 'h:i');
+       // array_push($chats, $row);
         }
 
         } else {
-    //	echo "No message yet.";
+       //	echo "No message yet.";
        // header("Location:wklogin.php");
         }    
 
@@ -36,15 +36,15 @@
         {
         while($row=$result->fetch_assoc())
         {
-    //	$currentThread=$row['thread_id'];
-    //	$msg=$row['msg_body'];
-    //    $cdate=new DateTime($row['create_date']);
-    //    $displayDate=date_format($cdate, 'h:i');
+        //	$currentThread=$row['thread_id'];
+        //	$msg=$row['msg_body'];
+        // $cdate=new DateTime($row['create_date']);
+        // $displayDate=date_format($cdate, 'h:i');
         array_push($chats, $row);
         }   
 
         } else {
-    //	echo "No message yet.";
+       //	echo "No message yet.";
        // header("Location:wklogin.php");
         }
         }
@@ -57,10 +57,10 @@
         {
         while($row=$result->fetch_assoc())
         {
-    //	$currentThread=$row['thread_id'];
-    //	$msg=$row['msg_body'];
-    //    $cdate=new DateTime($row['create_date']);
-    //    $displayDate=date_format($cdate, 'h:i');
+        //	$currentThread=$row['thread_id'];
+        //	$msg=$row['msg_body'];
+        // $cdate=new DateTime($row['create_date']);
+        // $displayDate=date_format($cdate, 'h:i');
         array_push($chats, $row);
         }
         $query="SELECT * FROM message WHERE creator_id='".$_SESSION['sess_user']."' and channel_id='' and recipient_id='".$cname."'";
@@ -72,8 +72,8 @@
         {
     //	$currentThread=$row['thread_id'];
     //	$msg=$row['msg_body'];
-    //    $cdate=new DateTime($row['create_date']);
-    //    $displayDate=date_format($cdate, 'h:i');
+    // $cdate=new DateTime($row['create_date']);
+    // $displayDate=date_format($cdate, 'h:i');
         array_push($chats, $row);
         }
 
@@ -81,8 +81,6 @@
         } else {
 
         }
-
-        }
-
+       }
       }
-    ?>
+   ?>
