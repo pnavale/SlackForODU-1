@@ -54,23 +54,9 @@ CREATE TABLE `channel` (
 INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`, `channel_type`, `joined`) VALUES
 (1, 'general', 'default', '2017-09-04 09:27:20', '', '', '', 'public', ''),
 (2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', '1'),
-(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ',doc,mater,', 'public', 'mater'),
-(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,mater,pnavale', 'public', 'mater'),
-(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',doc,mater,pnavale,sally', 'public', ''),
-(6, 'testing', 'mater', '2017-10-21 21:04:55', '', '', ',doc,mater,pnavale,sally', 'public', ''),
-(7, 'dddd', 'mater', '2017-10-22 20:52:55', 'wk1', '', ',doc,mater,pnavale', 'public', ''),
-(8, 'racer', 'mater', '2017-10-27 18:22:54', 'wk1', '', ',doc,mater,pnavale', 'public', ''),
-(9, 'gaming', 'mater', '2017-10-27 18:31:49', 'wk1', 'gaming', 'agosa003', 'private', ''),
-(10, 'wedding', 'mater', '2017-10-28 23:43:15', 'wk1', 'dff', 'mater', 'private', ''),
-(11, 'coders', 'mater', '2017-10-28 23:48:30', 'wk1', 'if you coding then you will join', 'mater', 'private', ''),
-(12, 'dreamers', 'mater', '2017-10-28 23:50:26', 'wk1', 'dff', 'mater', 'public', ''),
-(13, 'slack', 'mater', '2017-10-29 00:00:38', 'wk1', 'slack', 'pnavale', 'public', ''),
-(14, 'tvshows', 'mater', '2017-10-29 00:09:34', 'wk1', 'tvshows', ',doc,mater,pnavale', 'public', ''),
-(15, 'guitarlovers', 'mater', '2017-10-29 00:11:41', 'wk1', 'guitar', ',doc,mater,pnavale', 'private', ''),
-(16, 'nss nsnsn', 'mater', '2017-10-29 00:15:28', 'wk1', '', ',doc,mater,pnavale', 'private', ''),
-(17, 'gifs', 'mater', '2017-10-29 00:17:19', 'wk1', 'gifs', ',doc,mater,pnavale', 'private', ''),
-(18, 'tvlocholic', 'mater', '2017-10-29 00:21:24', 'wk1', '', ',agosa003,doc,mater', 'private', ''),
-(19, 'tennisplayers', 'mater', '2017-10-29 00:22:46', 'wk1', '', ',doc,mater,pnavale', 'private', '');
+(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ',doc', 'public', 'mater'),
+(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', 'mater,pnavale'),
+(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',doc,pnavale,', 'public', 'mater');
 
 -- --------------------------------------------------------
 
