@@ -28,16 +28,16 @@
         border-radius: 4px;
         box-shadow: 0 1px 1px rgba(0,0,0,.05);
         padding: 5px 5px 5px 5px;
-}   
+    }   
     </style>
 
 </head>
-
-
+    
 <body>
-<script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+    </script>
+    
     <div id="wrapper">
