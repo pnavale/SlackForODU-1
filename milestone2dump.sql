@@ -44,7 +44,7 @@ CREATE TABLE `channel` (
   `purpose` text NOT NULL,
   `invites` text NOT NULL,
   `channel_type` varchar(10) NOT NULL,
-  `joined` tinyint(1) NOT NULL
+  `joined` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -52,25 +52,25 @@ CREATE TABLE `channel` (
 --
 
 INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`, `channel_type`, `joined`) VALUES
-(1, 'general', 'default', '2017-09-04 09:27:20', '', '', ',doc,mater,pnavale', 'public', 1),
-(2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', 1),
-(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ',doc,mater,pnavale', 'public', 1),
-(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,mater,pnavale', 'public', 1),
-(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',doc,mater,pnavale,sally', 'public', 0),
-(6, 'testing', 'mater', '2017-10-21 21:04:55', '', '', ',doc,mater,pnavale,sally', 'public', 0),
-(7, 'dddd', 'mater', '2017-10-22 20:52:55', 'wk1', '', ',doc,mater,pnavale', 'public', 0),
-(8, 'racer', 'mater', '2017-10-27 18:22:54', 'wk1', '', ',doc,mater,pnavale', 'public', 0),
-(9, 'gaming', 'mater', '2017-10-27 18:31:49', 'wk1', 'gaming', 'agosa003', 'private', 0),
-(10, 'wedding', 'mater', '2017-10-28 23:43:15', 'wk1', 'dff', 'mater', 'private', 0),
-(11, 'coders', 'mater', '2017-10-28 23:48:30', 'wk1', 'if you coding then you will join', 'mater', 'private', 0),
-(12, 'dreamers', 'mater', '2017-10-28 23:50:26', 'wk1', 'dff', 'mater', 'public', 0),
-(13, 'slack', 'mater', '2017-10-29 00:00:38', 'wk1', 'slack', 'pnavale', 'public', 0),
-(14, 'tvshows', 'mater', '2017-10-29 00:09:34', 'wk1', 'tvshows', ',doc,mater,pnavale', 'public', 0),
-(15, 'guitarlovers', 'mater', '2017-10-29 00:11:41', 'wk1', 'guitar', ',doc,mater,pnavale', 'private', 0),
-(16, 'nss nsnsn', 'mater', '2017-10-29 00:15:28', 'wk1', '', ',doc,mater,pnavale', 'private', 0),
-(17, 'gifs', 'mater', '2017-10-29 00:17:19', 'wk1', 'gifs', ',doc,mater,pnavale', 'private', 0),
-(18, 'tvlocholic', 'mater', '2017-10-29 00:21:24', 'wk1', '', ',agosa003,doc,mater', 'private', 0),
-(19, 'tennisplayers', 'mater', '2017-10-29 00:22:46', 'wk1', '', ',doc,mater,pnavale', 'private', 0);
+(1, 'general', 'default', '2017-09-04 09:27:20', '', '', '', 'public', ''),
+(2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', '1'),
+(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ',doc,mater,', 'public', 'mater'),
+(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,mater,pnavale', 'public', 'mater'),
+(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',doc,mater,pnavale,sally', 'public', ''),
+(6, 'testing', 'mater', '2017-10-21 21:04:55', '', '', ',doc,mater,pnavale,sally', 'public', ''),
+(7, 'dddd', 'mater', '2017-10-22 20:52:55', 'wk1', '', ',doc,mater,pnavale', 'public', ''),
+(8, 'racer', 'mater', '2017-10-27 18:22:54', 'wk1', '', ',doc,mater,pnavale', 'public', ''),
+(9, 'gaming', 'mater', '2017-10-27 18:31:49', 'wk1', 'gaming', 'agosa003', 'private', ''),
+(10, 'wedding', 'mater', '2017-10-28 23:43:15', 'wk1', 'dff', 'mater', 'private', ''),
+(11, 'coders', 'mater', '2017-10-28 23:48:30', 'wk1', 'if you coding then you will join', 'mater', 'private', ''),
+(12, 'dreamers', 'mater', '2017-10-28 23:50:26', 'wk1', 'dff', 'mater', 'public', ''),
+(13, 'slack', 'mater', '2017-10-29 00:00:38', 'wk1', 'slack', 'pnavale', 'public', ''),
+(14, 'tvshows', 'mater', '2017-10-29 00:09:34', 'wk1', 'tvshows', ',doc,mater,pnavale', 'public', ''),
+(15, 'guitarlovers', 'mater', '2017-10-29 00:11:41', 'wk1', 'guitar', ',doc,mater,pnavale', 'private', ''),
+(16, 'nss nsnsn', 'mater', '2017-10-29 00:15:28', 'wk1', '', ',doc,mater,pnavale', 'private', ''),
+(17, 'gifs', 'mater', '2017-10-29 00:17:19', 'wk1', 'gifs', ',doc,mater,pnavale', 'private', ''),
+(18, 'tvlocholic', 'mater', '2017-10-29 00:21:24', 'wk1', '', ',agosa003,doc,mater', 'private', ''),
+(19, 'tennisplayers', 'mater', '2017-10-29 00:22:46', 'wk1', '', ',doc,mater,pnavale', 'private', '');
 
 -- --------------------------------------------------------
 
@@ -99,34 +99,7 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_date`, `thread_id`, `channel_id`, `group_id`, `recipient_id`, `profile_pic`, `reaction`, `msg_type`, `reacted`) VALUES
-(1, '', 'mater', 'Hey', '2017-10-21 19:54:19', 0, '', '', 'sally', '1.png', '0', '', ''),
-(2, '', 'mater', 'Hey', '2017-10-21 19:54:33', 0, '', '', 'sally', '1.png', '0', '', ''),
-(3, '', 'mater', 'Hey', '2017-10-21 19:55:33', 0, '', '', 'sally', '1.png', '0', '', ''),
-(4, '', 'mater', 'Hey', '2017-10-21 19:55:55', 0, '', '', 'sally', '1.png', '0', '', ''),
-(5, '', 'mater', 'Hey', '2017-10-21 19:56:05', 0, '', '', 'sally', '1.png', '0', '', ''),
-(6, '', 'mater', 'Hey', '2017-10-21 19:56:31', 0, '', '', 'sally', '1.png', '0', '', ''),
-(7, '', 'mater', 'Hey', '2017-10-21 19:56:39', 0, '', '', 'sally', '1.png', '0', '', ''),
-(8, 'random', 'mater', 'hey', '2017-10-21 19:56:46', 0, '', '', '', '1.png', '+1', 'reaction', 'mater'),
-(9, 'random', 'mater', 'hey', '2017-10-21 19:56:50', 0, 'ch2', '', '', '1.png', '0', '', ''),
-(10, 'random', 'mater', 'hello', '2017-10-21 19:57:01', 0, 'ch2', '', '', '1.png', '0', '', ''),
-(11, 'random', 'mater', 'd', '2017-10-21 19:57:45', 0, 'ch2', '', '', '1.png', '0', '', ''),
-(12, 'travel', 'mater', 'hey', '2017-10-21 19:58:42', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(13, 'travel', 'mater', 'hey', '2017-10-21 19:58:45', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(14, 'travel', 'mater', 'hey', '2017-10-21 19:58:49', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(15, 'travel', 'mater', 'hey', '2017-10-21 19:58:51', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(16, 'travel', 'mater', 'hello', '2017-10-21 19:58:55', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(17, 'travel', 'mater', 'hello', '2017-10-21 19:59:34', 0, 'ch4', '', '', '1.png', '0', '', ''),
-(18, 'fitness', 'mater', 'off mood', '2017-10-21 19:59:44', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(19, 'fitness', 'mater', 'nothing much', '2017-10-21 20:00:00', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(20, 'fitness', 'mater', 'nothing much', '2017-10-21 20:00:49', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(21, 'fitness', 'mater', 'dhfhfh', '2017-10-21 20:00:53', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(22, 'fitness', 'mater', 'jjj', '2017-10-21 20:00:56', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(23, 'fitness', 'mater', 'jjkfdf', '2017-10-21 20:01:00', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(24, 'fitness', 'mater', '$chats = array();     $channelObject = array();     if($_SESSION[\'sess_user\']){         if($channelSelected != \'\'){          $query=&quot;SELECT * FROM channel WHERE channel_name=\'&quot;.$channelSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {         $channel_idSelected=$row[\'channel_id\'];     // $msg=$row[\'msg_body\'];     ////    $cdate=new DateTime($row[\'create_date\']);     ////    $displayDate=date_format($cdate, \'h:i\');     //    array_push($chats, $row);         }          } else {     //  echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }              $query=&quot;SELECT * FROM message WHERE channel_id=\'&quot;.$channel_idSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         $chats = array();            if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //  $currentThread=$row[\'thread_id\'];     //  $msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }             } else {     // echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }         }         else{          $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$cname.&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $num', '2017-10-21 20:01:10', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(25, 'fitness', 'mater', '$chats = array();     $channelObject = array();     if($_SESSION[\'sess_user\']){         if($channelSelected != \'\'){          $query=&quot;SELECT * FROM channel WHERE channel_name=\'&quot;.$channelSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {         $channel_idSelected=$row[\'channel_id\'];     // $msg=$row[\'msg_body\'];     ////    $cdate=new DateTime($row[\'create_date\']);     ////    $displayDate=date_format($cdate, \'h:i\');     //    array_push($chats, $row);         }          } else {     //  echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }              $query=&quot;SELECT * FROM message WHERE channel_id=\'&quot;.$channel_idSelected.&quot;\'&quot;;         $result= $connection-&gt;query($query);         $chats = array();            if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //  $currentThread=$row[\'thread_id\'];     //  $msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }             } else {     // echo &quot;No message yet.&quot;;        // header(&quot;Location:wklogin.php&quot;);         }         }         else{          $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$cname.&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     // $currentThread=$row[\'thread_id\'];     //  $msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }         $query=&quot;SELECT * FROM message WHERE creator_id=\'&quot;.$_SESSION[\'sess_user\'].&quot;\' and channel_id=\'\' and recipient_id=\'&quot;.$cname.&quot;\'&quot;;         $result= $connection-&gt;query($query);         //echo $numrows;         if($result-&gt; num_rows&gt;0)         {         while($row=$result-&gt;fetch_assoc())         {     //  $currentThread=$row[\'thread_id\'];     //  $msg=$row[\'msg_body\'];     //    $cdate=new DateTime($row[\'create_date\']);     //    $displayDate=date_format($cdate, \'h:i\');         array_push($chats, $row);         }          }         } else {          }          }        }', '2017-10-21 20:01:15', 0, 'ch5', '', '', '1.png', '0', '', ''),
-(26, '', 'mater', 'hey', '2017-10-22 13:48:29', 0, '', '', 'mater', '1.png', '0', '', ''),
-(27, 'random', 'mater', 'hello', '2017-10-27 19:27:05', 0, 'ch2', '', '', '1.png', '0', '', ''),
-(28, '', 'mater', 'Hey', '2017-10-28 19:20:04', 0, '', '', 'slackbot', '1.png', '', '', '');
+(38, 'general', 'mater', 'hey', '2017-10-29 15:17:36', 0, '1', '', '', '1.png', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -150,40 +123,12 @@ CREATE TABLE `Reply` (
 --
 
 INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`, `profile_pic`) VALUES
-(9, '', 'mater', '2017-10-28 14:34:19', '+1', 'reaction', 16, '1.png'),
-(10, '', 'mater', '2017-10-28 14:34:39', '+1', 'reaction', 17, '1.png'),
-(9, '', 'mater', '2017-10-28 17:28:29', '-1', 'reaction', 18, '1.png'),
-(9, 'nothing to say', 'mater', '2017-10-28 17:36:33', '', 'reply', 19, '1.png'),
-(9, 'its okay', 'mater', '2017-10-28 17:43:12', '', 'reply', 20, '1.png'),
-(9, 'la la', 'mater', '2017-10-28 17:44:29', '', 'reply', 21, '1.png'),
-(9, 'blah', 'mater', '2017-10-28 17:45:21', '', 'reply', 22, '1.png'),
-(9, 'na na', 'mater', '2017-10-28 18:25:33', '', 'reply', 23, '1.png'),
-(11, 'what is this?', 'sally', '2017-10-28 19:02:49', '', 'reply', 24, '2.png'),
-(11, 'even i dont know', 'doc', '2017-10-28 19:06:04', '', 'reply', 25, '3.png'),
-(11, 'hey', 'doc', '2017-10-28 19:08:45', '', 'reply', 26, ''),
-(11, 'hey', 'doc', '2017-10-28 19:13:21', '', 'reply', 27, ''),
-(27, 'hey', 'doc', '2017-10-28 19:14:40', '', 'reply', 28, ''),
-(11, 'hey', 'doc', '2017-10-28 19:17:34', '', 'reply', 29, ''),
-(27, 'hey', 'mater', '2017-10-28 19:20:24', '', 'reply', 30, ''),
-(11, 'hey', 'mater', '2017-10-28 19:21:48', '', 'reply', 31, ''),
-(27, 'na na', 'mater', '2017-10-28 19:22:02', '', 'reply', 32, ''),
-(27, 'na na', 'mater', '2017-10-28 19:22:35', '', 'reply', 33, ''),
-(27, 'na na', 'mater', '2017-10-28 19:23:11', '', 'reply', 34, ''),
-(27, 'la la ', 'mater', '2017-10-28 19:25:25', '', 'reply', 35, ''),
-(11, 'hey', 'mater', '2017-10-28 19:25:57', '', 'reply', 36, ''),
-(27, 'yup', 'mater', '2017-10-28 19:28:07', '', 'reply', 37, ''),
-(9, 'na na', 'mater', '2017-10-28 19:28:22', '', 'reply', 38, ''),
-(27, 'na na', 'mater', '2017-10-28 19:30:14', '', 'reply', 39, ''),
-(11, 'na na', 'mater', '2017-10-28 19:31:18', '', 'reply', 40, ''),
-(27, 'na ', 'mater', '2017-10-28 19:32:40', '', 'reply', 41, ''),
-(27, 'na na', 'mater', '2017-10-28 19:33:42', '', 'reply', 42, ''),
-(27, 'reply', 'mater', '2017-10-28 19:34:40', '', 'reply', 43, ''),
-(9, 'na', 'mater', '2017-10-28 19:35:22', '', 'reply', 44, ''),
-(10, 'hey', 'mater', '2017-10-28 19:35:57', '', 'reply', 45, ''),
-(10, 'hey', 'mater', '2017-10-28 19:36:29', '', 'reply', 46, ''),
-(27, 'na na', 'mater', '2017-10-28 19:38:48', '', 'reply', 47, ''),
-(27, 'not ready', 'mater', '2017-10-28 19:39:05', '', 'reply', 48, ''),
-(27, 'not fair', 'mater', '2017-10-28 19:39:19', '', 'reply', 49, '');
+(38, 'hey', 'mater', '2017-10-29 15:17:48', '', 'reply', 64, ''),
+(38, '', 'mater', '2017-10-29 15:18:09', '+1', 'reaction', 65, ''),
+(38, 'hey', 'mater', '2017-10-29 15:18:57', '', 'reply', 66, ''),
+(38, 'hey', 'mater', '2017-10-29 15:20:08', '', 'reply', 67, ''),
+(38, 'hey', 'mater', '2017-10-29 15:22:30', '', 'reply', 68, ''),
+(38, 'hey', 'mater', '2017-10-29 15:23:51', '', 'reply', 69, '');
 
 -- --------------------------------------------------------
 
@@ -302,13 +247,13 @@ ALTER TABLE `channel`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `Reply`
 --
 ALTER TABLE `Reply`
-  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
