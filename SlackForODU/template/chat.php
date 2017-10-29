@@ -60,110 +60,107 @@ if(!isset($_SESSION)) {
                                 
                             </p>
                             <?php 
-                            $plusReaction = array();
-                            $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='+1'";
-                            $result= $connection->query($query);
-                            //echo $numrows;
-                            if ($result-> num_rows>0) 
-                            {
-                            while($row=$result->fetch_assoc())
-                            {
-                                array_push($plusReaction, $row);
-                            }} 
-                            $minusReaction = array();
-                            $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='-1'";
-                            $result= $connection->query($query);
-                            //echo $numrows;
-                            if ($result-> num_rows>0) 
-                            {
-                            while($row=$result->fetch_assoc())
-                            {
-                                array_push($minusReaction, $row);
-                            }} 
+                                $plusReaction = array();
+                                $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='+1'";
+                                $result= $connection->query($query);
+                                //echo $numrows;
+                                if ($result-> num_rows>0) 
+                                {
+                                    while($row=$result->fetch_assoc())
+                                    {
+                                    array_push($plusReaction, $row);
+                                    }
+                                } 
+                                $minusReaction = array();
+                                $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reaction='-1'";
+                                $result= $connection->query($query);
+                                //echo $numrows;
+                                if ($result-> num_rows>0) 
+                                {
+                                    while($row=$result->fetch_assoc())
+                                    {
+                                        array_push($minusReaction, $row);
+                                    }
+                                } 
 
                             ?>
                             <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id']?>&msgid=<?php echo $value['msg_id']?>" class="emoji" >&#128077;</a><span><?php echo count($plusReaction)?></span>
                              <a href="javascript:void(0);"  data-href="member.php?emoji=-1&person=<?php echo $value['creator_id']?>&msgid=<?php echo$value['msg_id']?>" class="emoji" >&#x1F44E;</a><span><?php echo count($minusReaction)?></span>
 
-
-
-
-                              <?php
+                <?php
                     $prevDate1='';
-                     $replies = array();
-                    if($_SESSION['sess_user']){
-                        if($channelSelected != ''){
-                        $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reply_type='reply'";
-                        $result= $connection->query($query);
-                        if($result-> num_rows>0)
+                    $replies = array();
+                    if($_SESSION['sess_user'])
+                    {
+                        if($channelSelected != '')
                         {
-                        while($row=$result->fetch_assoc())
-                        {
-                            array_push($replies, $row);
-                        }
-
-                        } 
-                    usort($replies, function($a, $b) {
-                        return strtotime($a['replied_at']) - strtotime($b['replied_at']);
-                    });
-                    foreach ($replies as $value) {
-                        $crfdate=date_format(new DateTime($value['replied_at']),'l, F j, Y');
-                        $crdate=date_format(new DateTime($value['replied_at']),'g:i a');
-                        ?>
-                          <center><?php 
-                        if(strcmp($crfdate, $prevDate1)>0){
-                        echo $crfdate;
-                        $prevDate1=$crfdate;
-                        }
-                        ?></center>
-                    <div class="chat-message clearfix">
-                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
-
-
-                        <div class="chat-message-content clearfix">
-
-                            <span class="chat-time"><?php echo $crdate ?></span>
-
-                            <b><?php echo ucwords($value['replied_by']) ?></b>
-
-                            <p><?php echo $value['reply_msg'];?>
-                                
-                            </p>
-                            <?php 
-                            $plusReaction = array();
-                            $query="SELECT * FROM Reply WHERE reply_id='".$value['reply_id']."' and reaction='+1'";
+                            $query="SELECT * FROM Reply WHERE msg_id='".$value['msg_id']."' and reply_type='reply'";
                             $result= $connection->query($query);
-                            //echo $numrows;
-                            if ($result-> num_rows>0) 
+                            if($result-> num_rows>0)
                             {
+                                while($row=$result->fetch_assoc())
+                                {
+                                    array_push($replies, $row);
+                                }
+                            } 
+                            usort($replies, function($a, $b)
+                            {
+                                return strtotime($a['replied_at']) - strtotime($b['replied_at']);
+                            });
+                            
+                            foreach ($replies as $value)
+                            {
+                                $crfdate=date_format(new DateTime($value['replied_at']),'l, F j, Y');
+                                $crdate=date_format(new DateTime($value['replied_at']),'g:i a');
+                        ?>
+                          <center>
+                        <?php 
+                            if(strcmp($crfdate, $prevDate1)>0)
+                            {
+                                echo $crfdate;
+                                $prevDate1=$crfdate;
+                            }
+                        ?>
+                        </center>
+                        <div class="chat-message clearfix">
+                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24">
+                         <div class="chat-message-content clearfix">
+                        <span class="chat-time"><?php echo $crdate ?></span>
+                        <b><?php echo ucwords($value['replied_by']) ?></b>
+                        <p><?php echo $value['reply_msg'];?></p>
+                            
+                       <?php 
+                        $plusReaction = array();
+                        $query="SELECT * FROM Reply WHERE reply_id='".$value['reply_id']."' and reaction='+1'";
+                        $result= $connection->query($query);
+                        //echo $numrows;
+                        if ($result-> num_rows>0) 
+                        {
                             while($row=$result->fetch_assoc())
                             {
                                 array_push($plusReaction, $row);
-                            }} 
-                            $minusReaction = array();
-                            $query="SELECT * FROM Reply WHERE reply_id='".$value['reply_id']."' and reaction='-1'";
-                            $result= $connection->query($query);
-                            //echo $numrows;
-                            if ($result-> num_rows>0) 
-                            {
+                            }
+                        } 
+                        $minusReaction = array();
+                        $query="SELECT * FROM Reply WHERE reply_id='".$value['reply_id']."' and reaction='-1'";
+                        $result= $connection->query($query);
+                        //echo $numrows;
+                        if ($result-> num_rows>0) 
+                        {
                             while($row=$result->fetch_assoc())
                             {
                                 array_push($minusReaction, $row);
-                            }} 
+                            }
+                        } 
 
-                            ?>
-                            </div>
-                            </div>
-                              <?php
-                          }
-                      }
-                    }
-                 ?>
-
-
-
-
-
+                        ?>
+                        </div>
+                    </div>
+                <?php
+                }
+            }
+        }
+    ?>
 
 
 
@@ -171,34 +168,27 @@ if(!isset($_SESSION)) {
                     <fieldset>
                         <div class="row">
                             <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
-                        <input  type="text" placeholder="Reply here…" id="<?php echo "reply".$value['msg_id'] ?>"  name="reply_message" autofocus>
-                                  </div>
-                                   <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                                   <input  type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg".$value['msg_id'] ?>"/>
-        
-<!--                               style="position: absolute; left: -9999px"-->
+                                <input  type="text" placeholder="Reply here…" id="<?php echo "reply".$value['msg_id'] ?>"  name="reply_message" autofocus>
                             </div>
+                            <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
+                                <input  type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg".$value['msg_id'] ?>"/>
+                                <!-- style="position: absolute; left: -9999px"-->
                             </div>
-                    </fieldset>
-                </form>
-                        </div> <!-- end chat-message-content -->
+                    </div> <!--close row div-->
+                </fieldset>
+            </form>
+        </div> <!-- end chat-message-content -->
+    </div> <!-- end chat-message -->
 
-                    </div> <!-- end chat-message -->
-
-                    <hr>
+    <hr>
+                    
      <?php
-                    }
-                 ?>
-                </div> <!-- end chat-history -->
+    }
+    ?>
+    </div> <!-- end chat-history -->
 
-    <!--			<p class="chat-feedback">Your partner is typing…</p>-->
-
-
-
-
-
+    <!-- <p class="chat-feedback">Your partner is typing… </p>-->
                 <form method="post">
-
                     <fieldset>
                         <div class="row">
                             <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
@@ -206,7 +196,7 @@ if(!isset($_SESSION)) {
                                   </div>
                                    <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
     					<input  type="submit" value="Send" class="btn" name="submit" />
-<!--                               style="position: absolute; left: -9999px"-->
+                                <!--  style="position: absolute; left: -9999px"-->
                             </div>
                             </div>
                     </fieldset>

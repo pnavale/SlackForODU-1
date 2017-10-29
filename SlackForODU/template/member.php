@@ -2,12 +2,14 @@
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 session_start();
-// if(session_status() == PHP_SESSION_NONE) {
-//     
-// }
+    // if(session_status() == PHP_SESSION_NONE) {
+    //     
+    // }
 ?>
+
 <?php 
-if(!isset($_SESSION["sess_user"])){
+if(!isset($_SESSION["sess_user"]))
+{
 	header("location:login.php");
 } else {
 ?>
@@ -41,6 +43,8 @@ if(!isset($_SESSION["sess_user"])){
             <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span>
     </div>
     </div>
+    
+    <!--notification class-->
     <div class="notification">
              <?php
             $newchannels = array();
@@ -155,19 +159,17 @@ if($_SESSION['sess_user']){
     }
         
     foreach ($channels as $value) {
-        
         echo "<a href='member.php?ch=".$value['channel_name']."' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br></a>";
-    }       
+     }       
 	} 
-//            else {
-//	echo "Something went wrong!";
-//}
+        //else {
+        //echo "Something went wrong!";
+    //}
 ?>
            
-            </form>   
+    </form>   
         <div class = "Direct Messages"  style="color:#DCDCDC;">  
-        
-    <br><br>
+       <br><br>
 <?php
 function clickPrivateChat($selectedName) {
     $cname=$selectedName; 
@@ -214,16 +216,16 @@ function clickPrivateChat($selectedName) {
 
     }    
 	} else {
-//	echo "We couldn’t find your workspace";
-   // header("Location:wklogin.php");
+        //echo "We couldn’t find your workspace";
+        //header("Location:wklogin.php");
 	}
 
 } 
-//                 else {
-//	echo "Something went wrong!";
-//}
+     //else {
+    //echo "Something went wrong!";
+    //}
 ?>    <br>
-       </form>
+    </form>
     </div>
     </div>
         <div class="col-sm-12 col-md-9 col-lg-9 col-xs-12">
@@ -269,7 +271,7 @@ mysqli_close($connection);
 include 'chat.php';
 ?>
     </div>
-    </div>
+    
 <script type="text/javascript">
 var click=0;
 var alertClick=0;
