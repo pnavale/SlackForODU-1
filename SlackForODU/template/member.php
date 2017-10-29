@@ -27,23 +27,82 @@ if(!isset($_SESSION["sess_user"])){
 <div class="row">
 <div class="col-sm-0 col-md-3 col-lg-3 col-xs-0" style="background-color:#2c2d30;">
     <div class="row">
-        <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;font-size: 24px;">
+        <div class ="col-sm-10 col-md-10 col-lg-10 col-xs-10 wkurl" style="color:#DCDCDC;font-size: 24px;">
            
          <?php
             echo $_SESSION['wkurl'];
               ?>
         </div>
-         <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0" style="color:#DCDCDC;">
+         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;">
               <a href="#">
             <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span></a>
     </div>
     </div>
+    <div class="short-profile">
+    <div class="row">
+        <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
+          <img src="../images/<?php echo $_SESSION['sess_user_profile_pic'] ?>" alt="profile pic"> 
+        </div>
+         <div class ="col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">
+          <span><?php
+            echo $_SESSION['sess_user'];
+              ?></span>
+                </div>
+    </div>
+    <div class="row">
+             <?php
+            $channels = array();
+                $cname='slackbot';
+if($_SESSION['sess_user']){
+    $query="SELECT * FROM channel where channel_creator='default'";
+    $result= $connection->query($query);
+    //creator='".$_SESSION['sess_user']."' or
+    //creator='default'
+    //echo $numrows;
+  if($result-> num_rows>0)
+  {
+  while($row=$result->fetch_assoc())
+  {
+   array_push($channels, $row);
+        
+  }
+    }
+    $query="SELECT * FROM channel where wk_id='".$_SESSION['wkid']."'";
+    //creator='".$_SESSION['sess_user']."' or
+    //creator='default'
+   $result= $connection->query($query);
+    //echo $numrows;
+  if($result-> num_rows>0)
+  {
+  while($row=$result->fetch_assoc())
+  {
+   array_push($channels, $row);
+        
+  } }
+        
+    foreach ($channels as $value) {
+        echo  "<div class ='col-sm-8 col-md-8 col-lg-8 col-xs-8'>";
+        echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
+        echo "<div class ='col-sm-4 col-md-4 col-lg-4 col-xs-4'>";
+        if(!$value['channel_type']){
+            $value['channel_type']="public";
+          }
+        echo "<div style='color:#FFFFFF;'>".$value['channel_type']."</div></div>";
+    }       
+  } 
+//            else {
+//  echo "Something went wrong!";
+//}
+?>
+    </div>
+    </div>
+
         <br><br>
      <div class="row">
-        <div class = "Channel col-sm-0 col-md-10 col-lg-10 col-xs-0" style="color:#DCDCDC;">   
+        <div class = "Channel col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">   
             <span>Channels </span>
          </div>
-         <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0">
+         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2">
              <a href="channel.php">
           <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
         </a><br>
@@ -101,10 +160,10 @@ function clickPrivateChat($selectedName) {
     }
 ?>        
             <div class="row">
-            <div class ="col-sm-0 col-md-10 col-lg-10 col-xs-0">
+            <div class ="col-sm-10 col-md-10 col-lg-10 col-xs-10">
             <span>Direct Messages </span>
             </div>
-            <div class ="col-sm-0 col-md-2 col-lg-2 col-xs-0">
+            <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2">
              <a href="#">
                  <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
                 </div>
@@ -169,6 +228,16 @@ include 'chat.php';
 ?>
     </div>
     </div>
-    </body>
-
+<script type="text/javascript">
+var click=0;
+  $('.wkurl').click(function(){
+    if(click%2==0){
+      $('.short-profile').css('display','block');
+    }else{
+      $('.short-profile').css('display','none');
+    }
+    click++;
+    
+  })
+</script>>
 
