@@ -8,7 +8,7 @@
 if($_SESSION['sess_user']){ 
     echo isset($_GET["msg_id"]);
     if(isset($_GET["msg_id"])  ){
-        $replyMsg=$_GET["reply"];
+        $replyMsg=verify_input($_GET["reply"]);
         $msgid=$_GET["msg_id"];
         $msg_type="reply";
         $replied_by=$_SESSION['sess_user'];

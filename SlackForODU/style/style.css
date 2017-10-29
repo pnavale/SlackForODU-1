@@ -304,3 +304,10 @@ text-decoration: none;
     display: none;
     background-color: gray;
 }
+
+.wkurl{
+    cursor: pointer;
+}
+.notification{
+   display: none; 
+}

@@ -33,11 +33,48 @@ if(!isset($_SESSION["sess_user"])){
             echo $_SESSION['wkurl'];
               ?>
         </div>
-         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;">
-              <a href="#">
-            <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span></a>
+         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2 alert" style="color:#DCDCDC;">
+             
+            <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span>
     </div>
     </div>
+    <div class="notification">
+    <div style='color:#FFFFFF;'>Invitations</div>
+    <div class="row">
+             <?php
+            $newchannels = array();
+          if($_SESSION['sess_user']){
+              $query="SELECT * FROM channel where invites like '%".$_SESSION['sess_user']."%'";
+              $result= $connection->query($query);
+              //creator='".$_SESSION['sess_user']."' or
+              //creator='default'
+              //echo $numrows;
+            if($result-> num_rows>0)
+            {
+            while($row=$result->fetch_assoc())
+            {
+             array_push($newchannels, $row);
+                  
+            }
+              }  
+              foreach ($newchannels as $value) {
+                  echo  "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
+                  echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
+                  echo "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
+                  if(!$value['channel_type']){
+                      $value['channel_type']="public";
+                    }
+                  echo "<div><button value='".$value['channel_type']."'>Join</button>";
+                  echo "<button value='".$value['channel_type']."'>Cancel</button></div></div>";
+              }       
+            } 
+//            else {
+//  echo "Something went wrong!";
+//}
+?>
+    </div>
+    </div>
+
     <div class="short-profile">
     <div class="row">
         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
@@ -54,7 +91,7 @@ if(!isset($_SESSION["sess_user"])){
             $channels = array();
                 $cname='slackbot';
 if($_SESSION['sess_user']){
-    $query="SELECT * FROM channel where channel_creator='default'";
+    $query="SELECT * FROM channel where channel_creator='default' and joined='1'";
     $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
     //creator='default'
@@ -239,5 +276,16 @@ var click=0;
     click++;
     
   })
-</script>>
+
+    
+  $('.alert').click(function(){
+    if(click%2==0){
+      $('.notification').css('display','block');
+    }else{
+      $('.notification').css('display','none');
+    }
+    click++;
+    
+  })
+</script>
 

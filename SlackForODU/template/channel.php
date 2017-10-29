@@ -7,47 +7,54 @@ session_start();
 <?php
 // define variables and set to empty values
 $nameErr = $purposeErr = $invitesErr = "";
-$name = $purpose = $c = $invites=$chType= "";
+$name = $purpose = $c = $invites=$chType= $channel_id="";
 
 if(isset($_POST["submit"]))
 { $name=verify_input($_POST['name']);
-	if(!empty($_POST['name']))
-	{ 
-    if($_POST['name']==''){
-      echo $error="Please enter channel name in lowercase without spaces or period.";
+	if(!empty($name))
+	{ $lowercaseName = strtolower($name);
+    if(($name!=$lowercaseName) || ctype_space($name) || strpos($name,'.')){
+      $error="Please enter channel name in lowercase without spaces or period.";
     }else{
-		    $purpose=$_POST['purpose'];
-        $invites=$_POST['invites'];
-        $query="SELECT * FROM channel ORDER BY channel_id DESC LIMIT 1";
-        $result= $connection->query($query);
-        $channel_id='';
-        $chType = $_POST['chType'];
-		if($result-> num_rows>0)
-		{
-			while($row=$result->fetch_assoc())
-			{
-				$channel_id=$row['channel_id'];
-                }
-                }
-        $channel_id=substr("$channel_id", 2,2 );
-        $channel_id=$channel_id+1;
-        $uchannel_id='ch'.$channel_id;
-        $user=$_SESSION['sess_user'];
-        $wk_id=$_SESSION['wkid'];
+        if(isset($_POST['purpose'])){
+          $purpose=$_POST['purpose'];
+        }
+        if(isset($_POST['invites'])){
+          foreach ($_POST['invites'] as $selectedOption){
+            $invites=$invites.",".$selectedOption;
+          }
+        }
+        if(isset($_POST['chType'])){
+          $chType = $_POST['chType'];
+        }
+            $user=$_SESSION['sess_user'];
+            $wk_id=$_SESSION['wkid'];
+            $query="SELECT * FROM channel where channel_name='".$name."'";
+            $result= $connection->query($query);
+            if($result-> num_rows>0)
+              {
+              while($row=$result->fetch_assoc())
+              {
 
-        $result1=$connection->query("insert into channel (channel_id,channel_name,channel_creator,channel_created,wk_id,channel_type,purpose,invites)    values('$uchannel_id','$name','$user',NOW(),'$wk_id','$chType','$purpose','$invites');
-        ");
-        if($result1){
-          header("Location: member.php");
+               $error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
+              }
+            }
+            else{
+            $result1=$connection->query("insert into channel (channel_name,channel_creator,channel_created,wk_id,channel_type,purpose,invites)    values('$name','$user',NOW(),'$wk_id','$chType','$purpose','$invites');
+            "); 
+            if($result1){
+              // header("Location: member.php");
+            }else{
+              echo mysqli_error($connection);
+            }
+          }
+        }
+            
+      
         }
         else{
-          $error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
+            $error='Please enter the channel name.';
         }
-  
-    }
-    }else{
-        echo 'Please enter the channel name.';
-    }
 }
 
 if(isset($_POST["cancel"])){
@@ -72,8 +79,7 @@ if(isset($_POST["cancel"])){
 <!--  <span class="error">* <?php echo $purposeErr;?></span>-->
   <br><br>  <br><br>
     Send invites to <span class="grey-font">(optional)</span>
-    <input type="text" class="form-control" list="invites"  name="invites" placeholder="Search by name" value="<?php echo $invites;?>"  multiple/>
-<datalist id="invites">
+    <select class="form-control" id="invites" name="invites[]" multiple="mutliple">
 <?php 
 $members = array();
   if($_SESSION['sess_user']){
@@ -83,18 +89,16 @@ $members = array();
   {
   while($row=$result->fetch_assoc())
   {
-   array_push($members, $row);
-        
+   array_push($members, $row);     
   }
 }
 }
 foreach ($members as $value) {
-echo "<option value=".$value['username'].">".$value['username']."</option>";
+echo "<option value='".$value['username']."'>".$value['username']."</option>";
 }
 mysqli_close($connection); 
 ?>
-</datalist>
-
+</select> 
     <span class="grey-font">Select up to 100 people to add into this channel.</span>
 <!--  <span class="error"><?php echo $invitesErr;?></span>-->
   <br><br>
@@ -119,3 +123,8 @@ value="public">Public</span>
     </div>
 </form>
 </div>
+<script type="text/javascript">
+  // Return an array of the selected opion values
+// select is an HTML select element
+$('#invites').val()
+</script>
