@@ -1,9 +1,10 @@
 <?php
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
-if(!isset($_SESSION)) {
-    session_start();
-}
+session_start();
+// if(session_status() == PHP_SESSION_NONE) {
+//     
+// }
 ?>
 <?php 
 if(!isset($_SESSION["sess_user"])){
