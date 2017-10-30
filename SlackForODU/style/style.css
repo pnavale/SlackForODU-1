@@ -5,9 +5,10 @@ p,
 span {
     margin: 0;
     padding: 0;
-    font-size: 24px;
 }
-
+span {
+    font-size: 24px;
+}   
 input {
     font: 12px arial;
 }
