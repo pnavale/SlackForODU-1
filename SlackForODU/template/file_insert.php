@@ -25,7 +25,7 @@ else
     }
     catch(Exception $e) {
     echo $e->getMessage();
-    echo 'Sorry, could not upload file';
+    echo 'Sorry, could not upload file!';
     }
 }
 
@@ -55,7 +55,8 @@ function upload() {
                     // put the image in the db...
                     // database connection
                     //mysql_connect($host, $user, $pass) OR DIE (mysql_error());
-                    $conn = mysqli_connect("localhost", "root", "", "profile") OR DIE (mysql_error());
+                      $connection=mysqli_connect('localhost','admin','M0n@rch$');  
+                    //$conn = mysqli_connect("localhost", "root", "", "profile") OR DIE (mysql_error());
 
                     // select the db
                     //mysql_select_db ($db) OR DIE ("Unable to select db".mysql_error());
