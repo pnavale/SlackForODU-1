@@ -13,17 +13,17 @@ if(isset($_POST["submit"]))
 { $name=verify_input($_POST['name']);
 	if(!empty($name))
 	{ $lowercaseName = strtolower($name);
-    if(($name!=$lowercaseName) || ctype_space($name) || strpos($name,'.')){
-      $error="Please enter channel name in lowercase without spaces or period.";
-    }else{
-        if(isset($_POST['purpose'])){
-          $purpose=$_POST['purpose'];
-        }
-        if(isset($_POST['invites'])){
-          foreach ($_POST['invites'] as $selectedOption){
-            $invites=$invites.",".$selectedOption;
-          }
-        }
+    		if(($name!=$lowercaseName) || ctype_space($name) || strpos($name,'.')){
+      		$error="Please enter channel name in lowercase without spaces or period.";
+    		}else{
+        		if(isset($_POST['purpose'])){
+          		$purpose=$_POST['purpose'];
+       			 }
+       			 if(isset($_POST['invites'])){
+          		foreach ($_POST['invites'] as $selectedOption){
+            		$invites=$invites.",".$selectedOption;
+          		}
+        	}
         if(isset($_POST['chType'])){
           $chType = $_POST['chType'];
         }
@@ -35,8 +35,7 @@ if(isset($_POST["submit"]))
               {
               while($row=$result->fetch_assoc())
               {
-
-               $error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
+               	$error="This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.";
               }
             }
             else{
@@ -49,9 +48,7 @@ if(isset($_POST["submit"]))
             }
           }
         }
-            
-      
-        }
+      }
         else{
             $error='Please enter the channel name.';
         }
@@ -59,7 +56,7 @@ if(isset($_POST["submit"]))
 
 if(isset($_POST["cancel"])){
     /* Redirect browser */
-			header("Location: member.php");
+	header("Location: member.php");
 }      
 ?>
 <div class="login-container" style="width:600px">
@@ -124,7 +121,7 @@ value="public">Public</span>
 </form>
 </div>
 <script type="text/javascript">
-  // Return an array of the selected opion values
+  // Return an array of the selected option values
 // select is an HTML select element
 $('#invites').val()
 </script>
