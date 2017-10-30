@@ -1,38 +1,28 @@
-<!--  <meta http-equiv="refresh" content="10">
- -->
 <?php
-if (!isset($_SESSION)) {
-    session_start();
+session_start();
+include 'includes/db_connection.php';
+
+$data = [];
+
+$channelSelected = $_GET['ch'];
+$cname = $_GET['pc'];
+if ('' == $cname) {
+    $cname = $_SESSION['sess_user'];
 }
 
-$chats = [];
-$channelObject = [];
 if ($_SESSION['sess_user']) {
+    $chats = [];
     if ('' != $channelSelected) {
-        $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $query = "SELECT * FROM message m left join channel c on m.channel_id = c.channel_id AND c.channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $channel_idSelected = $row['channel_id'];
-            }
-        } else {
-            // header("Location:wklogin.php");
-        }
-
-        $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
-        $result = $connection->query($query);
-        $chats = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 array_push($chats, $row);
             }
-        } else {
-            // header("Location:wklogin.php");
+        }
+        foreach ($chats => $chat) {
         }
     } else {
-        if ('' != $cname) {
-            $cname = $_SESSION['sess_user'];
-        }
         $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
@@ -50,4 +40,9 @@ if ($_SESSION['sess_user']) {
         }
     }
 }
-?>
+
+$data['chats'] = $chats;
+ob_end_clean();
+mysqli_close($connection);
+header('Content-Type: application/json');
+echo json_encode($data);
