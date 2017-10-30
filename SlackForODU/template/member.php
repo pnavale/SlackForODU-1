@@ -146,7 +146,8 @@ foreach ($channels as $value)
          <?php
             $channels = array();
                 $cname='slackbot';
-if($_SESSION['sess_user']){
+if($_SESSION['sess_user'])
+{
     $query="SELECT * FROM channel where channel_creator='default' or  joined like '%".$_SESSION['sess_user']."%'";
     $result= $connection->query($query);
     //creator='".$_SESSION['sess_user']."' or
@@ -154,20 +155,20 @@ if($_SESSION['sess_user']){
     //echo $numrows;
 	if($result-> num_rows>0)
 	{
-	while($row=$result->fetch_assoc())
+		while($row=$result->fetch_assoc())
 	{
-	 array_push($channels, $row);
-        
+	 	array_push($channels, $row);  
 	}
-    }
+ }
         
-    foreach ($channels as $value) {
-        echo "<a href='member.php?ch=".$value['channel_name']."' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br></a>";
-     }       
-	} 
+    foreach ($channels as $value)
+    {
+	    echo "<a href='member.php?ch=".$value['channel_name']."' name='ch' value='".$value['channel_name']."'><span style='color:#FFFFFF;'>"."#".$value['channel_name']."</span><br></a>";
+    }       
+} 
         //else {
         //echo "Something went wrong!";
-    //}
+    	//}
 ?>
            
     </form>   
@@ -186,8 +187,8 @@ function clickPrivateChat($selectedName) {
             <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2">
              <a href="#">
                  <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span></a>
-                </div>
-                </div>
+             </div>
+             </div>
             <form name="usersForm" method="GET" style="font-size: 20px;">
                 <a href='#' name='pc' style='color:#FFFFFF;' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br></a>
             
