@@ -19,11 +19,11 @@
      	<center><h4>Sign in to your workspace URL</h4></center>
 	<img src="../images/logo.png">
    <div class="error-msg" style="margin-left: -2%;">
-	<!-- <span class="material-icons">warning</span>-->
+	
         <span style="font-size:14px;">
 		
   	<?php
-    		global $error;
+		global $error;
 		if(isset($_POST["submit"]))
 		{
 			if(!empty($_POST['url']))
