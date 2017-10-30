@@ -38,6 +38,7 @@ if (strcmp($crfdate, $prevDate) > 0) {
     }
     ?>
                     </center>
+                    5
                     <div class="chat-message clearfix">
                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
                         <div class="chat-message-content clearfix">
@@ -115,7 +116,7 @@ if ($_SESSION['sess_user']) {
             $group_id = '';
             $profile_pic = $_SESSION['sess_user_profile_pic'];
             $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
-                    values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
+        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
             if (mysqli_query($connection, $sql)) {
             } else if (mysqli_error($connection)) {
                 echo "Error in posting a message.";

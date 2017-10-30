@@ -28,7 +28,7 @@ if (!$_SESSION['wkid']) {
             <input type="submit" value="Sign in" class="btn btn-success" name="submit" id="verifyLogin" />
             <br>
             <br>
-            <a href="register.php" class="btn btn-success">Sign up</a>
+            <a href="register.php" class="btn btn-default" style="width: 100%;">Sign up</a>
         </form>
     </div>
     <script type="text/javascript">

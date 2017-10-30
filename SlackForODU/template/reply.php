@@ -4,7 +4,6 @@ include 'includes/functions.php';
 session_start();
 ?>
     <?php
-
 if ($_SESSION['sess_user']) {
     if (isset($_GET["msg_id"])) {
         $replyMsg = verify_input($_GET["reply"]);

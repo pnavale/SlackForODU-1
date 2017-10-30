@@ -39,7 +39,7 @@ if (isset($_POST["submit"])) {
                 $result1 = $connection->query("insert into channel (channel_name,channel_creator,channel_created,wk_id,channel_type,purpose,invites)    values('$name','$user',NOW(),'$wk_id','$chType','$purpose','$invites');
             ");
                 if ($result1) {
-                    // header("Location: member.php");
+                    header("Location: member.php");
                 } else {
                     echo mysqli_error($connection);
                 }

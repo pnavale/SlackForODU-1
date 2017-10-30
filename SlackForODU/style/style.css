@@ -20,6 +20,9 @@ a:hover {
     text-decoration: underline;
 }
 
+
+/* ------ Chatbox -------- */
+
 #chatbox {
     text-align: left;
     margin: 0 auto;
@@ -62,6 +65,8 @@ a:hover {
 }
 
 
+/* Body */
+
 body {
     margin-top: 100px;
     margin-bottom: 100px;
@@ -97,6 +102,9 @@ body {
     position: relative;
     height: 100%;
 }
+
+
+/* Login container style */
 
 .login-container {
     position: relative;
@@ -201,7 +209,6 @@ p {
 }
 
 
-
 /* For IE 6/7 */
 
 .clearfix:before,
@@ -213,7 +220,6 @@ p {
 .clearfix:after {
     clear: both;
 }
-
 
 
 /* ---------- LIVE-CHAT ---------- */

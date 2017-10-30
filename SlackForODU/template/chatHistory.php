@@ -1,5 +1,3 @@
-<!--  <meta http-equiv="refresh" content="10">
- -->
 <?php
 if (!isset($_SESSION)) {
     session_start();
@@ -50,4 +48,3 @@ if ($_SESSION['sess_user']) {
         }
     }
 }
-?>
