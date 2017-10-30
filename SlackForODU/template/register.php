@@ -49,7 +49,6 @@ if(isset($_POST["submit"]))
 				} else {
 				echo mysqli_error($connection);
 			}
-
 		} else {
 			echo "That username already exists! Please try again with another.";
 	    	}
