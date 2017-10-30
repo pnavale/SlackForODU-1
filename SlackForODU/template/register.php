@@ -8,7 +8,6 @@ if(!$_SESSION['wkid'])
 	header("Location: wklogin.php");
 }
 ?>
-/* Sing-up, Sign-in */
 <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
     <div class="login-container" style="width: 400px;">
      <center><h4>Sign up to your workspace</h4>
