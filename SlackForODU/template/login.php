@@ -37,8 +37,8 @@ if(isset($_POST["submit"]))
 		{
 			while($row=$result->fetch_assoc())
 			{
-				$dbusername=$row['username'];
-				$dbpassword=$row['password'];
+			$dbusername=$row['username'];
+			$dbpassword=$row['password'];
     			$dbfullname=$row['full_name'];
     			$dbgroup_id=$row['group_id'];
     			$dbworkspace_id=$row['workspace_id'];
@@ -49,7 +49,7 @@ if(isset($_POST["submit"]))
         
 		if($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id )
 		{
-				$_SESSION['sess_user']=$dbusername;
+			$_SESSION['sess_user']=$dbusername;
     			$_SESSION['sess_user_fullname']=$dbfullname;
     			$_SESSION['sess_user_profile_pic']=$dbprofile_pic;
     			$_SESSION['sess_user_wk']=$dbworkspace_id;
