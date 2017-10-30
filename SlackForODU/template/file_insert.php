@@ -80,6 +80,7 @@ function upload() {
                     $msg="<p>Uploaded file is not an image.</p>";
             }
              else {
+                 
                 // if the file is not less than the maximum allowed, print an error
                 $msg='<div>File exceeds the Maximum File limit</div>
                 <div>Maximum File limit is '.$maxsize.' bytes</div>
