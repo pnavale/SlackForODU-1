@@ -21,6 +21,7 @@ if ($_SESSION['sess_user']) {
             }
         }
         foreach ($chats => $chat) {
+            $msgId =
         }
     } else {
         $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";

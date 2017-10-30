@@ -1,106 +1,54 @@
-<html>
-<head><title>File Insert</title></head>
-<body>
-<h3>Please Choose a File and click Submit</h3>
-
-<form enctype="multipart/form-data" action=
-"<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-<input name="userfile" type="file" />
-<input type="submit" value="Submit" />
-</form>
-
 <?php
-include 'includes/db_connection.php';
-// check if a file was submitted
-if(!isset($_FILES['userfile']))
-{
-    echo '<p>Please select a file</p>';
-}
-else
-{
-    try {
-    $msg= upload();  //this will upload your image
-    echo $msg;  //Message showing success or failure.
-    }
-    catch(Exception $e) {
-    echo $e->getMessage();
-    echo 'Sorry, could not upload file!';
-    }
-}
 
-// the upload function
-
-function upload() {
+function upload()
+{
     // include "file_constants.php";
     $maxsize = 10000000; //set to approx 10 MB
 
     //check associated error code
-    if($_FILES['userfile']['error']==UPLOAD_ERR_OK) {
-
+    if (UPLOAD_ERR_OK == $_FILES['userfile']['error']) {
         //check whether file is uploaded with HTTP POST
-        if(is_uploaded_file($_FILES['userfile']['tmp_name'])) {    
-
+        if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
             //checks size of uploaded image on server side
-            if( $_FILES['userfile']['size'] < $maxsize) {  
-  
-               //checks whether uploaded file is of image type
-              //if(strpos(mime_content_type($_FILES['userfile']['tmp_name']),"image")===0) {
-                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                if(strpos(finfo_file($finfo, $_FILES['userfile']['tmp_name']),"image")===0) {    
-
+            if ($_FILES['userfile']['size'] < $maxsize) {
+                //checks whether uploaded file is of image type
+                //if(strpos(mime_content_type($_FILES['userfile']['tmp_name']),"image")===0) {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                if (strpos(finfo_file($finfo, $_FILES['userfile']['tmp_name']), "image") === 0) {
                     // prepare the image for insertion
-                    $imgData = addslashes (file_get_contents($_FILES['userfile']['tmp_name']));
+                    $imgData = addslashes(file_get_contents($_FILES['userfile']['tmp_name']));
 
-                    // put the image in the db...
-                    // database connection
-                    //mysql_connect($host, $user, $pass) OR DIE (mysql_error());
-                      $connection=mysqli_connect('localhost','admin','M0n@rch$');  
-                    //$conn = mysqli_connect("localhost", "root", "", "profile") OR DIE (mysql_error());
-
-                    // select the db
-                    //mysql_select_db ($db) OR DIE ("Unable to select db".mysql_error());
-                    mysqli_select_db($conn,'profile')or die(mysqli_error($conn));
-
-                    // our sql query
-                    //$sql = "INSERT INTO test_image
-                    //(image, name)
-                    //VALUES
-                    //('{$imgData}', '{$_FILES['userfile']['name']}');";
-                    $sql = mysqli_query($conn,"INSERT INTO test_image ('image','name') VALUES ('{$imgData}', '{$_FILES['userfile']['name']}')" );
-
-                    // insert the image
-                    //mysql_query($sql) or die("Error in Query: " . mysql_error());
-                    mysqli_query($conn,$sql) or die("Error in Query: " . mysqli_error($conn));
+                    $imageObj = [];
+                    $imageObj['image'] = $imgData;
+                    $imageObj['name'] = $_FILES['userfile']['name'];
+                    return $imageObj;
 
                     //$msg= '<p>Image successfully saved in database with id ='. mysql_insert_id(). '</p>';
-                   // $msg= '<p>Image successfully saved in database with id =' .mysqli_insert_id() '</p>';
+                    // $msg= '<p>Image successfully saved in database with id =' .mysqli_insert_id() '</p>';
+                } else {
+                    $msg = "<p>Uploaded file is not an image.</p>";
                 }
-                else
-                    $msg="<p>Uploaded file is not an image.</p>";
-            }
-             else {
-                 
-                // if the file is not less than the maximum allowed, print an error
-                $msg='<div>File exceeds the Maximum File limit</div>
-                <div>Maximum File limit is '.$maxsize.' bytes</div>
-                <div>File '.$_FILES['userfile']['name'].' is '.$_FILES['userfile']['size'].
-                ' bytes</div><hr />';
-                }
-        }
-        else
-            $msg="File not uploaded successfully.";
+            } else {
 
-    }
-    else {
-        $msg= file_upload_error_message($_FILES['userfile']['error']);
+                // if the file is not less than the maximum allowed, print an error
+                $msg = '<div>File exceeds the Maximum File limit</div>
+                <div>Maximum File limit is ' . $maxsize . ' bytes</div>
+                <div>File ' . $_FILES['userfile']['name'] . ' is ' . $_FILES['userfile']['size'] .
+                    ' bytes</div><hr />';
+            }
+        } else {
+            $msg = "File not uploaded successfully.";
+        }
+    } else {
+        $msg = file_upload_error_message($_FILES['userfile']['error']);
     }
     return $msg;
 }
 
 // Function to return error message based on error code
 
-function file_upload_error_message($error_code) {
+function file_upload_error_message($error_code)
+{
     switch ($error_code) {
         case UPLOAD_ERR_INI_SIZE:
             return 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
@@ -120,6 +68,3 @@ function file_upload_error_message($error_code) {
             return 'Unknown upload error';
     }
 }
-?>
-</body>
-</html>

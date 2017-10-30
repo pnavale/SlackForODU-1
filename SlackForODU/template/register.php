@@ -2,6 +2,7 @@
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
+include 'file_insert.php';
 session_start();
 if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
@@ -22,26 +23,42 @@ if (!$_SESSION['wkid']) {
             <br> Full Name:
             <input type="text" class="form-control" name="fullname">
             <br> Upload your profile pic:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <br>
-            <input type="submit" class="btn btn-basic" value="Upload your profile pic" name="submit">
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+            <input name="userfile" type="file" />
             <br>
             <br>
             <input type="submit" class="btn btn-success" value="Next" name="submit" />
         </form>
         <?php
 if (isset($_POST["submit"])) {
+    $msg = [];
     if (!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email']) && !empty($_POST['fullname'])) {
+        if (!isset($_FILES['userfile'])) {
+            echo '<p>Please select a file</p>';
+        } else {
+            try {
+                $msg = upload(); //this will upload your image
+                echo $msg; //Message showing success or failure.
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                echo 'Sorry, could not upload file!';
+            }
+        }
         $user = test_input($_POST['user']);
         $pass = test_input($_POST['pass']);
         $email = test_input($_POST['email']);
         $fullname = test_input($_POST['fullname']);
         $wk_id = $_SESSION['wkid'];
+        if ($msg) {
+            $profile = $msg['name'];
+            $image = $msg['image'];
+        }
         if (verify_email($email)) {
             $query = "SELECT * FROM users WHERE username='" . $user . "' or email_id='" . $email . "'";
             $result = $connection->query($query);
             if ($result->num_rows < 1) {
-                $result = $connection->query("INSERT INTO users(username,password,email_id,group_id,full_name,workspace_id,channel_id,profile_pic,signup_date) VALUES('$user','$pass','$email','','$fullname','$wk_id','','',NOW())");
+                $result = $connection->query("INSERT INTO users(username,password,email_id,group_id,full_name,workspace_id,channel_id,profile_pic,signup_date,image) VALUES
+                	('$user','$pass','$email','','$fullname','$wk_id','','$profile',NOW(),'$image')");
                 if ($result) {
                     echo "Account Successfully Created";
                     /* Redirect browser */
