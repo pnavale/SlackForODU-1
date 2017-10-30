@@ -6,7 +6,7 @@ include 'includes/db_connection.php';
  // some basic sanity checks
  if(isset($_GET['id']) && is_numeric($_GET['id'])) {
      //connect to the db
-     $link = mysql_connect("$host", "$user", "$pass")
+     //$link = mysql_connect("$host", "$user", "$pass")
      //or die("Could not connect: " . mysql_error());
      $conn = mysqli_connect("localhost", "root", "", "profile") OR DIE (mysql_error());
 
