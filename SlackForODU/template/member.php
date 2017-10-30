@@ -235,45 +235,52 @@ function clickPrivateChat($selectedName) {
  
         <?php
       $channelSelected='';
-      if(isset($_GET["ch"])){
+      if(isset($_GET["ch"]))
+      {
         $cname='';
         $channelSelected=$_GET['ch'];
       }
-      if(isset($_GET["pc"])){
+      if(isset($_GET["pc"]))
+      {
         $channelSelected='';
         $cname=$_GET['pc'];
       }
-      if(isset($_GET["whichChannelJoined"])){
+      if(isset($_GET["whichChannelJoined"]))
+      {
               $whichChannelJoined=$_GET["whichChannelJoined"];
               $currUser=$_SESSION['sess_user'];
               $inviteString = '';
               $joinedString = '';
               $query="SELECT * FROM channel where channel_name='".$whichChannelJoined."' and invites like '%".$currUser."%'";
                       $result= $connection->query($query);
-                      if($result-> num_rows>0){
-                          while($row=$result->fetch_assoc()){
+                      if($result-> num_rows>0)
+		      {
+                          while($row=$result->fetch_assoc())
+			  {
                               $inviteString = $row['invites']; 
                               $inviteString = str_replace($currUser, "", $inviteString);
                               $joinedString = $row['joined']; 
                               $joinedString = $joinedString.",".$currUser;
                               $sql="update channel set joined='".$joinedString."' where channel_name='".$whichChannelJoined."'";
-                                  if (mysqli_query($connection, $sql)) {
+                                  if (mysqli_query($connection, $sql))
+				  {
                                       echo "Joined channel successfully";
                                       $sql="update channel set invites='".$inviteString."' where channel_name='".$whichChannelJoined."'";
-                                      if (mysqli_query($connection, $sql)) {
+                                      if (mysqli_query($connection, $sql))
+				      {
                                             echo "Invite Accepted";
-                                        } else {
+                                      } else {
                                               echo "Error deleting invite: " . mysqli_error($connection);
                                         }    
                                    }
                           } 
                       }
-      }
+      	}
 
 mysqli_close($connection);
 include 'chat.php';
 ?>
-    </div>
+	</div>
     
 <script type="text/javascript">
 var click=0;
