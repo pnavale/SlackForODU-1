@@ -15,14 +15,14 @@ if(!$_SESSION['wkid'])
 </head>
 <body>
    <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
-    <br><br>
-    <div class="login-container">
+   <br><br>
+   <div class="login-container">
      <center><h4>Login to enter in your slack workspace</h4></center>
-<img src="../images/logo.png">
+	<img src="../images/logo.png">
          <div class="error-msg" style="margin-left: -2%;">
-<!--            <span class="material-icons">warning</span>-->
-             <span style="font-size:14px;">
-        <?php
+	  <!-- <span class="material-icons">warning</span>-->
+          <span style="font-size:14px;">
+ <?php
 if(isset($_POST["submit"]))
 {
 	if(!empty($_POST['user']) && !empty($_POST['pass']))
@@ -46,7 +46,6 @@ if(isset($_POST["submit"]))
     			$dbchannel=$row['channel_id'];   
 			}
     
-        
 		if($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id )
 		{
 			$_SESSION['sess_user']=$dbusername;
@@ -75,19 +74,19 @@ if(isset($_POST["submit"]))
 }
 	mysqli_close($connection);                 
 ?>
-             </span></div>
-        <br><br>
+</span>
+</div>
+<br><br>
         
 <form action="" method="POST">
- <input type="text" class="form-control" name="user" placeholder="username or email id" ><br>
- <input type="password" class="form-control" name="pass" placeholder="password" ><br>	
-<label class="checkbox normal inline_block" style="
-    margin-left: -18%;
-"><input type="checkbox" name="remember" checked=""> Remember me</label>
+ 	<input type="text" class="form-control" name="user" placeholder="username or email id" ><br>
+ 	<input type="password" class="form-control" name="pass" placeholder="password" ><br>	
+	<label class="checkbox normal inline_block" style="margin-left: -18%;">
+	<input type="checkbox" name="remember" checked=""> Remember me</label>
     <br>
 	<input type="submit" value="Sign in" class="btn btn-success" name="submit" />
 </form>
-    </div>
+</div>
 
 </body>
 </html>
