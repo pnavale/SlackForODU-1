@@ -144,7 +144,8 @@ CREATE TABLE `users` (
   `workspace_id` varchar(20) NOT NULL,
   `channel_id` varchar(20) NOT NULL,
   `profile_pic` text NOT NULL,
-  `signup_date` datetime NOT NULL
+  `signup_date` datetime NOT NULL,
+   `image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

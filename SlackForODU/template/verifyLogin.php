@@ -22,16 +22,18 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             $dbworkspace_id = $row['workspace_id'];
             $dbprofile_pic = $row['profile_pic'];
             $dbchannel = $row['channel_id'];
+            $dbimage = $row['image'];
         }
 
         if ($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id) {
             $_SESSION['sess_user'] = $dbusername;
             $_SESSION['sess_user_fullname'] = $dbfullname;
             $_SESSION['sess_user_profile_pic'] = $dbprofile_pic;
+            $_SESSION['sess_image'] = $dbimage;
             $_SESSION['sess_user_wk'] = $dbworkspace_id;
             $_SESSION['sess_user_ch'] = $dbchannel;
             $data['success'] = true;
-            $data['message'] = 'Login Successfull.';
+            $data['message'] = 'Login Successful.';
         }
         if ($user == $dbusername && $pass == $dbpassword) {
             $data['message'] = "It seems you don't have an account for this workspace!";

@@ -21,10 +21,11 @@ function upload()
                     $imageObj = [];
                     $imageObj['image'] = $imgData;
                     $imageObj['name'] = $_FILES['userfile']['name'];
-                    return $imageObj;
+                    
 
-                    //$msg= '<p>Image successfully saved in database with id ='. mysql_insert_id(). '</p>';
-                    // $msg= '<p>Image successfully saved in database with id =' .mysqli_insert_id() '</p>';
+                    $msg= '<p>Image successfully saved in database.</p>';
+                     $msg= '<p>Image successfully saved in database.</p>';
+                    return $imageObj;
                 } else {
                     $msg = "<p>Uploaded file is not an image.</p>";
                 }

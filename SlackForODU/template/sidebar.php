@@ -44,7 +44,12 @@ if ($_SESSION['sess_user']) {
     <div class="short-profile">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
-                <img src="../images/<?php echo $_SESSION['sess_user_profile_pic'] ?>" alt="profile pic">
+                <?php if($_SESSION['sess_image']){
+                        echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['sess_image'] ).'"/>';
+                    } else {
+                        echo "<img src='../images/".$_SESSION['sess_user_profile_pic']."' alt='profile pic'>";
+                    }
+                 ?>
             </div>
             <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">
                 <span><?php
