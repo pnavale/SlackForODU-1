@@ -286,26 +286,26 @@ include 'chat.php';
 var click=0;
 var alertClick=0;
   $('.wkurl').click(function(){
-    if(click%2==0){
+    if(click%2==0)
+    {
       $('.short-profile').css('display','block');
       $('.notification').css('display','none');
     }else{
       $('.short-profile').css('display','none');
     }
-    click++;
-    
+    click++;   
   })
 
     
   $('.alert').click(function(){
-    if(alertClick%2==0){
+    if(alertClick%2==0)
+    {
       $('.notification').css('display','block');
       $('.short-profile').css('display','none');
     }else{
       $('.notification').css('display','none');
     }
-    alertClick++;
-    
+    alertClick++;   
   })
 $('.join').click(function(){
   var whichChannelJoined=$(this).val();
