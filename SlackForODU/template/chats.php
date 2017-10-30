@@ -12,6 +12,7 @@ if ('' == $cname) {
 
 if ($_SESSION['sess_user']) {
     $chats = [];
+    $replies = [];
     if ('' != $channelSelected) {
         $query = "SELECT * FROM message m left join channel c on m.channel_id = c.channel_id AND c.channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
@@ -20,9 +21,18 @@ if ($_SESSION['sess_user']) {
                 array_push($chats, $row);
             }
         }
-        foreach ($chats => $chat) {
-            $msgId =
+        foreach ($chats as  $chat) {
+            $msgId = $chat['msg_id'];
+            $replies = [];
+            $query = "SELECT * FROM Reply WHERE msg_id='" . $msgId . "' and reply_type='reply'";
+            $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($replies, $row);
+                    }
+                }
         }
+        $chats['replies']=$replies;
     } else {
         $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";
         $result = $connection->query($query);
@@ -30,6 +40,18 @@ if ($_SESSION['sess_user']) {
             while ($row = $result->fetch_assoc()) {
                 array_push($chats, $row);
             }
+            foreach ($chats as  $chat) {
+            $msgId = $chat['msg_id'];
+            $replies = [];
+            $query = "SELECT * FROM Reply WHERE msg_id='" . $msgId . "' and reply_type='reply'";
+            $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($replies, $row);
+                    }
+                }
+        }
+        $chats['replies']=$replies;
 
             $query = "SELECT * FROM message WHERE creator_id='" . $_SESSION['sess_user'] . "' and channel_id='' and recipient_id='" . $cname . "'";
             $result = $connection->query($query);
@@ -37,6 +59,18 @@ if ($_SESSION['sess_user']) {
                 while ($row = $result->fetch_assoc()) {
                     array_push($chats, $row);
                 }
+                foreach ($chats as  $chat) {
+            $msgId = $chat['msg_id'];
+            $replies = [];
+            $query = "SELECT * FROM Reply WHERE msg_id='" . $msgId . "' and reply_type='reply'";
+            $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($replies, $row);
+                    }
+                }
+        }
+        $chats['replies']=$replies;
             }
         }
     }
