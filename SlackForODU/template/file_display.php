@@ -1,5 +1,6 @@
 <?php
- include "file_constants.php";
+include 'includes/db_connection.php';
+ // include "file_constants.php";
  // just so we know it is broken
  error_reporting(E_ALL);
  // some basic sanity checks
