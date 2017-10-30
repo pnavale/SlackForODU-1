@@ -11,7 +11,7 @@
 </form>
 
 <?php
-
+include 'includes/db_connection.php';
 // check if a file was submitted
 if(!isset($_FILES['userfile']))
 {
@@ -32,7 +32,7 @@ else
 // the upload function
 
 function upload() {
-    include "file_constants.php";
+    // include "file_constants.php";
     $maxsize = 10000000; //set to approx 10 MB
 
     //check associated error code
@@ -50,7 +50,7 @@ function upload() {
                 if(strpos(finfo_file($finfo, $_FILES['userfile']['tmp_name']),"image")===0) {    
 
                     // prepare the image for insertion
-                    $imgData =addslashes (file_get_contents($_FILES['userfile']['tmp_name']));
+                    $imgData = addslashes (file_get_contents($_FILES['userfile']['tmp_name']));
 
                     // put the image in the db...
                     // database connection
