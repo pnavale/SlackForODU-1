@@ -38,7 +38,6 @@ if (strcmp($crfdate, $prevDate) > 0) {
     }
     ?>
                     </center>
-                    5
                     <div class="chat-message clearfix">
                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
                         <div class="chat-message-content clearfix">
