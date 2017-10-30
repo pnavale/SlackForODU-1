@@ -13,7 +13,6 @@ if(!isset($_SESSION["sess_user"]))
 	header("location:login.php");
 } else {
 ?>
-
     <style>           
         span{
             font-size: 20px;
@@ -38,49 +37,50 @@ if(!isset($_SESSION["sess_user"]))
             echo $_SESSION['wkurl'];
               ?>
         </div>
-         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2 alert" style="color:#DCDCDC;">
-             
+         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2 alert" style="color:#DCDCDC;">            
             <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span>
-    </div>
+    	</div>
     </div>
     
     <!--notification class-->
     <div class="notification">
-             <?php
-            $newchannels = array();
-          if($_SESSION['sess_user']){
-              $query="SELECT * FROM channel where invites like '%".$_SESSION['sess_user']."%'";
-              $result= $connection->query($query);
-              //creator='".$_SESSION['sess_user']."' or
-              //creator='default'
-              //echo $numrows;
-            if($result-> num_rows>0)
-            {
-            echo "<div style='color:#FFFFFF;'>Invitations</div>
-                  <div class='row'>";
-            while($row=$result->fetch_assoc())
-            {
-             array_push($newchannels, $row);
-                  
-            }
-              }  
-              else{
-                echo "<div style='color:#FFFFFF;'>&#x1f61e;No alerts.";
-              }
-              foreach ($newchannels as $value) {
-                  echo  "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
-                  echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
-                  echo "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
-                  if(!$value['channel_type']){
-                      $value['channel_type']="public";
-                    }
-                  echo "<div><button class='join' value='".$value['channel_name']."'>Join</button>";
-                  echo "<button class='cancelbtn' value='".$value['channel_name']."'>Cancel</button></div></div>";
-              }       
-            } 
-//            else {
-//  echo "Something went wrong!";
-//}
+     <?php
+      		$newchannels = array();
+          	if($_SESSION['sess_user'])
+		{
+              		$query="SELECT * FROM channel where invites like '%".$_SESSION['sess_user']."%'";
+              		$result= $connection->query($query);
+              		//creator='".$_SESSION['sess_user']."' or
+              		//creator='default'
+              		//echo $numrows;
+            		if($result-> num_rows>0)
+            		{
+            			echo "<div style='color:#FFFFFF;'>Invitations</div>
+                  		<div class='row'>";
+            			while($row=$result->fetch_assoc())
+            			{
+             				array_push($newchannels, $row);   
+            			}
+              		}  
+              		else{
+                		echo "<div style='color:#FFFFFF;'>&#x1f61e;No alerts.";
+              			}
+              		foreach ($newchannels as $value)
+			{
+                  		echo  "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
+                  		echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
+                  		echo "<div class ='col-sm-6 col-md-6 col-lg-6 col-xs-6'>";
+                  		if(!$value['channel_type'])
+				{
+                      			$value['channel_type']="public";
+                    		}
+                  		echo "<div><button class='join' value='".$value['channel_name']."'>Join</button>";
+                  		echo "<button class='cancelbtn' value='".$value['channel_name']."'>Cancel</button></div></div>";
+              		}       
+            	} 
+			// else {
+			//  echo "Something went wrong!";
+			//}
 ?>
     </div>
     </div>
@@ -88,57 +88,60 @@ if(!isset($_SESSION["sess_user"]))
     <div class="short-profile">
     <div class="row">
         <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
-          <img src="../images/<?php echo $_SESSION['sess_user_profile_pic'] ?>" alt="profile pic"> 
+        	<img src="../images/<?php echo $_SESSION['sess_user_profile_pic'] ?>" alt="profile pic"> 
         </div>
          <div class ="col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">
-          <span><?php
-            echo $_SESSION['sess_user'];
-              ?></span>
-                </div>
+          	<span><?php
+            	echo $_SESSION['sess_user'];
+              	?></span>
+         </div>
     </div>
     <div class="row">
              <?php
             $channels = array();
-                $cname='slackbot';
-if($_SESSION['sess_user']){
+            $cname='slackbot';
+	    
+if($_SESSION['sess_user'])
+{
     $query="SELECT * FROM channel where channel_creator='default' or  joined like '%".$_SESSION['sess_user']."%'";
     $result= $connection->query($query);
   if($result-> num_rows>0)
   {
-  while($row=$result->fetch_assoc())
-  {
-   array_push($channels, $row);
-        
-  }
-    }   
-    foreach ($channels as $value) {
-        echo  "<div class ='col-sm-8 col-md-8 col-lg-8 col-xs-8'>";
+  	while($row=$result->fetch_assoc())
+  	{
+   		array_push($channels, $row);       
+  	}
+  }   
+  
+foreach ($channels as $value)
+{
+	echo  "<div class ='col-sm-8 col-md-8 col-lg-8 col-xs-8'>";
         echo "<div style='color:#FFFFFF;'>#".$value['channel_name']."</div></div>";
         echo "<div class ='col-sm-4 col-md-4 col-lg-4 col-xs-4'>";
-        if(!$value['channel_type']){
-            $value['channel_type']="public";
-          }
+        if(!$value['channel_type'])
+	{
+		$value['channel_type']="public";
+        }
         echo "<div style='color:#FFFFFF;'>".$value['channel_type']."</div></div>";
-    }       
-  } 
-//            else {
-//  echo "Something went wrong!";
-//}
+  }       
+} 
+	// else {
+	// echo "Something went wrong!";
+	//}
 ?>
     </div>
     </div>
-
-        <br><br>
+<br><br>
      <div class="row">
         <div class = "Channel col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">   
             <span>Channels </span>
          </div>
          <div class ="col-sm-2 col-md-2 col-lg-2 col-xs-2">
              <a href="channel.php">
-          <span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
-        </a><br>
+          	<span style="color:#F5F5F5;" class="glyphicon glyphicon-plus-sign"></span>
+        	</a><br>
          </div>
-         </div>
+      </div>
           <form method="GET">  
          <?php
             $channels = array();
