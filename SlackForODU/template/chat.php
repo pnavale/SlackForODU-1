@@ -8,13 +8,9 @@ if(!isset($_SESSION)) {
 }
     ?>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
-
         <div id="live-chat">
-
             <header class="clearfix">
-
                 <a href="#" class="chat-close">x</a>
-
                 <h4><?php 
                     if($channelSelected){
                         echo "#".$channelSelected;
@@ -22,15 +18,10 @@ if(!isset($_SESSION)) {
                         echo ucwords($cname);
                     }
                      ?></h4>
-
                 <span class="chat-message-counter">3</span>
-
             </header>
-
             <div class="chat">
-
                 <div class="chat-history">
-
                      <?php
                     $prevDate='';
                     usort($chats, function($a, $b) {
@@ -49,15 +40,10 @@ if(!isset($_SESSION)) {
                     <div class="chat-message clearfix">
 
                         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
-
                         <div class="chat-message-content clearfix">
-
                             <span class="chat-time"><?php echo $crdate ?></span>
-
                             <b><?php echo ucwords($value['creator_id']); ?></b>
-
-                            <p><?php echo $value['msg_body'];?>
-                                
+                            <p><?php echo $value['msg_body'];?>                     
                             </p>
                             <?php 
                                 $plusReaction = array();
@@ -162,23 +148,21 @@ if(!isset($_SESSION)) {
         }
     ?>
 
-
-
-                    <form method="post">
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
-                                <input  type="text" placeholder="Reply here…" id="<?php echo "reply".$value['msg_id'] ?>"  name="reply_message" autofocus>
-                            </div>
-                            <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                                <input  type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg".$value['msg_id'] ?>"/>
-                                <!-- style="position: absolute; left: -9999px"-->
-                            </div>
-                    </div> <!--close row div-->
-                </fieldset>
-            </form>
-        </div> <!-- end chat-message-content -->
-    </div> <!-- end chat-message -->
+     <form method="post">
+        <fieldset>
+            <div class="row">
+            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
+                <input  type="text" placeholder="Reply here…" id="<?php echo "reply".$value['msg_id'] ?>"  name="reply_message" autofocus>
+            </div>
+            <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
+                <input  type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg".$value['msg_id'] ?>"/>
+                <!-- style="position: absolute; left: -9999px"-->
+            </div>
+            </div> <!--close row div-->
+        </fieldset>
+      </form>
+   </div> <!-- end chat-message-content -->
+ </div> <!-- end chat-message -->
 
     <hr>
                     
