@@ -194,36 +194,35 @@ function clickPrivateChat($selectedName) {
             
          <?php
             $members = array();
-            if($_SESSION['sess_user']){
-    $query="SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'";
-    //creator='".$_SESSION['sess_user']."' or
-    //creator='default'
-    $result= $connection->query($query);
-    //echo $numrows;
-	if($result-> num_rows>0)
-	{
-	while($row=$result->fetch_assoc())
-	{
-	 array_push($members, $row);
-        
-	}
+            if($_SESSION['sess_user'])
+	    {
+    		$query="SELECT * FROM users where workspace_id='".$_SESSION['wkid']."'";
+    		//creator='".$_SESSION['sess_user']."' or
+    		//creator='default'
+    		$result= $connection->query($query);
+    		//echo $numrows;
+		if($result-> num_rows>0)
+		{
+			while($row=$result->fetch_assoc())
+			{
+	 			array_push($members, $row);
+		}
 
-    foreach ($members as $value) {
-         $uname = $value['username'];
-        
-        if($value['username'] == $_SESSION['sess_user']){
-            echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."' ><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br></a>";
-        }
-        else{
-              echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> </a>";
-        }
-
-    }    
+    	foreach ($members as $value)
+	{
+        	$uname = $value['username'];
+        	if($value['username'] == $_SESSION['sess_user'])
+		{
+            		echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."' ><span style='color:palevioletred;'>&hearts;</span>".$value['username']."&nbsp;&nbsp;(you)<br></a>";
+        	}
+        	else{
+              		echo "<a name='pc' href='member.php?pc=".$value['username']."' class='names' style='color:#FFFFFF;' value='".$value['username']."'><span style='color:palevioletred;'>&hearts;</span>".$value['username']."<br> </a>";
+        	}
+    	}    
 	} else {
-        //echo "We couldn’t find your workspace";
-        //header("Location:wklogin.php");
+        	//echo "We couldn’t find your workspace";
+        	//header("Location:wklogin.php");
 	}
-
 } 
      //else {
     //echo "Something went wrong!";
