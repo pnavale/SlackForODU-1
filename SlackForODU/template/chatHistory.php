@@ -1,5 +1,5 @@
-<!--  <meta http-equiv="refresh" content="10">   
- -->
+<!--  <meta http-equiv="refresh" content="10"> -->
+
  <?php
     if(!isset($_SESSION))
     {
