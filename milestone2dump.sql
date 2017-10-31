@@ -60,7 +60,7 @@ INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel
 (5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',,pnavale,', 'private', 'mater,doc', ''),
 (6, 'fashion', 'doc', '2017-10-31 12:10:02', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally,pnavale'),
 (7, 'fashionq', 'doc', '2017-10-31 12:12:48', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally'),
-(8, 'commun', 'doc', '2017-10-31 12:14:29', '', 'csjkjs', ',agosa003,', 'public', ',doc', ',mater,sally'),
+(8, 'commun', 'doc', '2017-10-31 12:14:29', '', 'csjkjs', ',agosa003,', 'public', ',doc', ',mater,sally');
 
 -- --------------------------------------------------------
 
