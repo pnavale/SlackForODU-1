@@ -179,6 +179,7 @@ if ($_SESSION['sess_user']) {
     <div class="Direct Messages" style="color:#DCDCDC;">
         <br>
         <br>
+
             <div class="row">
                 <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10">
                     <span>Direct Messages </span>
