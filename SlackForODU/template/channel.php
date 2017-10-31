@@ -3,6 +3,9 @@ include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
 session_start();
+if (!isset($_SESSION["sess_user"])) {
+    header("location:login.php");
+}
 ?>
     <?php
 // define variables and set to empty values
@@ -26,8 +29,7 @@ if (isset($_POST["submit"])) {
             }
             if (isset($_POST['chType'])) {
                 $chType = $_POST['chType'];
-            }
-            else{
+            } else {
                 $chType = "public";
             }
             $user = $_SESSION['sess_user'];
