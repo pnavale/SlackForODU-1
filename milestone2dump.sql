@@ -81,20 +81,24 @@ CREATE TABLE `message` (
   `profile_pic` varchar(20) NOT NULL,
   `reaction` varchar(10) NOT NULL,
   `msg_type` varchar(10) NOT NULL,
-  `reacted` varchar(22) NOT NULL
+  `reacted` varchar(22) NOT NULL,
+  `image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_date`, `thread_id`, `channel_id`, `group_id`, `recipient_id`, `profile_pic`, `reaction`, `msg_type`, `reacted`) VALUES
-(38, 'general', 'mater', 'hey', '2017-10-29 15:17:36', 0, '1', '', '', '1.png', '', '', '');
+INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_date`, `thread_id`, `channel_id`, `group_id`, `recipient_id`, `profile_pic`, `reaction`, `msg_type`, `reacted`, `image`) VALUES
+(38, 'general', 'mater', 'hey', '2017-10-29 15:17:36', 0, '1', '', '', '1.png', '', '', '', ''),
+(39, '', 'agosa003', 'Hey', '2017-10-31 14:23:20', 0, '', '', 'agosa003', '+1.PNG', '', '', '', ''),
+(40, '', 'agosa003', 'hello', '2017-10-31 14:36:31', 0, '', '', 'agosa003', '+1.PNG', '', '', '', ''),
+(41, '', 'agosa003', 'hello', '2017-10-31 14:41:26', 0, '', '', 'agosa003', '+1.PNG', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reply`
+-- Table structure for table `Reply`
 --
 
 CREATE TABLE `Reply` (
@@ -105,21 +109,25 @@ CREATE TABLE `Reply` (
   `reaction` varchar(22) NOT NULL,
   `reply_type` varchar(20) NOT NULL,
   `reply_id` int(11) NOT NULL,
-  `profile_pic` text NOT NULL
+  `profile_pic` text NOT NULL,
+  `image` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `reply`
+-- Dumping data for table `Reply`
 --
 
-INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`, `profile_pic`) VALUES
-(38, 'hey', 'mater', '2017-10-29 15:17:48', '', 'reply', 64, ''),
-(38, '', 'mater', '2017-10-29 15:18:09', '+1', 'reaction', 65, ''),
-(38, 'hey', 'mater', '2017-10-29 15:18:57', '', 'reply', 66, ''),
-(38, 'hey', 'mater', '2017-10-29 15:20:08', '', 'reply', 67, ''),
-(38, 'hey', 'mater', '2017-10-29 15:22:30', '', 'reply', 68, ''),
-(38, 'hey', 'mater', '2017-10-29 15:23:51', '', 'reply', 69, ''),
-(38, '', 'agosa003', '2017-10-30 16:55:27', '-1', 'reaction', 70, '');
+INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`, `profile_pic`, `image`) VALUES
+(38, 'hey', 'mater', '2017-10-29 15:17:48', '', 'reply', 64, '', ''),
+(38, '', 'mater', '2017-10-29 15:18:09', '+1', 'reaction', 65, '', ''),
+(38, 'hey', 'mater', '2017-10-29 15:18:57', '', 'reply', 66, '', ''),
+(38, 'hey', 'mater', '2017-10-29 15:20:08', '', 'reply', 67, '', ''),
+(38, 'hey', 'mater', '2017-10-29 15:22:30', '', 'reply', 68, '', ''),
+(38, 'hey', 'mater', '2017-10-29 15:23:51', '', 'reply', 69, '', ''),
+(38, '', 'agosa003', '2017-10-30 16:55:27', '-1', 'reaction', 70, '', ''),
+(41, '', 'agosa003', '2017-10-31 14:41:43', '', 'reply', 72, '', ''),
+(41, '', 'agosa003', '2017-10-31 14:42:13', '', 'reply', 73, '', ''),
+(38, 'hey', 'agosa003', '2017-10-31 14:43:14', '', 'reply', 74, '', '');
 
 -- --------------------------------------------------------
 
@@ -207,7 +215,7 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`msg_id`);
 
 --
--- Indexes for table `reply`
+-- Indexes for table `Reply`
 --
 ALTER TABLE `Reply`
   ADD PRIMARY KEY (`reply_id`);
@@ -233,16 +241,20 @@ ALTER TABLE `workspace`
 --
 ALTER TABLE `channel`
   MODIFY `channel_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
 --
--- AUTO_INCREMENT for table `reply`
+-- AUTO_INCREMENT for table `Reply`
 --
 ALTER TABLE `Reply`
-  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
