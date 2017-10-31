@@ -90,6 +90,9 @@ if ($_SESSION['sess_user']) {
                 //   }
                 echo "<div style='color:#FFFFFF;'>" . $value['channel_type'] . "</div></div>";
             }
+            else{
+                echo "<div class ='col-sm-12 col-md-12 col-lg-12 col-xs-12 private-ch' >No private channel.</div>";
+            }
         }
     }
 }
@@ -115,6 +118,8 @@ if ($_SESSION['sess_user']) {
     <form method="GET">
         <?php
 $channels = [];
+$uninvited=[];
+$uninvitedStr=$invitesStr='';
 $cname = 'slackbot';
 if ($_SESSION['sess_user']) {
     $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%'";
@@ -127,14 +132,54 @@ if ($_SESSION['sess_user']) {
             array_push($channels, $row);
         }
     }
+    
+     foreach ($channels as $value) {
+        if($value['channel_creator']==$_SESSION['sess_user']){
+        echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span></a><div class='sidebar_invite' id='". $value['channel_name'] ."' style='color:#DCDCDC;'>Invite</div><br>";
+        echo "<div class='row sinvite' style='color:#DCDCDC;'>";
+        echo "<form method='post'>";
+        echo "<select class='form-control' id='invites".$value['channel_name']."' name='invites[]' multiple='mutliple'>";
+       
+        if(!strpos($value['uninvited'],",")){
+            $uninvited=explode(",",$value['uninvited']);
+        }
+        $invitesStr=$value['invites'];
+        foreach ($uninvited as $uninvite) {
+        echo "<option value='" . $uninvite . "'>" . $uninvite . "</option>";
+            $uninvitedStr = $uninvitedStr . "," . $uninvite;
+        }
 
-    foreach ($channels as $value) {
-        echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span><br></a>";
+        echo "</select>";
+        echo "<input type='submit' value='Invite' class='btn' id='inviteBtn".$value['channel_name']."' name='sinvite' style='color: black;'/>";
+        echo "</form>"; 
+        echo "</div>";
+    
+            }
+        else{
+             echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span><br></a>";
+        }
     }
+
+    
+
+   if (isset($_GET["invites"]) && isset($_GET["channelname"])) {
+                foreach ($_POST['invites'] as $selectedOption) {
+                    $invites = $invites . "," . $selectedOption;
+                }
+                $uninvitedStr=str_replace($invites,'',$uninvitedStr);
+                $invitesStr=$invitesStr.$invites;
+            $channelname=$_GET["channelname"];
+            $result1 = $connection->query("update channel invites='".$invitesStr."' and uninvited='".$uninvitedStr."' where channel_name='".$channelname."');
+            ");
+                if ($result1) {
+                    echo "Invites Sent.";
+                } else {
+                    echo mysqli_error($connection);
+                }
+   
 }
-//else {
-//echo "Something went wrong!";
-//}
+}
+
 ?>
     </form>
     <div class="Direct Messages" style="color:#DCDCDC;">
@@ -159,19 +204,15 @@ function clickPrivateChat($selectedName)
             </div>
             <form name="usersForm" method="GET" style="font-size: 20px;">
                 <a href='#' name='pc' style='color:#FFFFFF;' value="slackbot"><span style='color:#f27670;'>&hearts;</span>slackbot<br></a>
-                <?php
-$members = [];
+<?php
 if ($_SESSION['sess_user']) {
+    $members = [];
     $query = "SELECT * FROM users where workspace_id='" . $_SESSION['wkid'] . "'";
-    //creator='".$_SESSION['sess_user']."' or
-    //creator='default'
     $result = $connection->query($query);
-    //echo $numrows;
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             array_push($members, $row);
         }
-
         foreach ($members as $value) {
             $uname = $value['username'];
 
@@ -181,14 +222,8 @@ if ($_SESSION['sess_user']) {
                 echo "<a name='pc' href='member.php?pc=" . $value['username'] . "' class='names' style='color:#FFFFFF;' value='" . $value['username'] . "'><span style='color:palevioletred;'>&hearts;</span>" . $value['username'] . "<br> </a>";
             }
         }
-    } else {
-        //echo "We couldn’t find your workspace";
-        //header("Location:wklogin.php");
-    }
+    } 
 }
-//else {
-//echo "Something went wrong!";
-//}
 ?>
                     <br>
             </form>
@@ -236,6 +271,8 @@ mysqli_close($connection);
     var click = 0;
     var alertClick = 0;
     var private_channel =0;
+    var sidebarInvite=0;
+    var channelname='';
     $('.wkurl').click(function() {
         if (click % 2 == 0) {
             $('.short-profile').css('display', 'block');
@@ -258,7 +295,37 @@ mysqli_close($connection);
         alertClick++;
 
     })
+        $('.sidebar_invite').click(function(e) {
+            console.log($(this).attr('id'));
+            channelname = $(this).attr('id');
+        if (sidebarInvite % 2 == 0) {
+            $('.sinvite').css('display', 'block');
+            console.log("1");
+        } else {
+            $('.sinvite').css('display', 'none');
+            console.log("1");
+        }
+        sidebarInvite++;
 
+    })
+        $('.inviteBtn'+channelname).click(function(e) {
+            e.preventDefault();
+             console.log($(this).attr('id'));
+            var invites=$('.invites'+channelname).val();
+            $.ajax({
+                type: 'GET',
+                url: 'sidebar.php',
+                data: { channelname: channelname,invites:invites},
+                success: function(response) {
+                    console.log({ channelname: channelname});
+                    return { channelname: channelname};
+                }
+            });
+           })
+        $('.sidebar_invite').click(function(e) {
+            console.log($(this).attr('id'));
+            channelname = $(this).attr('id');
+             })
 
 $('.private_channel').click(function() {
         if (private_channel % 2 == 0) {
