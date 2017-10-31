@@ -44,12 +44,12 @@ if ($_SESSION['sess_user']) {
     <div class="short-profile">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
-                <?php if($_SESSION['sess_image']){
-                        echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['sess_image'] ).'"/>';
-                    } else {
-                        echo "<img src='../images/".$_SESSION['sess_user_profile_pic']."' alt='profile pic'>";
-                    }
-                 ?>
+                <?php if ($_SESSION['sess_image']) {
+    echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['sess_image']) . '"/>';
+} else {
+    echo "<img src='../images/" . $_SESSION['sess_user_profile_pic'] . "' alt='profile pic'>";
+}
+?>
             </div>
             <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">
                 <span><?php
@@ -57,12 +57,14 @@ echo $_SESSION['sess_user'];
 ?></span>
             </div>
         </div>
+        <div class="row"><button class="btn btn-default private_channel">Show private channel</button>
+</div>
         <div class="row">
             <?php
 $channels = [];
 $cname = 'slackbot';
 if ($_SESSION['sess_user']) {
-    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' and channel_type='public'";
+    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%'";
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -78,6 +80,16 @@ if ($_SESSION['sess_user']) {
             //     $value['channel_type']="public";
             //   }
             echo "<div style='color:#FFFFFF;'>" . $value['channel_type'] . "</div></div>";
+        } else {
+            if ("private" == $value['channel_type']) {
+                echo "<div class ='col-sm-8 col-md-8 col-lg-8 col-xs-8 private-ch' >";
+                echo "<div style='color:#FFFFFF;'>#" . $value['channel_name'] . "</div></div>";
+                echo "<div class ='col-sm-4 col-md-4 col-lg-4 col-xs-4 private-ch'>";
+                // if(!$value['channel_type']){
+                //     $value['channel_type']="public";
+                //   }
+                echo "<div style='color:#FFFFFF;'>" . $value['channel_type'] . "</div></div>";
+            }
         }
     }
 }
@@ -223,6 +235,7 @@ mysqli_close($connection);
     <script type="text/javascript">
     var click = 0;
     var alertClick = 0;
+    var private_channel =0;
     $('.wkurl').click(function() {
         if (click % 2 == 0) {
             $('.short-profile').css('display', 'block');
@@ -245,6 +258,21 @@ mysqli_close($connection);
         alertClick++;
 
     })
+
+
+$('.private_channel').click(function() {
+        if (private_channel % 2 == 0) {
+            $('.private-ch').css('display', 'block');
+        } else {
+            $('.private-ch').css('display', 'none');
+        }
+        private_channel++;
+
+    })
+
+
+
+
     $('.join').click(function() {
         var whichChannelJoined = $(this).val();
         console.log('join', whichChannelJoined);

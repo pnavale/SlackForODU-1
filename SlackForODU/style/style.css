@@ -371,11 +371,14 @@ p {
     cursor: pointer;
 }
 
-.alert {
+.alert ,.private-channel{
     cursor: pointer;
 }
 
 .notification {
     display: none;
     background-color: gray;
+}
+.private-ch{
+    display: none;
 }
