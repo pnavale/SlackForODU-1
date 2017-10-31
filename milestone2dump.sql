@@ -61,8 +61,6 @@ INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel
 (6, 'fashion', 'doc', '2017-10-31 12:10:02', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally,pnavale'),
 (7, 'fashionq', 'doc', '2017-10-31 12:12:48', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally'),
 (8, 'commun', 'doc', '2017-10-31 12:14:29', '', 'csjkjs', ',agosa003,', 'public', ',doc', ',mater,sally'),
-(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', ''),
-(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', '');
 
 -- --------------------------------------------------------
 
@@ -122,10 +120,6 @@ CREATE TABLE `Reply` (
 INSERT INTO `Reply` (`msg_id`, `reply_msg`, `replied_by`, `replied_at`, `reaction`, `reply_type`, `reply_id`, `profile_pic`, `image`) VALUES
 (38, 'hey', 'mater', '2017-10-29 15:17:48', '', 'reply', 64, '', ''),
 (38, '', 'mater', '2017-10-29 15:18:09', '+1', 'reaction', 65, '', ''),
-(38, 'hey', 'mater', '2017-10-29 15:18:57', '', 'reply', 66, '', ''),
-(38, 'hey', 'mater', '2017-10-29 15:20:08', '', 'reply', 67, '', ''),
-(38, 'hey', 'mater', '2017-10-29 15:22:30', '', 'reply', 68, '', ''),
-(38, 'hey', 'mater', '2017-10-29 15:23:51', '', 'reply', 69, '', ''),
 (38, '', 'agosa003', '2017-10-30 16:55:27', '-1', 'reaction', 70, '', ''),
 (41, '', 'agosa003', '2017-10-31 14:41:43', '', 'reply', 72, '', ''),
 (41, '', 'agosa003', '2017-10-31 14:42:13', '', 'reply', 73, '', ''),
