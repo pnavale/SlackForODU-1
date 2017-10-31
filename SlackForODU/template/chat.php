@@ -39,7 +39,21 @@ if (strcmp($crfdate, $prevDate) > 0) {
     ?>
                     </center>
                     <div class="chat-message clearfix">
-                        <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32">
+                     <?php if ('' == $value['image']) {
+        $query = "SELECT * FROM users where username='" . $value['creator_id'] . "'";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                if ($row['image']) {
+                    echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';
+                } else {
+                    echo "<img width='32' height='32' src='../images/" . $value['profile_pic'] . "' alt='profile pic'>";
+                }
+            }
+        }
+    }
+    ?>
+                       <!--  <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32"> -->
                         <div class="chat-message-content clearfix">
                             <span class="chat-time"><?php echo $crdate ?></span>
                             <b><?php echo ucwords($value['creator_id']); ?></b>
@@ -113,6 +127,7 @@ if ($_SESSION['sess_user']) {
                 $recipient_id = '';
             }
             $group_id = '';
+            $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
             $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
         values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
