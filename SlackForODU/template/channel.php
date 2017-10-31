@@ -17,7 +17,7 @@ if (isset($_POST["submit"])) {
             $error = "Please enter channel name in lowercase without spaces or period.";
         } else {
             if (isset($_POST['purpose'])) {
-                $purpose = $_POST['purpose'];
+                $purpose = verify_input($_POST['purpose']);
             }
             if (isset($_POST['invites'])) {
                 foreach ($_POST['invites'] as $selectedOption) {
@@ -26,6 +26,9 @@ if (isset($_POST["submit"])) {
             }
             if (isset($_POST['chType'])) {
                 $chType = $_POST['chType'];
+            }
+            else{
+                $chType = "public";
             }
             $user = $_SESSION['sess_user'];
             $wk_id = $_SESSION['wkid'];
