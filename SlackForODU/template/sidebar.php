@@ -136,7 +136,7 @@ if ($_SESSION['sess_user']) {
      foreach ($channels as $value) {
         if($value['channel_creator']==$_SESSION['sess_user']){
         echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span></a><div class='sidebar_invite' id='". $value['channel_name'] ."' style='color:#DCDCDC;'>Invite</div><br>";
-        echo "<div class='row sinvite' style='color:#DCDCDC;'>";
+        echo "<div class='row'><div style='color:#DCDCDC;' class="sinvite">";
         echo "<form method='post'>";
         echo "<select class='form-control' id='invites".$value['channel_name']."' name='invites[]' multiple='mutliple'>";
        
@@ -152,7 +152,7 @@ if ($_SESSION['sess_user']) {
         echo "</select>";
         echo "<input type='submit' value='Invite' class='btn' id='inviteBtn".$value['channel_name']."' name='sinvite' style='color: black;'/>";
         echo "</form>"; 
-        echo "</div>";
+        echo "</div></div>";
     
             }
         else{
