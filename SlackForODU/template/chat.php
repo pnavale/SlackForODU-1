@@ -9,11 +9,11 @@ if (!isset($_SESSION)) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
     <div id="live-chat">
         <header class="clearfix">
-            <a href="#" class="chat-close">x</a>
+           <!--  <a href="#" class="chat-close">x</a> -->
             <h4><?php
-if ($channelSelected) {
+if (isset($channelSelected)) {
     echo "#" . $channelSelected;
-} else {
+} else if (isset($cname)) {
     echo ucwords($cname);
 }
 ?></h4>
@@ -64,7 +64,6 @@ if (strcmp($crfdate, $prevDate) > 0) {
 $plusReaction = [];
     $query = "SELECT * FROM Reply WHERE msg_id='" . $value['msg_id'] . "' and reaction='+1'";
     $result = $connection->query($query);
-    //echo $numrows;
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             array_push($plusReaction, $row);
@@ -188,7 +187,6 @@ if ($_SESSION['sess_user']) {
 $profile = $_SESSION['sess_user_profile_pic'];
 if ($_SESSION['sess_user']) {
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
-        echo "nnjnjnj" . $_GET["emoji"] . $_GET["person"] . $_GET["msgid"];
         $emoji = $_GET["emoji"];
         $person = $_SESSION['sess_user'];
         $msgid = $_GET["msgid"];
@@ -198,12 +196,16 @@ if ($_SESSION['sess_user']) {
         if ($result->num_rows > 0) {
             echo "You can't like/dislike multiple times.";
         } else {
+            // $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and msg_type='" . $msg_type . "'";
+            // if ($connection->query($sql)) {
+            //
             $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
             } else {
                 echo "Error updating record: " . mysqli_error($connection);
-            }}
+            }
+        }
     }
     $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
@@ -211,21 +213,12 @@ if ($_SESSION['sess_user']) {
         $msgid = $_GET["msg_id"];
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
-        // if($_SESSION['sess_user_profile_pic']){
-        // $profile=$_SESSION['sess_user_profile_pic'];
-        // }
-        // else{
-        //     $profile="person.png";
-        // }
-        global $profile;
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {
             echo "Record updated successfully";
-            echo $profile;
         } else {
             echo "Error updating record: " . mysqli_error($connection);
         }}
-    // }}
 }
 mysqli_close($connection);
 ?>

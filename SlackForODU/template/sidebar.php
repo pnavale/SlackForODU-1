@@ -89,8 +89,7 @@ if ($_SESSION['sess_user']) {
                 //     $value['channel_type']="public";
                 //   }
                 echo "<div style='color:#FFFFFF;'>" . $value['channel_type'] . "</div></div>";
-            }
-            else{
+            } else {
                 echo "<div class ='col-sm-12 col-md-12 col-lg-12 col-xs-12 private-ch' >No private channel.</div>";
             }
         }
@@ -118,8 +117,8 @@ if ($_SESSION['sess_user']) {
     <form method="GET">
         <?php
 $channels = [];
-$uninvited=[];
-$uninvitedStr=$invitesStr='';
+$uninvited = [];
+$uninvitedStr = $invitesStr = '';
 $cname = 'slackbot';
 if ($_SESSION['sess_user']) {
     $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%'";
@@ -132,52 +131,47 @@ if ($_SESSION['sess_user']) {
             array_push($channels, $row);
         }
     }
-    
-     foreach ($channels as $value) {
-        if($value['channel_creator']==$_SESSION['sess_user']){
-        echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span></a><div class='sidebar_invite' id='". $value['channel_name'] ."' style='color:#DCDCDC;'>Invite</div><br>";
-        echo "<div class='row'><div style='color:#DCDCDC;display:none;' class='sinvite'>";
-        echo "<form method='post'>";
-        echo "<select class='form-control' id='invites".$value['channel_name']."' name='invites[]' multiple='mutliple'>";
-       
-        if(!strpos($value['uninvited'],",")){
-            $uninvited=explode(",",$value['uninvited']);
-        }
-        $invitesStr=$value['invites'];
-        foreach ($uninvited as $uninvite) {
-        echo "<option value='" . $uninvite . "'>" . $uninvite . "</option>";
-            $uninvitedStr = $uninvitedStr . "," . $uninvite;
-        }
 
-        echo "</select>";
-        echo "<input type='submit' value='Invite' class='btn' id='inviteBtn".$value['channel_name']."' name='sinvite' style='color: black;'/>";
-        echo "</form>"; 
-        echo "</div></div>";
-    
+    foreach ($channels as $value) {
+        if ($value['channel_creator'] == $_SESSION['sess_user']) {
+            echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span></a><div class='sidebar_invite' id='" . $value['channel_name'] . "' style='color:#DCDCDC;'>Invite</div><br>";
+            echo "<div class='row'><div style='color:#DCDCDC;display:none;' class='sinvite'>";
+            echo "<form method='post'>";
+            echo "<select class='form-control' id='invites" . $value['channel_name'] . "' name='invites[]' multiple='mutliple'>";
+
+            if (!strpos($value['uninvited'], ",")) {
+                $uninvited = explode(",", $value['uninvited']);
             }
-        else{
-             echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span><br></a>";
+            $invitesStr = $value['invites'];
+            foreach ($uninvited as $uninvite) {
+                echo "<option value='" . $uninvite . "'>" . $uninvite . "</option>";
+                $uninvitedStr = $uninvitedStr . "," . $uninvite;
+            }
+
+            echo "</select>";
+            echo "<input type='submit' value='Invite' class='btn' id='inviteBtn" . $value['channel_name'] . "' name='sinvite' style='color: black;'/>";
+            echo "</form>";
+            echo "</div></div>";
+        } else {
+            echo "<a href='member.php?ch=" . $value['channel_name'] . "' name='ch' value='" . $value['channel_name'] . "'><span style='color:#FFFFFF;'>" . "#" . $value['channel_name'] . "</span><br></a>";
         }
     }
 
-    
-
-   if (isset($_GET["invites"]) && isset($_GET["channelname"])) {
-                foreach ($_POST['invites'] as $selectedOption) {
-                    $invites = $invites . "," . $selectedOption;
-                }
-                $uninvitedStr=str_replace($invites,'',$uninvitedStr);
-                $invitesStr=$invitesStr.$invites;
-            $channelname=$_GET["channelname"];
-            $result1 = $connection->query("update channel invites='".$invitesStr."' and uninvited='".$uninvitedStr."' where channel_name='".$channelname."');
+    if (isset($_GET["invites"]) && isset($_GET["channelname"])) {
+        foreach ($_POST['invites'] as $selectedOption) {
+            $invites = $invites . "," . $selectedOption;
+        }
+        $uninvitedStr = str_replace($invites, '', $uninvitedStr);
+        $invitesStr = $invitesStr . $invites;
+        $channelname = $_GET["channelname"];
+        $result1 = $connection->query("update channel invites='" . $invitesStr . "' and uninvited='" . $uninvitedStr . "' where channel_name='" . $channelname . "');
             ");
-                if ($result1) {
-                    echo "Invites Sent.";
-                } else {
-                    echo mysqli_error($connection);
-                }
-   
-}
+        if ($result1) {
+            echo "Invites Sent.";
+        } else {
+            echo mysqli_error($connection);
+        }
+    }
 }
 
 ?>
@@ -185,14 +179,6 @@ if ($_SESSION['sess_user']) {
     <div class="Direct Messages" style="color:#DCDCDC;">
         <br>
         <br>
-        <?php
-function clickPrivateChat($selectedName)
-{
-    $cname = $selectedName;
-    return $cname;
-}
-
-?>
             <div class="row">
                 <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10">
                     <span>Direct Messages </span>
@@ -222,7 +208,7 @@ if ($_SESSION['sess_user']) {
                 echo "<a name='pc' href='member.php?pc=" . $value['username'] . "' class='names' style='color:#FFFFFF;' value='" . $value['username'] . "'><span style='color:palevioletred;'>&hearts;</span>" . $value['username'] . "<br> </a>";
             }
         }
-    } 
+    }
 }
 ?>
                     <br>
