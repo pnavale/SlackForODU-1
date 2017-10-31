@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `channel`
 --
-drop database slack;
-create database slack;
+-- drop database slack;
+create database IF NOT EXISTS slack;
 
 use slack;
 --
