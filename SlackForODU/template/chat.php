@@ -11,9 +11,9 @@ if (!isset($_SESSION)) {
         <header class="clearfix">
            <!--  <a href="#" class="chat-close">x</a> -->
             <h4><?php
-if (isset($channelSelected)) {
+if ($channelSelected) {
     echo "#" . $channelSelected;
-} else if (isset($cname)) {
+} else {
     echo ucwords($cname);
 }
 ?></h4>
@@ -64,6 +64,7 @@ if (strcmp($crfdate, $prevDate) > 0) {
 $plusReaction = [];
     $query = "SELECT * FROM Reply WHERE msg_id='" . $value['msg_id'] . "' and reaction='+1'";
     $result = $connection->query($query);
+    //echo $numrows;
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             array_push($plusReaction, $row);
@@ -187,6 +188,7 @@ if ($_SESSION['sess_user']) {
 $profile = $_SESSION['sess_user_profile_pic'];
 if ($_SESSION['sess_user']) {
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
+        echo "nnjnjnj" . $_GET["emoji"] . $_GET["person"] . $_GET["msgid"];
         $emoji = $_GET["emoji"];
         $person = $_SESSION['sess_user'];
         $msgid = $_GET["msgid"];
@@ -197,8 +199,7 @@ if ($_SESSION['sess_user']) {
             echo "You can't like/dislike multiple times.";
         } else {
             // $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and msg_type='" . $msg_type . "'";
-            // if ($connection->query($sql)) {
-            //
+            // if ($conn->query($sql)) {
             $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
@@ -207,6 +208,7 @@ if ($_SESSION['sess_user']) {
             }
         }
     }
+
     $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
         $replyMsg = $_POST["reply_message"];
@@ -216,9 +218,11 @@ if ($_SESSION['sess_user']) {
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {
             echo "Record updated successfully";
+            echo $profile;
         } else {
             echo "Error updating record: " . mysqli_error($connection);
         }}
+    // }}
 }
 mysqli_close($connection);
 ?>
