@@ -47,7 +47,7 @@ if (strcmp($crfdate, $prevDate) > 0) {
                 if ($row['image']) {
                     echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';
                 } else {
-                    echo "<img width='32' height='32' src='../images/" . $value['profile_pic'] . "' alt='profile pic'>";
+                    echo "<img width='32' height='32' src='../images/" . $row['profile_pic'] . "' alt='profile pic'>";
                 }
             }
         }

@@ -27,6 +27,20 @@ if (strcmp($crfdate, $prevDate1) > 0) {
             ?>
     </center>
     <div class="chat-message clearfix">
+                        <?php if ('' == $value['image']) {
+                $query = "SELECT * FROM users where username='" . $value['replied_by'] . "'";
+                $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        if ($row['image']) {
+                            echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';
+                        } else {
+                            echo "<img width='32' height='32' src='../images/" . $row['profile_pic'] . "' alt='profile pic'>";
+                        }
+                    }
+                }
+            }
+            ?>
 <!--         <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="24" height="24"> -->
         <div class="chat-message-content clearfix">
             <span class="chat-time"><?php echo $crdate ?></span>
