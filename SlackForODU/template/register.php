@@ -50,9 +50,9 @@ if (isset($_POST["submit"])) {
                                     // prepare the image for insertion
                                     $imgData = addslashes(file_get_contents($_FILES['userfile']['tmp_name']));
                                     $msg= 'Image successfully saved in database.';
-                                    $user = test_input($_POST['user']);
-                                    $pass = test_input($_POST['pass']);
-                                    $email = test_input($_POST['email']);
+                                    $user = verify_input(test_input($_POST['user']));
+                                    $pass = verify_input(test_input($_POST['pass']));
+                                    $email = verify_input(test_input($_POST['email']));
                                     $fullname = test_input($_POST['fullname']);
                                     $wk_id = $_SESSION['wkid'];
                                     if (verify_email($email)) {
