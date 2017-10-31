@@ -56,11 +56,13 @@ INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel
 (1, 'general', 'default', '2017-09-04 09:27:20', '', '', '', 'public', '', ''),
 (2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', '1', ''),
 (3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk2', '', ',', 'public', 'mater,doc', ''),
-(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', 'mater,pnavale', ''),
+(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', 'mater,pnavale', ',agosa003,doc,sally'),
 (5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', ',,pnavale,', 'private', 'mater,doc', ''),
-(6, 'fashion', 'doc', '2017-10-31 12:10:02', '', 'fashion sense', ',agosa003,doc', 'public', '', ',Array,Array,Array,Array'),
+(6, 'fashion', 'doc', '2017-10-31 12:10:02', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally,pnavale'),
 (7, 'fashionq', 'doc', '2017-10-31 12:12:48', '', 'fashion sense', ',agosa003,doc', 'public', '', ',agosa003,doc,mater,sally'),
-(8, 'commun', 'doc', '2017-10-31 12:14:29', '', 'csjkjs', ',agosa003,', 'public', ',doc', ',mater,sally');
+(8, 'commun', 'doc', '2017-10-31 12:14:29', '', 'csjkjs', ',agosa003,', 'public', ',doc', ',mater,sally'),
+(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', ''),
+(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', '');
 
 -- --------------------------------------------------------
 
@@ -240,7 +242,7 @@ ALTER TABLE `workspace`
 -- AUTO_INCREMENT for table `channel`
 --
 ALTER TABLE `channel`
-  MODIFY `channel_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `channel_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `message`
