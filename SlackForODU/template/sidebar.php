@@ -64,7 +64,7 @@ echo $_SESSION['sess_user'];
 $channels = [];
 $cname = 'slackbot';
 if ($_SESSION['sess_user']) {
-    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%'";
+    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
