@@ -45,9 +45,9 @@ if ($_SESSION['sess_user']) {
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
                 <?php if ($_SESSION['sess_image']) {
-    echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['sess_image']) . '"/>';
+    echo '<img class="profile-img" src="data:image/jpeg;base64,' . base64_encode($_SESSION['sess_image']) . '"/>';
 } else {
-    echo "<img src='../images/" . $_SESSION['sess_user_profile_pic'] . "' alt='profile pic'>";
+    echo "<img class='profile-img' src='../images/" . $_SESSION['sess_user_profile_pic'] . "' alt='profile pic'>";
 }
 ?>
             </div>
@@ -325,6 +325,9 @@ $('.private_channel').click(function() {
     })
 
 
+        $('.profile-img').click(function() {
+            window.location.href="changeProfilePic.php";
+    })
 
 
     $('.join').click(function() {
