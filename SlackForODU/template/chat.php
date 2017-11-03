@@ -39,7 +39,7 @@ if (strcmp($crfdate, $prevDate) > 0) {
     ?>
                     </center>
                     <div class="chat-message clearfix">
-                     <?php if ('' == $value['image']) {
+                     <?php 
         $query = "SELECT * FROM users where username='" . $value['creator_id'] . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
@@ -51,7 +51,7 @@ if (strcmp($crfdate, $prevDate) > 0) {
                 }
             }
         }
-    }
+
     ?>
                        <!--  <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32"> -->
                         <div class="chat-message-content clearfix">

@@ -125,7 +125,7 @@ foreach ($members as $value) {
 mysqli_close($connection);
 ?>
                 </select>
-                <span class="grey-font">Select up to 100 people to add into this channel.</span>
+                <span class="grey-font">Select up to 10 people to add into this channel.</span>
                 <!--  <span class="error"><?php echo $invitesErr; ?></span>-->
                 <br>
                 <br>

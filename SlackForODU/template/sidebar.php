@@ -45,9 +45,9 @@ if ($_SESSION['sess_user']) {
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2 col-xs-2" style="color:#DCDCDC;font-size: 24px;">
                 <?php if ($_SESSION['sess_image']) {
-    echo '<img src="data:image/jpeg;base64,' . base64_encode($_SESSION['sess_image']) . '"/>';
+    echo '<img class="profile-img" src="data:image/jpeg;base64,' . base64_encode($_SESSION['sess_image']) . '"/>';
 } else {
-    echo "<img src='../images/" . $_SESSION['sess_user_profile_pic'] . "' alt='profile pic'>";
+    echo "<img class='profile-img' src='../images/" . $_SESSION['sess_user_profile_pic'] . "' alt='profile pic'>";
 }
 ?>
             </div>
@@ -64,7 +64,7 @@ echo $_SESSION['sess_user'];
 $channels = [];
 $cname = 'slackbot';
 if ($_SESSION['sess_user']) {
-    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%'";
+    $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -325,6 +325,9 @@ $('.private_channel').click(function() {
     })
 
 
+        $('.profile-img').click(function() {
+            window.location.href="changeProfilePic.php";
+    })
 
 
     $('.join').click(function() {
