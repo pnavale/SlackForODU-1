@@ -13,18 +13,29 @@ $cname = $_GET['pc'];
 if ($_SESSION['sess_user']) {
     $chats = [];
     $replies = [];
+
     if ('' != $channelSelected) {
         $query = "SELECT * FROM message m left join channel c on m.channel_id = c.channel_id AND c.channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $row['date_str']=date_format(new DateTime($row['create_date']), 'l, F j, Y');
+                $row['time_str']=date_format(new DateTime($row['create_date']), 'g:i a');
                 array_push($chats, $row);
             }
         }
         foreach ($chats as  $chat) {
             $msgId = $chat['msg_id'];
-            $replies = [];
             $query = "SELECT * FROM Reply WHERE msg_id='" . $msgId . "' and reply_type='reply'";
+            $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($replies, $row);
+                    }
+                }
+
+
+            $query = "SELECT * FROM Reply WHERE msg_id='" . $msgId . "' and reply_type='reaction'";
             $result = $connection->query($query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -47,6 +58,8 @@ if ($_SESSION['sess_user']) {
             $result = $connection->query($query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $row['date_str']=date_format(new DateTime($row['replied_at']), 'l, F j, Y');
+                        $row['time_str']=date_format(new DateTime($row['replied_at']), 'g:i a');
                         array_push($replies, $row);
                     }
                 }
@@ -57,6 +70,8 @@ if ($_SESSION['sess_user']) {
             $result = $connection->query($query);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    $row['date_str']=date_format(new DateTime($row['create_date']), 'l, F j, Y');
+                    $row['time_str']=date_format(new DateTime($row['create_date']), 'g:i a');
                     array_push($chats, $row);
                 }
                 foreach ($chats as  $chat) {
@@ -66,6 +81,8 @@ if ($_SESSION['sess_user']) {
             $result = $connection->query($query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $row['date_str']=date_format(new DateTime($row['replied_at']), 'l, F j, Y');
+                        $row['time_str']=date_format(new DateTime($row['replied_at']), 'g:i a');
                         array_push($replies, $row);
                     }
                 }

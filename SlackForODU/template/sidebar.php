@@ -170,9 +170,8 @@ $('.private_channel').click(function() {
                 $('.channels').html('');
     
                 $.each( response['channels'], function( key, channel ) {
-                        console.log(channel);
                     var channelDiv = $('<div class="channel-item col-sm-10 col-md-10 col-lg-10 col-xs-10"></div>');
-                    var href = "member.php?pc="+channel['channel_name'];
+                    var href = "member.php?ch="+channel['channel_name'];
                     var span = $('<span style="color:#FFFFFF;" class="chItem"></span>');
                     var a = $('<a name="ch" class="channel-list-item"></a>');
                     a.attr('href',href);
@@ -186,7 +185,6 @@ $('.private_channel').click(function() {
                 $('.users').html('');
 
                 $.each( response['members'], function( key, member ) {
-                    console.log(member);
                     var membersDiv = $('<div class="user-item col-sm-10 col-md-10 col-lg-10 col-xs-10"></div>');
                     var href = "member.php?pc="+member['username'];
                     var span = $('<span style="color:#FFFFFF;" class="usname"></span>');

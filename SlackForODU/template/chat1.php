@@ -2,30 +2,30 @@
 
 <div id="live-chat">
     <header class="clearfix">
-        <a href="#" class="chat-close">x</a>
+       <!--  <a href="#" class="chat-close">x</a> -->
         <h4>#general</h4>
-        <span class="chat-message-counter">3</span>
+        <span class="chat-message-counter"></span>
     </header>
     <div class="chat">
         <div class="chat-history">
         </div>
-        <div class="chat-history-template" style="display: none;">
-            <center class="msgDate">Monday, October 30, 2017</center>
+        <div class="chat-history-template">
+            <center class="msgDate"></center>
             <div class="msgDiv chat-message clearfix">
-                <img class="msgPic" src="../images/1.png" alt="profile pic" width="32" height="32">
+                <img class="msgPic" alt="profile pic" width="32" height="32">
                 <div class="msgContent chat-message-content clearfix">
-                    <span class="chat-time">11:54 pm</span>
-                    <b class="msgUser">Mater</b>
-                    <p class="msgValue">who is thu</p>
-                    <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=1&msgid=1" class="msgPlus emoji">&#128077;<span style="color:black;">0</span></a>
-                    <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=1&msgid=1" class="msgMinus emoji">&#x1F44E;<span style="color:black;" >0</span></a>
-                    <center class="replyDate">Sunday, October 29, 2017</center>
+                    <span class="chat-time"></span>
+                    <b><p class="msgUser"></p></b>
+                    <p class="msgValue"></p>
+                    <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=1&msgid=1" class="msgPlus emoji">&#128077;<span style="color:black;"></span></a>
+                    <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=1&msgid=1" class="msgMinus emoji">&#x1F44E;<span style="color:black;" ></span></a>
+                    <center class="replyDate"></center>
                     <div class="reply chat-message clearfix">
                         <img class="replyPic" src="../images/1.png" alt="profile pic" width="24" height="24">
                         <div class="replyContent chat-message-content clearfix">
-                            <span class="chat-time">11:54 pm</span>
-                            <b class="replyUser">Mater</b>
-                            <p class="replyValue">who is thu</p>
+                            <span class="chat-time"></span>
+                            <b class="replyUser"></b>
+                            <p class="replyValue"></p>
                         </div>
                     </div>
                     <form class="replyForm" method="post">
@@ -68,13 +68,25 @@
                 pass: $('#pass').val()
             },
             success: function(response) {
+                console.log(response);
                 var dateStr = '';
+                var chatMessageDivContent = $('.chat-history-template').find('.msgDiv').clone();
                 $.each( response['chats'], function( key, message ) {
-                    var chatMessageDivContent = $('.chat-history-template').find('.msgDiv').clone();
+                    if(message['msg_id']){
                     if (dateStr === '' || dateStr != message['date_str']) {
                         dateStr = message['date_str'];
                         $('.chat-history').append('<center>' + dateStr + '</center>');
                     }
+                    var img = '../images/'+message['profile_pic'];
+                    $('.msgPic').attr('src',img);
+                    $('.msgUser').html(message['creator_id']);
+                    $('.msgValue').html(message['msg_body']);
+                    $('.chat-history').append(chatMessageDivContent);
+                    }
+                });
+
+                $.each( response['replies'], function( key, reply ) {
+                    console.log()
                     minusCount = 0;
                     $.each( response['minusReaction'], function( key, reply ) {
                         if (reply['msg_id'] == message['msg_id']) {
@@ -102,7 +114,7 @@
                             $(replyDiv).insertBefore($('.replyForm'));
                         }
                     });
-                    $('.chat-history').append(chatMessageDivContent);
+                   // $('.chat-history').append(chatMessageDivContent);
                 });
             }
         });
