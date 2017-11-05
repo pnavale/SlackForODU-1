@@ -1,14 +1,14 @@
 <?php
 session_start();
 include 'includes/db_connection.php';
-
+include 'includes/htmlheader.php';
 $data = [];
 
 $channelSelected = $_GET['ch'];
 $cname = $_GET['pc'];
-if ('' == $cname) {
-    $cname = $_SESSION['sess_user'];
-}
+// if ('' == $cname) {
+//     $cname = $_SESSION['sess_user'];
+// }
 
 if ($_SESSION['sess_user']) {
     $chats = [];

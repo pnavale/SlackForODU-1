@@ -362,10 +362,6 @@ p {
     /* width and height can be anything, as long as they're equal */
 }
 
-.short-profile {
-    display: none;
-    background-color: gray;
-}
 
 .wkurl {
     cursor: pointer;

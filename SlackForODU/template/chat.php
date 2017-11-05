@@ -1,6 +1,7 @@
 <?php
 include 'includes/db_connection.php';
 include 'includes/functions.php';
+include 'includes/htmlheader.php';
 include 'chatHistory.php';
 if (!isset($_SESSION)) {
     session_start();
