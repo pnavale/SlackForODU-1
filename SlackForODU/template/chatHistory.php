@@ -17,46 +17,6 @@ $chats = [];
 $channelObject = [];
 $data=[];
 if ($_SESSION['sess_user']) {
-    if (isset($_POST['message'])) {
-        if (!empty($_POST['message'])) {
-            $message = verify_input($_POST['message']);
-            $subject = $channelSelected;
-            $creator_id = $_SESSION['sess_user'];
-            if ($cname) {
-                $channel_id = '';
-                $recipient_id = $cname;
-            } else {
-                $channel_id = $channel_idSelected;
-                $recipient_id = '';
-            }
-            $group_id = '';
-            $image = $_SESSION['sess_image'];
-            $profile_pic = $_SESSION['sess_user_profile_pic'];
-            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
-        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
-            if (mysqli_query($connection, $sql)) {
-            } else if (mysqli_error($connection)) {
-                echo "Error in posting a message.";
-            }
-            $_POST['message'] = '';
-        }
-
-    }
-
-    $profile = $_SESSION['sess_user_profile_pic'];
-    if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
-        $replyMsg = $_POST["reply_message"];
-        $msgid = $_GET["msg_id"];
-        $msg_type = "reply";
-        $replied_by = $_SESSION['sess_user'];
-        $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
-        if (mysqli_query($connection, $sql)) {
-            echo "Record updated successfully";
-            echo $profile;
-        } else {
-            echo "Error updating record: " . mysqli_error($connection);
-        }}
-        
     $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
         $emoji = $_GET["emoji"];
@@ -119,9 +79,45 @@ if ($_SESSION['sess_user']) {
         }
     }
 
-        
+        if (isset($_POST['message'])) {
+        if (!empty($_POST['message'])) {
+            $message = verify_input($_POST['message']);
+            $subject = $channelSelected;
+            $creator_id = $_SESSION['sess_user'];
+            if ($cname) {
+                $channel_id = '';
+                $recipient_id = $cname;
+            } else {
+                $channel_id = $channel_idSelected;
+                $recipient_id = '';
+            }
+            $group_id = '';
+            $image = $_SESSION['sess_image'];
+            $profile_pic = $_SESSION['sess_user_profile_pic'];
+            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
+        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
+            if (mysqli_query($connection, $sql)) {
+            } else if (mysqli_error($connection)) {
+                echo "Error in posting a message.";
+            }
+            $_POST['message'] = '';
+        }
 
-    
+    }
+
+    $profile = $_SESSION['sess_user_profile_pic'];
+    if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
+        $replyMsg = $_POST["reply_message"];
+        $msgid = $_GET["msg_id"];
+        $msg_type = "reply";
+        $replied_by = $_SESSION['sess_user'];
+        $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
+        if (mysqli_query($connection, $sql)) {
+            echo "Record updated successfully";
+            echo $profile;
+        } else {
+            echo "Error updating record: " . mysqli_error($connection);
+        }}
     
     if ('' != $channelSelected) {
         $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
