@@ -4,6 +4,7 @@ include 'includes/getCommonInfo.php';
 if (!isset($_SESSION)) {
     session_start();
 }
+$data=[];
 $userInfo = [];
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE username='" . $_GET['userProfile'] . "'";
@@ -11,6 +12,7 @@ if (isset($_GET['userProfile'])) {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $row['image'] = base64_encode($row['image']);
             array_push($userInfo, $row);
         }
     }

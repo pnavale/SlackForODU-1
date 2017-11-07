@@ -113,37 +113,7 @@ $plusReaction = [];
         <!-- end chat -->
     </div>
     <!-- end live-chat -->
-    <?php
-if ($_SESSION['sess_user']) {
-    if (isset($_POST['message'])) {
-        if (!empty($_POST['message'])) {
-            $message = verify_input($_POST['message']);
-            $subject = $channelSelected;
-            $creator_id = $_SESSION['sess_user'];
-            if ($cname) {
-                $channel_id = '';
-                $recipient_id = $cname;
-            } else {
-                $channel_id = $channel_idSelected;
-                $recipient_id = '';
-            }
-            $group_id = '';
-            $image = $_SESSION['sess_image'];
-            $profile_pic = $_SESSION['sess_user_profile_pic'];
-            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
-        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
-            if (mysqli_query($connection, $sql)) {
-            } else if (mysqli_error($connection)) {
-                echo "Error in posting a message.";
-            }
-            $_POST['message'] = '';
-        }
-        unset($_POST['message']);
-        exit;
-    }
-}
 
-?>
         <script type="text/javascript">
         $('.emoji').on('click', function(e) {
             console.log($(this).data('href'));
@@ -163,6 +133,7 @@ if ($_SESSION['sess_user']) {
                     return { emoji: emoji, person: person, msgid: msgid };
                 }
             });
+
             // $('.emoji').css('color','#9c7248');
         })
         $('.reply').on('click', function(e) {
@@ -184,46 +155,9 @@ if ($_SESSION['sess_user']) {
                 success: function(response) {}
             });
         });
+
         </script>
         <?php
-$profile = $_SESSION['sess_user_profile_pic'];
-if ($_SESSION['sess_user']) {
-    if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
-        echo "nnjnjnj" . $_GET["emoji"] . $_GET["person"] . $_GET["msgid"];
-        $emoji = $_GET["emoji"];
-        $person = $_SESSION['sess_user'];
-        $msgid = $_GET["msgid"];
-        $msg_type = "reaction";
-        $query = "SELECT * FROM Reply WHERE msg_id='" . $msgid . "' and reaction='" . $emoji . "' and replied_by='" . $person . "'";
-        $result = $connection->query($query);
-        if ($result->num_rows > 0) {
-            echo "You can't like/dislike multiple times.";
-        } else {
-            // $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and msg_type='" . $msg_type . "'";
-            // if ($conn->query($sql)) {
-            $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
-            if (mysqli_query($connection, $sql)) {
-                echo "Record updated successfully";
-            } else {
-                echo "Error updating record: " . mysqli_error($connection);
-            }
-        }
-    }
 
-    $profile = $_SESSION['sess_user_profile_pic'];
-    if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
-        $replyMsg = $_POST["reply_message"];
-        $msgid = $_GET["msg_id"];
-        $msg_type = "reply";
-        $replied_by = $_SESSION['sess_user'];
-        $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
-        if (mysqli_query($connection, $sql)) {
-            echo "Record updated successfully";
-            echo $profile;
-        } else {
-            echo "Error updating record: " . mysqli_error($connection);
-        }}
-    // }}
-}
 mysqli_close($connection);
 ?>

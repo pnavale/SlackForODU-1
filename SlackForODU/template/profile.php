@@ -48,5 +48,6 @@
             }
         });
     }
-    setData('mater');
+   
+    setData(location.search.substring(10,location.search.length));
 </script>

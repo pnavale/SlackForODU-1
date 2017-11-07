@@ -70,19 +70,20 @@
             success: function(response) {
                 console.log(response);
                 var dateStr = '';
-                var chatMessageDivContent = $('.chat-history-template').find('.msgDiv').clone();
+
+                var chatMessageDivContent = $('.chat-history-template').clone();
                 $.each( response['chats'], function( key, message ) {
-                    if(message['msg_id']){
+                        console.log(key,message,dateStr);
                     if (dateStr === '' || dateStr != message['date_str']) {
                         dateStr = message['date_str'];
-                        $('.chat-history').append('<center>' + dateStr + '</center>');
+                        $('.msgDate').html(dateStr);
+                        console.log(key,message,dateStr);
                     }
                     var img = '../images/'+message['profile_pic'];
                     $('.msgPic').attr('src',img);
                     $('.msgUser').html(message['creator_id']);
                     $('.msgValue').html(message['msg_body']);
                     $('.chat-history').append(chatMessageDivContent);
-                    }
                 });
 
                 $.each( response['replies'], function( key, reply ) {

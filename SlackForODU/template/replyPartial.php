@@ -1,3 +1,4 @@
+<!-- <meta http-equiv="refresh" content="10"> -->
 <?php
 $prevDate1 = '';
 $replies = [];
@@ -49,7 +50,7 @@ if (strcmp($crfdate, $prevDate1) > 0) {
                 <?php echo $value['reply_msg']; ?>
             </p>
             <?php
-$plusReaction = [];
+            $plusReaction = [];
             $query = "SELECT * FROM Reply WHERE reply_id='" . $value['reply_id'] . "' and reaction='+1'";
             $result = $connection->query($query);
             //echo $numrows;
