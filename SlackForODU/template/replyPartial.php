@@ -84,7 +84,7 @@ if (strcmp($crfdate, $prevDate1) > 0) {
                         <input type="text" placeholder="Reply here…" id="<?php echo "reply" . $value['msg_id'] ?>" name="reply_message" autofocus>
                     </div>
                     <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                        <input type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg" . $value['msg_id'] ?>"/>
+                        <input type="submit" value="Reply" class="btn reply" onClick="window.location.reload()" name="reply" id="<?php echo "msg" . $value['msg_id'] ?>"/>
                         <!-- style="position: absolute; left: -9999px"-->
                     </div>
                 </div>
