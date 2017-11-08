@@ -3,11 +3,30 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $cname = 'slackbot';
-
+$oldChannelSelected = '';
 $channelSelected = '';
+
+$channels = [];
+$query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
+$result = $connection->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        array_push($channels, $row);
+    }
+}
+
 if (isset($_GET["ch"])) {
     $cname = '';
     $channelSelected = $_GET['ch'];
+    foreach ($channels as $key => $value) {
+        if($value['channel_name']==$channelSelected){
+            $oldChannelSelected=$channelSelected;
+        }
+    }
+    if($channelSelected !=$oldChannelSelected){
+        $channelSelected =$oldChannelSelected;
+    }
+
 }
 if (isset($_GET["pc"])) {
     $channelSelected = '';

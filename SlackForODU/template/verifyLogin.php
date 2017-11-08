@@ -43,7 +43,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
     }
 }
 
-ob_end_clean();
+// ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
 echo json_encode($data);

@@ -30,7 +30,7 @@
                 console.log(response);
                 $.each( response['userInfo'], function( key, user ) {
                          console.log(user['profile_pic']);
-                         var userImg="../images/"+user['profile_pic'];
+                         var userImg="data:image/jpeg;base64,"+user['image'];
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
                         //$('.username').html(user['username']);

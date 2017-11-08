@@ -175,7 +175,7 @@ $('.private_channel').click(function() {
                     var span = $('<span style="color:#FFFFFF;" class="chItem"></span>');
                     var a = $('<a name="ch" class="channel-list-item"></a>');
                     a.attr('href',href);
-                    span.html(channel['channel_name']);
+                    span.html('#'+channel['channel_name']);
                     a.html(span);
                     channelDiv.html(a);
                     $('.channels').append(channelDiv);  
@@ -199,6 +199,6 @@ $('.private_channel').click(function() {
             }
         });
     }
-    setData('mater');
+    setData('<?php echo $_SESSION['sess_user'];?>');
 
     </script>
