@@ -177,6 +177,10 @@ $('.private_channel').click(function() {
                     a.attr('href',href);
                     span.html('#'+channel['channel_name']);
                     a.html(span);
+                    href="viewChannelDetails.php?chDetails="+channel['channel_name'];
+                    var a2 = $('<a name="" class="channel-list-item">Details</a>');
+                    a2.attr('href',href);
+                    a.append(a2);
                     channelDiv.html(a);
                     $('.channels').append(channelDiv);  
                      

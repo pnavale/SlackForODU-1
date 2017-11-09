@@ -28,20 +28,19 @@ $prevDate = '';
 usort($chats, function ($a, $b) {
     return strtotime($a['create_date']) - strtotime($b['create_date']);
 });
-
+$i=count($chats);
+$j=$i-10;
 foreach ($chats as $key => $value) {
+    if ($i > $j) {  
+        $i--;
     $crfdate = date_format(new DateTime($value['create_date']), 'l, F j, Y');
     $crdate = date_format(new DateTime($value['create_date']), 'g:i a');
-?>
-
-<center>
-<?php
 if (strcmp($crfdate, $prevDate) > 0) {
-        echo $crfdate;
+        echo "<center>".$crfdate."</center>";
         $prevDate = $crfdate;
     }
     ?>
-</center>
+
 
 <div class="chat-message clearfix">
 <?php 
@@ -53,7 +52,7 @@ if ($result->num_rows > 0) {
     }
 }
 ?>
-                       <!--  <img src="../images/<?php echo $value['profile_pic'] ?>" alt="profile pic" width="32" height="32"> -->
+
  <div class="chat-message-content clearfix">
     <span class="chat-time"><?php echo $crdate ?></span>
     <b><?php echo ucwords($value['creator_id']); ?></b>
@@ -88,29 +87,29 @@ if ($result->num_rows > 0) {
 <!-- end chat-message -->
 <hr>                  
 <?php
-
+}
 }
 ?>
 </div>
 <!-- end chat-history -->
 <!-- <p class="chat-feedback">Your partner is typing… </p>-->
-    <center>
+<!--     <center>
     <ul class="pagination">
     <li><a href="#">1</a></li>
     <li><a href="#">2</a></li>
     <li><a href="#">3</a></li>
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
-  </ul></center>   
+  </ul></center>   -->
+  <div style="text-align: right;"><a href="#" class="btn paginationBtn" name="">Older Messages</a></div> 
             <form method="post">
                 <fieldset>
                     <div class="row">
                         <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
-                            <input type="text" placeholder="Type your message…" name="message" autofocus>
+                            <input type="text" placeholder="Type your message…" name="message" class="input-msg" autofocus>
                         </div>
                         <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                            <input type="submit" value="Send" class="btn" name="submit" />
-                            <!--  style="position: absolute; left: -9999px"-->
+                            <input type="submit" value="Send" class="btn msg" name="submit" onClick="window.location.reload()"/>
                         </div>
                     </div>
                 </fieldset>
@@ -124,6 +123,19 @@ if ($result->num_rows > 0) {
 
 
         <script type="text/javascript">
+     /*    $('.msg').on('click', function(e) {
+            console.log($('.input-msg').val());
+            var msg = $('.input-msg').val();
+            $.ajax({
+                type: 'GET',
+                url: 'chatHistory.php',
+                data: { msg: msg },
+                success: function(response) {
+                    console.log({ msg: msg });
+                    return { msg: msg };
+                }
+            });
+        })*/
         $('.emoji').on('click', function(e) {
             console.log($(this).data('href'));
             var data = $(this).data('href');

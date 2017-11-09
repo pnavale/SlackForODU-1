@@ -6,6 +6,7 @@ session_start();
     <?php
 if ($_SESSION['sess_user']) {
     if (isset($_GET["msg_id"])) {
+        if(!empty($_GET["msg_id"]) && $_GET["msg_id"]!=''){
         $replyMsg = verify_input($_GET["reply"]);
         $msgid = $_GET["msg_id"];
         $msg_type = "reply";
@@ -16,5 +17,6 @@ if ($_SESSION['sess_user']) {
         } else {
             echo "Error updating record: " . mysqli_error($connection);
         }}
+    }
 }
 ?>
