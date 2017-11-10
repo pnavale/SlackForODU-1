@@ -24,10 +24,10 @@ if (!isset($_SESSION)) {
 	</div>
 </div>
 <br><br>
-<div class="row">
-	<button type="">Change Membership</button>
-</div>
-
+<?php if($_SESSION['sess_user']== 'admin'){
+	echo "<div class='row'><button type=''>Change Membership</button></div>";
+}
+?>
 <br><br>
 <div class="row">
 <div class="ui-widget">
