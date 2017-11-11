@@ -18,7 +18,7 @@
   		$data = mysqli_real_escape_string($connection,$data);
   		return $data;
     }
-    function verify_in($data) {
+    	function verify_in($data) {
 		global $connection;
         $data = trim($data);
   		$data = mysqli_real_escape_string($connection,$data);
@@ -31,26 +31,27 @@
   		$data = htmlspecialchars_decode($data);
   		return $data;
     }
-    function verify_out($data) {
+    	function verify_out($data) {
         $data = trim($data);
   		$data = stripcslashes($data);
   		return $data;
     }
-    function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
-    function verify_email($data){
-      $email = test_input($data);
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      return false;
+    	function test_input($data) {
+  	$data = trim($data);
+  		$data = stripslashes($data);
+  		$data = htmlspecialchars($data);
+ 		 return $data;
+	}
+
+    	function verify_email($data){
+      	$email = test_input($data);
+      	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      	return false;
     }
     else{
       return true;
     }
-    }
+}
 
 ?>
