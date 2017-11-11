@@ -80,6 +80,8 @@ if ($result->num_rows > 0) {
     ?>
     <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#128077;</a><span><?php echo count($plusReaction) ?></span>
     <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#x1F44E;</a><span><?php echo count($minusReaction) ?></span>
+    &nbsp;&nbsp;
+    <a href="javascript:void(0);" data-href="member.php?msgid=<?php echo $value['msg_id'] ?>" class="delete">Delete</a>
     <?php include 'replyPartial.php';?>
     </div>
     <!-- end chat-message-content -->
@@ -123,6 +125,19 @@ if ($result->num_rows > 0) {
 
 
         <script type="text/javascript">
+            $('.delete').on('click', function(e) {
+            var data = $(this).data('href');
+            var msgid = data.substring(data.search('msgid=') + 6, data.length);
+            $.ajax({
+                type: 'GET',
+                url: 'chatHistory.php',
+                data: { deleteMsg: msgid },
+                success: function(response) {
+                    console.log({ deleteMsg: msgid });
+                    return { deleteMsg: msgid };
+                }
+            });
+        })
      /*    $('.msg').on('click', function(e) {
             console.log($('.input-msg').val());
             var msg = $('.input-msg').val();
@@ -132,6 +147,7 @@ if ($result->num_rows > 0) {
                 data: { msg: msg },
                 success: function(response) {
                     console.log({ msg: msg });
+                    window.location.reload(true);
                     return { msg: msg };
                 }
             });

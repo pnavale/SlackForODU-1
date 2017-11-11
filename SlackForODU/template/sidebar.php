@@ -178,7 +178,7 @@ $('.private_channel').click(function() {
                     span.html('#'+channel['channel_name']);
                     a.html(span);
                     href="viewChannelDetails.php?chDetails="+channel['channel_name'];
-                    var a2 = $('<a name="" class="channel-list-item">Details</a>');
+                    var a2 = $('<a name="" class="channel-list-item">  &nbsp;&nbsp;Details</a>');
                     a2.attr('href',href);
                     a.append(a2);
                     channelDiv.html(a);

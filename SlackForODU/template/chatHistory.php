@@ -1,4 +1,5 @@
 <?php
+include 'includes/db_connection.php';
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -7,6 +8,18 @@ $oldChannelSelected = '';
 $channelSelected = '';
 
 $channels = [];
+if (isset($_GET["deleteMsg"])) {
+    $deleteMsgId = $_GET['deleteMsg'];
+
+    $sql = "DELETE FROM message WHERE msg_id='".$deleteMsgId."'";
+    if ($connection->query($sql) === TRUE) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+}
+
+
 $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
 $result = $connection->query($query);
 if ($result->num_rows > 0) {
