@@ -4,9 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $cname = 'slackbot';
-$oldChannelSelected = '';
-$channelSelected = '';
-
+$oldChannelSelected =$channelSelected = '';
+$totalpages=0;
 $channels = [];
 if (isset($_GET["deleteMsg"])) {
     $deleteMsgId = $_GET['deleteMsg'];
@@ -45,9 +44,7 @@ if (isset($_GET["pc"])) {
     $channelSelected = '';
     $cname = $_GET['pc'];
 }
-$chats = [];
-$channelObject = [];
-$data=[];
+$chats = $channelObject = $data=[];
 if ($_SESSION['sess_user']) {
     $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
@@ -79,20 +76,7 @@ if ($_SESSION['sess_user']) {
             while ($row = $result->fetch_assoc()) {
                 $channel_idSelected = $row['channel_id'];
             }
-        } else {
-            // header("Location:wklogin.php");
-        }
-
-        $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
-        $result = $connection->query($query);
-        $chats = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                array_push($chats, $row);
-            }
-        } else {
-            // header("Location:wklogin.php");
-        }
+        } 
     } else {
         $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";
         $result = $connection->query($query);
@@ -146,47 +130,8 @@ if ($_SESSION['sess_user']) {
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {
             echo "Record updated successfully";
-            echo $profile;
         } else {
             echo "Error updating record: " . mysqli_error($connection);
         }}
-    
-    if ('' != $channelSelected) {
-        $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
-        $result = $connection->query($query);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $channel_idSelected = $row['channel_id'];
-            }
-        } else {
-            // header("Location:wklogin.php");
-        }
-
-        $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
-        $result = $connection->query($query);
-        $chats = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                array_push($chats, $row);
-            }
-        } else {
-            // header("Location:wklogin.php");
-        }
-    } else {
-        $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";
-        $result = $connection->query($query);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                array_push($chats, $row);
-            }
-
-            $query = "SELECT * FROM message WHERE creator_id='" . $_SESSION['sess_user'] . "' and channel_id='' and recipient_id='" . $cname . "'";
-            $result = $connection->query($query);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    array_push($chats, $row);
-                }
-            }
-        }
-    }
 }
+

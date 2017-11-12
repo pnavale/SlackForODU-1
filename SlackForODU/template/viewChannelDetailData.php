@@ -7,10 +7,7 @@ include 'includes/db_connection.php';
 
 $data = [];
 $channelDetail = [];
-$uninvited='';
-$invited='';
-$joined='';
-
+$uninvited=$invited=$joined=$uninvited1=$joined1=$invites1=$removed='';
 if ($_SESSION['sess_user']) {
 	if(isset($_GET['chDetails'])){
     $query = "SELECT * FROM channel where channel_name='" .$_GET['chDetails'] . "'";
@@ -27,18 +24,29 @@ if ($_SESSION['sess_user']) {
     	}
     }
     if(isset($_GET['addList'])){
-    	echo strpos($uninvited,$_GET['addList']);
-    	//$result = $connection->query("update channel set joined='".$_GET['addList']."' where channel_name='".$_GET['chDetails']."'");
+    	$_GET['addList']=trim($_GET['addList']);
+    	$uninvited1=str_replace($_GET['addList'], '',$uninvited);
+    	$joined1=$_GET['addList'].$joined;
+    	$result = $connection->query("update channel set joined='".$joined1."', uninvited='".$uninvited1."' where channel_name='".$_GET['chDetails']."'");
     }
 	if(isset($_GET['inviteList'])){
-
+		 $_GET['inviteList']=trim($_GET['inviteList']);
+    	$uninvited1=str_replace($_GET['inviteList'], '',$uninvited);
+    	$invites1=$_GET['inviteList'].$invited;
+    	$result = $connection->query("update channel set invites='".$invites1."', uninvited='".$uninvited1."' where channel_name='".$_GET['chDetails']."'");
     }
 	if(isset($_GET['removeList'])){
+		$_GET['removeList']=trim($_GET['removeList']);
+    	$removed=str_replace($_GET['removeList'], '',$joined);
+    	$uninvited1=$_GET['removeList'].$uninvited;
+    	$result = $connection->query("update channel set joined='".$removed."', uninvited='".$uninvited1."' where channel_name='".$_GET['chDetails']."'");
 
     }
 }
 
 $data['channelDetail'] = $channelDetail;
+$data['uninvited'] = $uninvited1;
+$data['joined']=$joined1;
 // ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');

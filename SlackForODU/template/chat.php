@@ -24,15 +24,30 @@ if ($channelSelected) {
 <div class="chat">
     <div class="chat-history">
 <?php
+$limit = 2;
+$query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
+$result1 = mysqli_query($connection, $query);
+$number = mysqli_num_rows($result1);
+$totalpages = ceil($number/$limit);
+if (!isset($_GET['page'])) {
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
+    $first_result = ($page-1)*$limit;
+    $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' LIMIT ".$first_result.", ".$limit."";
+    $result = $connection->query($query);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            array_push($chats, $row);
+            }
+    }
+
 $prevDate = '';
 usort($chats, function ($a, $b) {
     return strtotime($a['create_date']) - strtotime($b['create_date']);
 });
-$i=count($chats);
-$j=$i-10;
-foreach ($chats as $key => $value) {
-    if ($i > $j) {  
-        $i--;
+foreach ($chats as $value) {
     $crfdate = date_format(new DateTime($value['create_date']), 'l, F j, Y');
     $crdate = date_format(new DateTime($value['create_date']), 'g:i a');
 if (strcmp($crfdate, $prevDate) > 0) {
@@ -89,7 +104,15 @@ if ($result->num_rows > 0) {
 <!-- end chat-message -->
 <hr>                  
 <?php
+
 }
+
+for ($page=1;$page<=$totalpages;$page++) {
+    echo '<div class="pagination">';
+    echo '<ul class="nav">';
+    echo '<li><a class="pagination-clicked" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
+    echo '</ul>';
+    echo '</div>';
 }
 ?>
 </div>
@@ -103,7 +126,8 @@ if ($result->num_rows > 0) {
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
   </ul></center>   -->
-  <div style="text-align: right;"><a href="#" class="btn paginationBtn" name="">Older Messages</a></div> 
+<!-- 
+  <div style="text-align: right;"><a href="#" class="btn paginationBtn" name="">Older Messages</a></div>  -->
             <form method="post">
                 <fieldset>
                     <div class="row">
@@ -125,6 +149,18 @@ if ($result->num_rows > 0) {
 
 
         <script type="text/javascript">
+            $('.pagination-clicked').on('click', function(e) {
+                var data = $(this).data('href');
+                var page = data.substring(data.search('page=') + 5, data.length);
+                console.log("sjjcb",data,page);
+                $.ajax({
+                    type: 'GET',
+                    url: 'chat.php?page='+page,
+                    data: { page: page },
+                    success: function(response) {
+                    }
+                });
+                });
             $('.delete').on('click', function(e) {
             var data = $(this).data('href');
             var msgid = data.substring(data.search('msgid=') + 6, data.length);
