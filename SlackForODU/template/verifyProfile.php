@@ -27,6 +27,17 @@ $channels = [];
             array_push($channels, $row);
         }
     }
+
+    if($_SESSION['sess_user']=='admin'){
+        $channel=[];
+        $query = "SELECT * FROM channel";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                array_push($channels, $row);
+            }
+}
+    }
     
 
 $data['userInfo'] = $userInfo;

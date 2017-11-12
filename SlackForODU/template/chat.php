@@ -24,7 +24,7 @@ if ($channelSelected) {
 <div class="chat">
     <div class="chat-history">
 <?php
-$limit = 2;
+$limit = 5;
 $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
 $result1 = mysqli_query($connection, $query);
 $number = mysqli_num_rows($result1);
@@ -132,7 +132,17 @@ for ($page=1;$page<=$totalpages;$page++) {
                 <fieldset>
                     <div class="row">
                         <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 code-add">
+                            <img src="../images/code-snippet.png">
+                            </div>
+                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 img-add" >
+                            <img src="../images/img-icon.png">
+                            </div>
+                            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
                             <input type="text" placeholder="Type your message…" name="message" class="input-msg" autofocus>
+                            </div>
+                        </div>
                         </div>
                         <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
                             <input type="submit" value="Send" class="btn msg" name="submit" onClick="window.location.reload()"/>
@@ -149,6 +159,13 @@ for ($page=1;$page<=$totalpages;$page++) {
 
 
         <script type="text/javascript">
+            $('.code-add').on('click', function(e) {
+
+                });
+
+             $('.img-add').on('click', function(e) {
+                });
+
             $('.pagination-clicked').on('click', function(e) {
                 var data = $(this).data('href');
                 var page = data.substring(data.search('page=') + 5, data.length);

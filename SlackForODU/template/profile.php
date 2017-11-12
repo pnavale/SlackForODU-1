@@ -19,6 +19,13 @@
 </div>
 
 <script type="text/javascript">
+    $('.profile-img').on('click', function(e) {
+        window.location.href ="changeProfilePic.php";
+        })
+     $('.private_channel').on('click', function(e) {
+        $('.private').css('display','block');
+        })
+
     function setData(userProfile) {
          var channelDiv ='';
         $.ajax({
@@ -40,8 +47,11 @@
                         if(channel['channel_type']=='public'){
                             channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">'+channel['channel_name']+'</div>');
                             channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">'+channel['channel_type']+'</div>');
-                            $('.channels').append(channelDiv);   
+                        }else{
+                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;">'+channel['channel_name']+'</div>');
+                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;">'+channel['channel_type']+'</div>');
                         }
+                         $('.channels').append(channelDiv);   
                      
                 });
                 

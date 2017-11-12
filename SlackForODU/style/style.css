@@ -385,3 +385,7 @@ p {
 .profile-img{
     cursor: pointer;
 }
+
+a:active { 
+    background-color: yellow;
+}
