@@ -387,5 +387,8 @@ p {
 }
 
 a:active { 
-    background-color: yellow;
+    background-color: cyan;
+}
+.active { 
+    background-color: cyan;
 }

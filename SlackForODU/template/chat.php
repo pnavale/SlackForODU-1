@@ -24,6 +24,14 @@ if ($channelSelected) {
 <div class="chat">
     <div class="chat-history">
 <?php
+$channel_idSelected='';
+ $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $channel_idSelected = $row['channel_id'];
+            }
+        } 
 $limit = 5;
 $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
 $result1 = mysqli_query($connection, $query);
@@ -110,7 +118,7 @@ if ($result->num_rows > 0) {
 for ($page=1;$page<=$totalpages;$page++) {
     echo '<div class="pagination">';
     echo '<ul class="nav">';
-    echo '<li><a class="pagination-clicked" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
+    echo '<li><a class="pagination-clicked" id="page'.$page.'" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
     echo '</ul>';
     echo '</div>';
 }
@@ -159,6 +167,9 @@ for ($page=1;$page<=$totalpages;$page++) {
 
 
         <script type="text/javascript">
+            var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
+                console.log(pageId);
+                $('#'+pageId).addClass('active');
             $('.code-add').on('click', function(e) {
 
                 });
