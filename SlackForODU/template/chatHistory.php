@@ -110,8 +110,8 @@ if ($_SESSION['sess_user']) {
             $group_id = '';
             $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
-            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic)
-        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic')";
+            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
+        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic','message')";
             if (mysqli_query($connection, $sql)) {
             } else if (mysqli_error($connection)) {
                 echo "Error in posting a message.";

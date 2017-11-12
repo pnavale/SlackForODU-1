@@ -79,7 +79,15 @@ if ($result->num_rows > 0) {
  <div class="chat-message-content clearfix">
     <span class="chat-time"><?php echo $crdate ?></span>
     <b><?php echo ucwords($value['creator_id']); ?></b>
-    <p><?php echo $value['msg_body']; ?></p>
+    <?php 
+      if($value['msg_type']=='message'){
+          echo "<div><p>".$value['msg_body']."</p></div>";;
+      }  else if($value['msg_type']=='image'){
+            echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
+            echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
+      }
+
+     ?>
     <?php
     $plusReaction = [];
     $query = "SELECT * FROM Reply WHERE msg_id='" . $value['msg_id'] . "' and reaction='+1'";
@@ -144,7 +152,7 @@ for ($page=1;$page<=$totalpages;$page++) {
                             <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 code-add">
                             <img src="../images/code-snippet.png">
                             </div>
-                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 img-add" >
+                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 img-add" onclick="on()" >
                             <img src="../images/img-icon.png">
                             </div>
                             <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
@@ -163,14 +171,113 @@ for ($page=1;$page<=$totalpages;$page++) {
         <!-- end chat -->
     </div>
     <!-- end live-chat -->
+    <div class="overlay">
+    <div class="" style="background-color: white;height:250px;">
+    <center>
+    <form action="" enctype="multipart/form-data" method="POST" >
+                <br> Upload your image here:
+                <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+                <input name="userfile1" type="file" />
+                <br>
+                <br>
+                <input type="submit" class="btn btn-success" value="Next" name="submit" style="width:50%;" />
+                <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
+    </form>
+    </center>
+    </div>
+    </div>
 
+<?php
+if (isset($_POST["submit"])) {
+    if (isset($_FILES['userfile1'])) {
+            try {
+                $maxsize = 10000000; //set to approx 10 MB
+                    //check associated error code
+                    if (UPLOAD_ERR_OK == $_FILES['userfile1']['error']) {
+                        //check whether file is uploaded with HTTP POST
+                        if (is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
+                            //checks size of uploaded image on server side
+                            if ($_FILES['userfile1']['size'] < $maxsize) {
+                                //checks whether uploaded file is of image type
+                                //if(strpos(mime_content_type($_FILES['userfile']['tmp_name']),"image")===0) {
+                                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                                if (strpos(finfo_file($finfo, $_FILES['userfile1']['tmp_name']), "image") === 0) {
+                                    // prepare the image for insertion
+                                    $imgData = addslashes(file_get_contents($_FILES['userfile1']['tmp_name']));
+                                    $msg= 'Image successfully saved in database.';
+                                    $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['userfile1']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
+                                                    if ($result) {
+                                       
+                                                    } else {
+                                                        echo mysqli_error($connection);
+                                                    }  
+    
+                                } else {
+                                    $msg = "Uploaded file is not an image.";
+                                }
+                            } else {
 
+                                // if the file is not less than the maximum allowed, print an error
+                                $msg = '<div>File exceeds the Maximum File limit</div>
+                                <div>Maximum File limit is ' . $maxsize . ' bytes</div>
+                                <div>File ' . $_FILES['userfile1']['name'] . ' is ' . $_FILES['userfile1']['size'] .
+                                    ' bytes</div><hr />';
+                            }
+                        } else {
+                            $msg = "File not uploaded successfully.";
+                        }
+                        } else {
+                            $msg = file_upload_error_message($_FILES['userfile1']['error']);
+                        }
+                                    echo $msg; //Message showing success or failure.
+                                } catch (Exception $e) {
+                                    echo $e->getMessage();
+                                    echo 'Sorry, could not upload file!';
+                                }
+                        
+                                }       
+                     else {
+                            echo "All fields are required!";
+                        }
+}
+// Function to return error message based on error code
+
+function file_upload_error_message($error_code)
+{
+    switch ($error_code) {
+        case UPLOAD_ERR_INI_SIZE:
+            return 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
+        case UPLOAD_ERR_FORM_SIZE:
+            return 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+        case UPLOAD_ERR_PARTIAL:
+            return 'The uploaded file was only partially uploaded';
+        case UPLOAD_ERR_NO_FILE:
+            return 'No file was uploaded';
+        case UPLOAD_ERR_NO_TMP_DIR:
+            return 'Missing a temporary folder';
+        case UPLOAD_ERR_CANT_WRITE:
+            return 'Failed to write file to disk';
+        case UPLOAD_ERR_EXTENSION:
+            return 'File upload stopped by extension';
+        default:
+            return 'Unknown upload error';
+    }
+}  
+
+?>
 
         <script type="text/javascript">
+        function on() {
+            $('.overlay').css('display','block');
+        }
+
+        function off() {
+            $('.overlay').css('display','none');
+        }
             var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
-                console.log(pageId);
-                $('#'+pageId).addClass('active');
-            $('.code-add').on('click', function(e) {
+            $('#'+pageId).addClass('active');
+
+                $('.code-add').on('click', function(e) {
 
                 });
 

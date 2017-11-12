@@ -14,7 +14,7 @@ if (!$_SESSION['wkid']) {
             <input name="userfile" type="file" />
             <br>
             <br>
-            <input type="submit" class="btn btn-success" value="Next" name="submit" />
+            <input type="submit" class="btn btn-success" value="Next" name="submit" style="width:50%;" />
 </form>
 </center>
  <?php
