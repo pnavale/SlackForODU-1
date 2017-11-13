@@ -90,6 +90,11 @@ if ($result->num_rows > 0) {
       }  else if($value['msg_type']=='image'){
             echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
             echo '<img width="48" height="48" src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
+      } else if($value['msg_type']=='imageUrl'){
+            // echo "<canvas style='border:1px solid grey;'' id='my_canvas".$value['msg_id']."' width='300' height='300'></canvas>";
+            // echo '<script type="text/javascript">createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
+        echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
+        echo "<img width='48' height='48' src='".$value['image_url']."'></div>";
       }
 
      ?>
@@ -177,7 +182,7 @@ for ($page=1;$page<=$totalpages;$page++) {
     </div>
     <!-- end live-chat -->
     <div class="overlay">
-    <div class="" style="background-color: white;height:250px;">
+    <div style="background-color: white;height:750px;">
     <center>
     <form action="" enctype="multipart/form-data" method="POST" >
                 <br> Upload your image here:
@@ -188,7 +193,16 @@ for ($page=1;$page<=$totalpages;$page++) {
                 <input type="submit" class="btn btn-success" value="Next" name="img" style="width:50%;" />
                 <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
     </form>
-    </center>
+    
+     <div>
+     <br><br>
+     <br><br>
+    <p>1. Copy image data into clipboard or press Print Screen <br></p>
+    <p>2. Press Ctrl+V (page/iframe must be focused):</p>
+    <br><br>
+    <input type="text" style="border:1px solid grey;">
+    <canvas style="border:1px solid grey;" id="my_canvas" width="300" height="300"></canvas></center>
+    </div>
     </div>
     </div>
 
@@ -369,6 +383,70 @@ function file_upload_error_message($error_code)
             });
         });
 
+    var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
+
+/**
+ * image pasting into canvas
+ * 
+ * @param {string} canvas_id - canvas id
+ * @param {boolean} autoresize - if canvas will be resized
+ */
+function CLIPBOARD_CLASS(canvas_id, autoresize) {
+  var _self = this;
+  var canvas = document.getElementById(canvas_id);
+  var ctx = document.getElementById(canvas_id).getContext("2d");
+
+  //handlers
+  document.addEventListener('paste', function (e) { _self.paste_auto(e); }, false);
+
+  //on paste
+  this.paste_auto = function (e) {
+    if (e.clipboardData) {
+      var items = e.clipboardData.items;
+      if (!items) return;
+      
+      //access data directly
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          //image
+          var blob = items[i].getAsFile();
+          console.log(blob);
+          var URLObj = window.URL || window.webkitURL;
+          var source = URLObj.createObjectURL(blob);
+          var imgPaste=$('.img-paste').val();
+          console.log(source);
+          $.ajax({
+                type: 'GET',
+                url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
+                data: {
+                    imgMsg: imgPaste
+                },
+                success: function(response) {}
+            });
+          this.paste_createImage(source);
+        }
+      }
+      e.preventDefault();
+    }
+  };
+  //draw pasted image to canvas
+  this.paste_createImage = function (source) {
+    var pastedImage = new Image();
+    pastedImage.onload = function () {
+      if(autoresize == true){
+        //resize
+        canvas.width = pastedImage.width;
+        canvas.height = pastedImage.height;
+      }
+      else{
+        //clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      ctx.drawImage(pastedImage, 0, 0);
+    };
+    pastedImage.src = source;
+  };
+}
         </script>
         <?php
 

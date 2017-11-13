@@ -120,6 +120,26 @@ if ($_SESSION['sess_user']) {
         }
 
     }
+    
+    if (isset($_GET['imgMsg']) && isset($_GET['ch'])  ) {
+            $channel_idSelected=$_GET["ch"];
+            $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            $result = $connection->query($query);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                        $channel_idSelected = $row['channel_id'];
+                }
+            } 
+            echo $_GET['imgMsg'];
+            $subject = $channelSelected;
+            $creator_id = $_SESSION['sess_user'];
+            $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image_url,image_name)
+        values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_GET['imgMsg']}','image.png')";
+            if (mysqli_query($connection, $sql)) {
+            } else if (mysqli_error($connection)) {
+                echo "Error in posting a message.";
+            }
+    }
 
     $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_POST["reply"]) && isset($_POST["reply_message"]) && isset($_GET["msg_id"])) {
