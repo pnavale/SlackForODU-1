@@ -13,13 +13,34 @@ if (!isset($_SESSION)) {
             <span style="color:#DCDCDC;" class="material-icons" style="font-size:36px">add_alert</span>
         </div>
     </div>
-    
-    <div class="row">
-    <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10"><?php echo "<a href='profile.php?userInfo=".$_SESSION['sess_user']."'>See your profile</a>"; ?></div>
-    </div>
 
     <!--notification class-->
-    <div class="notification row">
+    <div class="notification">
+     <?php
+$newchannels = [];
+if ($_SESSION['sess_user']) {
+    $query = "SELECT * FROM channel where invites like '%" . $_SESSION['sess_user'] . "%'";
+    $result = $connection->query($query);
+    if ($result->num_rows > 0) {
+        echo "<center><div style='color:#FFFFFF;'>Invitations</div></center>";
+        while ($row = $result->fetch_assoc()) {
+            array_push($newchannels, $row);
+        }
+    } else {
+        echo "<div style='color:#FFFFFF;'>&#x1f61e;No alerts.</div>";
+    }
+    foreach ($newchannels as $value) {
+        echo "<div class='row'>";
+        echo "<div class='col-sm-6 col-md-6 col-lg-6 col-xs-6'>" . $value['channel_name'] . "</div>";
+        echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2'><button class='join' value='" . $value['channel_name'] . "'>Join</button></div>";
+        echo "<div class='col-sm-2 col-md-2 col-lg-2 col-xs-2'><button class='cancelbtn' value='" . $value['channel_name'] . "'>Cancel</button></div></div>";
+    }
+}
+?>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10"><?php echo "<a href='profile.php?userInfo=".$_SESSION['sess_user']."'>See your profile</a>"; ?></div>
     </div>
 
     <div class="row">
@@ -77,17 +98,6 @@ if (!isset($_SESSION)) {
 
     })
 
-
-    $('.alert').click(function() {
-        if (alertClick % 2 == 0) {
-            $('.notification').css('display', 'block');
-            $('.short-profile').css('display', 'none');
-        } else {
-            $('.notification').css('display', 'none');
-        }
-        alertClick++;
-
-    })
         $('.sidebar_invite').click(function(e) {
             console.log($(this).attr('id'));
             channelname = $(this).attr('id');
@@ -134,6 +144,7 @@ $('.private_channel').click(function() {
         $('.profile-img').click(function() {
             window.location.href="changeProfilePic.php";
     })
+*/
 
 
     $('.join').click(function() {
@@ -148,7 +159,18 @@ $('.private_channel').click(function() {
             }
         });
     })
-*/
+
+    $('.alert').click(function() {
+        console.log('hey');
+        if (alertClick % 2 == 0) {
+            $('.notification').css('display', 'block');
+        } else {
+            $('.notification').css('display', 'none');
+        }
+        alertClick++;
+
+    })
+
     function setData(userProfile) {
          var channelDiv ='';
          var newchannelsDiv = '';
@@ -199,6 +221,13 @@ $('.private_channel').click(function() {
                     membersDiv.html(a);
                     $('.users').append(membersDiv);
                 });
+
+                    
+                    
+                $.each( response['newchannels'], function( key, newchannel ) {
+                    console.log(newchannel);
+                    $('.material-icons').css('color','red');
+                    });
                 
             }
         });

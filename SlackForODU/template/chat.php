@@ -180,7 +180,7 @@ for ($page=1;$page<=$totalpages;$page++) {
                 <input name="userfile1" type="file" />
                 <br>
                 <br>
-                <input type="submit" class="btn btn-success" value="Next" name="submit" style="width:50%;" />
+                <input type="submit" class="btn btn-success" value="Next" name="img" style="width:50%;" />
                 <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
     </form>
     </center>
@@ -188,7 +188,7 @@ for ($page=1;$page<=$totalpages;$page++) {
     </div>
 
 <?php
-if (isset($_POST["submit"])) {
+if (isset($_POST["img"])) {
     if (isset($_FILES['userfile1'])) {
             try {
                 $maxsize = 10000000; //set to approx 10 MB
