@@ -81,10 +81,15 @@ if ($result->num_rows > 0) {
     <b><?php echo ucwords($value['creator_id']); ?></b>
     <?php 
       if($value['msg_type']=='message'){
+        if(substr($value['msg_body'],0,4)!='&gt;'){
           echo "<div><p>".$value['msg_body']."</p></div>";;
+        }else{
+            $value['msg_body']=str_replace('&gt;','',$value['msg_body']);
+            echo "<div class='vl'><blockquote><pre><code>".$value['msg_body']."</code></pre></blockquote></div>";
+        }
       }  else if($value['msg_type']=='image'){
             echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
-            echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
+            echo '<img width="48" height="48" src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
       }
 
      ?>

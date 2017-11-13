@@ -402,3 +402,7 @@ a:active {
   z-index: 10;
   background-color: rgba(0,0,0,0.5); /*dim the background*/
 }
+
+.vl {
+    border-left: 1px solid #e3e4e6;
+}
