@@ -25,11 +25,15 @@ if ($channelSelected) {
     <div class="chat-history">
 <?php
 $channel_idSelected='';
+$channelArchived=false;
  $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $channel_idSelected = $row['channel_id'];
+                if($row['archived']==1){
+                    $channelArchived=true;
+                }
             }
         } 
 $limit = 5;
@@ -223,13 +227,17 @@ if (isset($_POST["img"])) {
                                     // prepare the image for insertion
                                     $imgData = addslashes(file_get_contents($_FILES['userfile1']['tmp_name']));
                                     $msg= 'Image successfully saved in database.';
+                                   if(!$channelArchived){
                                     $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['userfile1']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
                                                     if ($result) {
                                        
                                                     } else {
                                                         echo mysqli_error($connection);
                                                     }  
-    
+                                }
+                                else{
+                                    $msg = "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+                                }
                                 } else {
                                     $msg = "Uploaded file is not an image.";
                                 }

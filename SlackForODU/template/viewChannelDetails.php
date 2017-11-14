@@ -4,6 +4,9 @@ include 'includes/htmlheader.php';
 if (!isset($_SESSION)) {
     session_start();
 }
+if (!$_SESSION['wkid']) {
+    header("Location: wklogin.php");
+}
 ?>
 <div class="login-container" style="width:400px">
 <h4>Channel Details:</h4>
@@ -39,18 +42,22 @@ if (!isset($_SESSION)) {
 }
 ?>
 </div>
-<div><p class="msg"></p></div>
+
 </div>
 <br><br>
   <?php if($_SESSION['sess_user']== 'admin'){
 	echo "<div class='row'>";
 	echo "<div class='ui-widget'>";
 	echo "<label for='tagsR'>Remove people from this channel: </label>";
-  	echo "<input id='tagsR' size='50' style='border: 1px solid;width: 95%'><br><br>";
-   	echo "<input id='remove' value='Remove' type='submit'></div></div>";
+  echo "<input id='tagsR' size='50' style='border: 1px solid;width: 95%'><br><br>";
+  echo "<input id='remove' value='Remove' type='submit'></div></div>";
+
+  echo "<br><br><div class='row'>";
+  echo "<input type='submit' class='archive' value='Archive'></div>";
+
 }
 ?>
-
+<div><p class="msg"></p></div>
 </div>
 
    <script type="text/javascript">
@@ -208,6 +215,17 @@ if (!isset($_SESSION)) {
     }
     });
    }
+
+   $('.archive').click(function() {
+      $.ajax({
+                type: 'GET',
+                url: 'viewChannelDetailData.php?chDetails=' + chDetails,
+                data: { archive: true },
+                success: function(response) {
+                    $('.msg').html(response.msg);
+                }
+            });
+    });
    $('#add').click(function() {
    		console.log(addList);
    		$.ajax({

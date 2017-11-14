@@ -155,7 +155,7 @@ $('.private_channel').click(function() {
             url: 'member.php',
             data: { whichChannelJoined: whichChannelJoined },
             success: function(response) {
-                return { whichChannelJoined: whichChannelJoined };
+                $('.material-icons').css('color','red');
             }
         });
     })

@@ -7,6 +7,7 @@ $cname = 'slackbot';
 $oldChannelSelected =$channelSelected = '';
 $totalpages=0;
 $channels = [];
+$channelArchived=false;
 if (isset($_GET["deleteMsg"])) {
     $deleteMsgId = $_GET['deleteMsg'];
 
@@ -30,15 +31,6 @@ if ($result->num_rows > 0) {
 if (isset($_GET["ch"])) {
     $cname = '';
     $channelSelected = $_GET['ch'];
-    foreach ($channels as $key => $value) {
-        if($value['channel_name']==$channelSelected){
-            $oldChannelSelected=$channelSelected;
-        }
-    }
-    if($channelSelected !=$oldChannelSelected){
-        $channelSelected =$oldChannelSelected;
-    }
-
 }
 if (isset($_GET["pc"])) {
     $channelSelected = '';
@@ -58,13 +50,17 @@ if ($_SESSION['sess_user']) {
             echo "You can't like/dislike multiple times.";
         } else {
             // $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and msg_type='" . $msg_type . "'";
-            // if ($conn->query($sql)) {
+             if (!$channelArchived) {
             $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
             if (mysqli_query($connection, $sql)) {
                 echo "Record updated successfully";
             } else {
                 echo "Error updating record: " . mysqli_error($connection);
             }
+        }
+        else{
+            echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
         }
     }
 
@@ -75,6 +71,9 @@ if ($_SESSION['sess_user']) {
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $channel_idSelected = $row['channel_id'];
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
             }
         } 
     } else {
@@ -110,6 +109,7 @@ if ($_SESSION['sess_user']) {
             $group_id = '';
             $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
+            if(!$channelArchived){
             $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
         values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic','message')";
             if (mysqli_query($connection, $sql)) {
@@ -117,6 +117,10 @@ if ($_SESSION['sess_user']) {
                 echo "Error in posting a message.";
             }
             $_POST['message'] = '';
+        }
+        else{
+          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
         }
 
     }
@@ -133,12 +137,17 @@ if ($_SESSION['sess_user']) {
             echo $_GET['imgMsg'];
             $subject = $channelSelected;
             $creator_id = $_SESSION['sess_user'];
+            if(!$channelArchived){
             $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image,image_name)
         values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_GET['imgMsg']}','image.png')";
             if (mysqli_query($connection, $sql)) {
             } else if (mysqli_error($connection)) {
                 echo "Error in posting a message.";
             }
+        }
+        else{
+          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
     }
 
     $profile = $_SESSION['sess_user_profile_pic'];
@@ -147,11 +156,18 @@ if ($_SESSION['sess_user']) {
         $msgid = $_GET["msg_id"];
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
+        if(!$channelArchived){
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . mysqli_error($connection);
-        }}
+        }
+        }
+        else{
+          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
+        
+    }
 }
 

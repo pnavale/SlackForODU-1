@@ -24,6 +24,10 @@ if ($_SESSION['sess_user']) {
     		$joined=$value['joined'];
     	}
     }
+     if(isset($_GET['archive'])){
+        $result = $connection->query("update channel set archived=1 where channel_name='".$_GET['chDetails']."'");
+        $msg="This channel is archived.";
+    }
     if(isset($_GET['addList'])){
     	$_GET['addList']=trim($_GET['addList']);
     	$uninvited1=str_replace($_GET['addList'], '',$uninvited);
