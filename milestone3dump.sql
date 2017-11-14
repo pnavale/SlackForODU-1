@@ -45,25 +45,26 @@ CREATE TABLE `channel` (
   `invites` text NOT NULL,
   `channel_type` varchar(10) NOT NULL,
   `joined` text NOT NULL,
-  `uninvited` text NOT NULL
+  `uninvited` text NOT NULL,
+  `archived` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `channel`
 --
 
-INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`, `channel_type`, `joined`, `uninvited`) VALUES
-(1, 'general', 'default', '2017-09-04 09:27:20', '', '', '', 'public', '', ''),
-(2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', '1', ''),
-(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk1', '', '', 'public', '', 'ashu,chick,doc,mater,mcmissile,mcqueen,sally,agosa003'),
-(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', ',mater', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen'),
-(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', 'ashu,', 'private', 'agosa003,doc', 'mater,sally,chick,mcmissile,mcqueen'),
-(6, 'fashion', 'doc', '2017-10-31 12:10:02', 'wk1', 'fashion sense', ',agosa003,doc', 'public', ',mater', 'ashu,doc,sally,pnavale,chick,mcmissile,mcqueen'),
-(7, 'fashionq', 'doc', '2017-10-31 12:12:48', 'wk1', 'fashion sense', ',agosa003,doc', 'public', '', 'ashu,mater,sally,chick,mcmissile,mcqueen'),
-(8, 'commun', 'doc', '2017-10-31 12:14:29', 'wk1', 'csjkjs', ',agosa003,', 'public', ',doc', 'ashu,mater,sally,chick,mater,mcmissile,mcqueen'),
-(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', 'ashu,chick,mcmissile,mcqueen'),
-(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', 'ashu,chick,mcmissile,mcqueen'),
-(11, 'towmaterstalltales', 'mater', '2017-11-12 18:36:21', 'wk1', '', 'mcqueen,', 'private', '', ',agosa003,ashu,chick,doc,mater,mcmissile,sally');
+INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`, `channel_type`, `joined`, `uninvited`, `archived`) VALUES
+(1, 'general', 'default', '2017-09-04 09:27:20', '', '', '', 'public', '', '', 0),
+(2, 'random', 'default', '2017-10-02 03:11:04', '', '', '', 'public', '1', '', 0),
+(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk1', '', 'ashu,', 'public', '', 'chick,doc,mater,mcmissile,mcqueen,sally,agosa003', 1),
+(4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', ',mater', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen', 0),
+(5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', 'ashu,', 'private', 'agosa003,doc', 'mater,sally,chick,mcmissile,mcqueen', 0),
+(6, 'fashion', 'doc', '2017-10-31 12:10:02', 'wk1', 'fashion sense', ',agosa003,doc', 'public', ',mater', 'ashu,doc,sally,pnavale,chick,mcmissile,mcqueen', 0),
+(7, 'fashionq', 'doc', '2017-10-31 12:12:48', 'wk1', 'fashion sense', ',agosa003,doc', 'public', '', 'ashu,mater,sally,chick,mcmissile,mcqueen', 0),
+(8, 'commun', 'doc', '2017-10-31 12:14:29', 'wk1', 'csjkjs', ',agosa003,', 'public', ',doc', 'ashu,mater,sally,chick,mater,mcmissile,mcqueen', 0),
+(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', 'ashu,chick,mcmissile,mcqueen', 0),
+(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', 'ashu,chick,mcmissile,mcqueen', 0),
+(11, 'towmaterstalltales', 'mater', '2017-11-12 18:36:21', 'wk1', '', 'mcqueen,', 'private', '', ',agosa003,ashu,chick,doc,mater,mcmissile,sally', 0);
 
 -- --------------------------------------------------------
 
