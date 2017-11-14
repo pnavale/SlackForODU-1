@@ -66,7 +66,6 @@ a:hover {
     margin: 0 0 2px 0;
 }
 
-
 /* Body */
 
 body {
@@ -104,7 +103,6 @@ body {
     position: relative;
     height: 100%;
 }
-
 
 /* Login container style */
 
@@ -210,7 +208,6 @@ p {
     *zoom: 1;
 }
 
-
 /* For IE 6/7 */
 
 .clearfix:before,
@@ -222,7 +219,6 @@ p {
 .clearfix:after {
     clear: both;
 }
-
 
 /* ---------- LIVE-CHAT ---------- */
 
