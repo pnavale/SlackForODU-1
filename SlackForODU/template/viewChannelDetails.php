@@ -32,21 +32,25 @@ if (!isset($_SESSION)) {
 <div class="row">
 <div class="ui-widget">
   <label for="tags">Invite people to join this channel: </label>
-  <input id="tags" size="50" style="border: 1px solid;"><br><br>
+  <input id="tags" size="50" style="border: 1px solid;width: 95%"><br><br>
   <input id="invite" value="Invite" type="submit"/><br><br>
-  <input id="add" value="Add user directly" type="submit"/>
+  <?php if($_SESSION['sess_user']== 'admin'){
+	echo "<input id='add' value='Add user directly' type='submit'/>";
+}
+?>
 </div>
-
+<div><p class="msg"></p></div>
 </div>
 <br><br>
-<div class="row">
-<div class="ui-widget">
-  <label for="tagsR">Remove people from this channel: </label>
-  <input id="tagsR" size="50" style="border: 1px solid;"><br><br>
-   <input id="remove" value="Remove" type="submit">
-</div>
+  <?php if($_SESSION['sess_user']== 'admin'){
+	echo "<div class='row'>";
+	echo "<div class='ui-widget'>";
+	echo "<label for='tagsR'>Remove people from this channel: </label>";
+  	echo "<input id='tagsR' size='50' style='border: 1px solid;width: 95%'><br><br>";
+   	echo "<input id='remove' value='Remove' type='submit'></div></div>";
+}
+?>
 
-</div>
 </div>
 
    <script type="text/javascript">
@@ -211,8 +215,7 @@ if (!isset($_SESSION)) {
                 url: 'viewChannelDetailData.php?chDetails=' + chDetails,
                 data: { addList: addList },
                 success: function(response) {
-                    console.log({ addList: addList });
-                    return { addList: addList };
+                    $('.msg').html(response.msg);
                 }
             });
    	});
@@ -223,8 +226,7 @@ if (!isset($_SESSION)) {
                 url: 'viewChannelDetailData.php?chDetails=' + chDetails,
                 data: { inviteList: addList },
                 success: function(response) {
-                    console.log({ inviteList: addList });
-                    return { inviteList: addList };
+                    $('.msg').html(response.msg);
                 }
             });
    	});
@@ -235,11 +237,12 @@ if (!isset($_SESSION)) {
                 url: 'viewChannelDetailData.php?chDetails=' + chDetails,
                 data: { removeList: removeList },
                 success: function(response) {
-                    console.log({ removeList: removeList });
-                    return { removeList: removeList };
+                	$('.msg').html(response.msg);
+                    
                 }
             });
    	});
+
    
    console.log(location.search.substring(11,location.search.length));
    setData(location.search.substring(11,location.search.length));

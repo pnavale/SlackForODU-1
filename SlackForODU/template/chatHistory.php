@@ -133,7 +133,7 @@ if ($_SESSION['sess_user']) {
             echo $_GET['imgMsg'];
             $subject = $channelSelected;
             $creator_id = $_SESSION['sess_user'];
-            $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image_url,image_name)
+            $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image,image_name)
         values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_GET['imgMsg']}','image.png')";
             if (mysqli_query($connection, $sql)) {
             } else if (mysqli_error($connection)) {

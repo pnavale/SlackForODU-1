@@ -200,7 +200,6 @@ for ($page=1;$page<=$totalpages;$page++) {
     <p>1. Copy image data into clipboard or press Print Screen <br></p>
     <p>2. Press Ctrl+V (page/iframe must be focused):</p>
     <br><br>
-    <input type="text" style="border:1px solid grey;">
     <canvas style="border:1px solid grey;" id="my_canvas" width="300" height="300"></canvas></center>
     </div>
     </div>
@@ -402,6 +401,7 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
   //on paste
   this.paste_auto = function (e) {
     if (e.clipboardData) {
+        console.log(e.clipboardData);
       var items = e.clipboardData.items;
       if (!items) return;
       
@@ -415,14 +415,6 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
           var source = URLObj.createObjectURL(blob);
           var imgPaste=$('.img-paste').val();
           console.log(source);
-          $.ajax({
-                type: 'GET',
-                url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
-                data: {
-                    imgMsg: imgPaste
-                },
-                success: function(response) {}
-            });
           this.paste_createImage(source);
         }
       }
@@ -432,6 +424,17 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
   //draw pasted image to canvas
   this.paste_createImage = function (source) {
     var pastedImage = new Image();
+         $.ajax({
+                type: 'GET',
+                url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
+                data: {
+                    imgMsg: pastedImage
+                },
+                success: function(response) {},
+                cache: false,
+            contentType: false,
+            processData: false
+            });
     pastedImage.onload = function () {
       if(autoresize == true){
         //resize
