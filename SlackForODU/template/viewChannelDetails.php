@@ -26,9 +26,16 @@ if (!$_SESSION['wkid']) {
 	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-type">	
 	</div>
 </div>
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+    <p>Channel Archived :</p>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-archived">  
+  </div>
+</div>
 <br><br>
 <?php if($_SESSION['sess_user']== 'admin'){
-	echo "<div class='row'><button class='change-membership'>Change Membership</button></div>";
+	echo "<div class='row change-mem'><button class='change-membership'>Change Membership</button></div>";
 }
 ?>
 <br><br>
@@ -79,8 +86,15 @@ if (!$_SESSION['wkid']) {
                          console.log(channel);
                          $('.channel-name').html(channel['channel_name']);
                          $('.channel-type').html(channel['channel_type']);
+                         if(channel['archived']==1){
+                          $('.channel-archived').html('Yes');
+                          $('.archive').val('Unarchive');
+                         }else{
+                          $('.channel-archived').html('No');
+                         }
+
                          if(channel['channel_type']=='public'){
-                         	$('.change-membership').html('');
+                         	$('.change-mem').html('');
                          }
                          uninvitedlist=channel['uninvited'];
                          joinedlist=channel['joined'];
