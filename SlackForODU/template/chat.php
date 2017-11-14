@@ -47,7 +47,7 @@ if (!isset($_GET['page'])) {
     $page = $_GET['page'];
 }
     $first_result = ($page-1)*$limit;
-    $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' LIMIT ".$first_result.", ".$limit."";
+    $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$first_result.", ".$limit."";
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
