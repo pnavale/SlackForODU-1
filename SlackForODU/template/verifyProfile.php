@@ -58,13 +58,13 @@ if ($result->num_rows > 0) {
     }
 }
 
-$postPercent = (count($posts)/$totalPosts)*100;
+$postPercent = round((count($posts)/$totalPosts)*100,1,PHP_ROUND_HALF_UP);
 
-$reactionPercent = (count($reactions)/$totalReactions)*100;
+$reactionPercent = round((count($reactions)/$totalReactions)*100,1,PHP_ROUND_HALF_UP);
 
-$channelPercent = (count($channels)/$totalChannels)*100;
+$channelPercent = round((count($channels)/$totalChannels)*100,1,PHP_ROUND_HALF_UP);
 
-$totalPercent = ($postPercent + $reactionPercent + $channelPercent)/3;
+$totalPercent = round(($postPercent + $reactionPercent + $channelPercent)/3,1,PHP_ROUND_HALF_UP);
 $userType='';
 if($totalPercent>90){
     $userType = 'Most active user';
