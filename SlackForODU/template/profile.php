@@ -24,9 +24,12 @@ if (!$_SESSION['wkid']) {
     <a type="button" href="#" class="private_channel" style="color:black;">Show private channel</a>
     </div>
     <!-- Display subscribed channels with channel type. -->
-    <div class="channels">
-        <div class="row channel-list">
+    <div class="row channels">
+        <div class=" channel-list">
         </div>
+    </div>
+     <div class="row">
+    
     </div>
 </div>
 </div>
@@ -79,7 +82,39 @@ if (!$_SESSION['wkid']) {
 </div>
 </div>
 </div>
+<div class="container" style="margin-top: 60px;">
+  <div class="row">                   
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" id="channel-percent-div">
+                <span class="sr-only" style="font-size:13px;">60% Complete</span>
+            </div>
+            <span class="progress-type" style="font-size:13px;">Channel Subscribed</span>
+            <span class="progress-completed" style="font-size:13px;" id="channel-percent">60%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="post-percent-div">
+                <span class="sr-only">40% Complete (success)</span>
+            </div>
+            <span class="progress-type" style="font-size:13px;">Posts Posted</span>
+            <span class="progress-completed" style="font-size:13px;" id="post-percent">40%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%" id="react-percent-div">
+                <span class="sr-only">20% Complete (info)</span>
+            </div>
+            <span class="progress-type" style="font-size:13px;">Reactions added</span>
+            <span class="progress-completed" style="font-size:13px;" id="react-percent">20%</span>
+        </div>
+         <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%" id="user-percent-div">
+                <span class="sr-only">60% Complete (warning)</span>
+            </div>
+            <span class="progress-type" style="font-size:13px;" id="user-type"></span>
+            <span class="progress-completed" id="user-percent" style="font-size:13px;">60%</span>
+        </div>
 
+  </div>
+</div>
 <script type="text/javascript">
     // Function to go to change profile picture page.
     $('.profile-img').on('click', function(e) {
@@ -126,6 +161,16 @@ if (!$_SESSION['wkid']) {
                          $('.channels').append(channelDiv);   
                      
                 });
+
+               $('#post-percent-div').css('width',response['postPercent']);
+                $('#post-percent').html(response['postPercent']);
+                $('#channel-percent-div').css('width',response['channelPercent']);
+                $('#channel-percent').html(response['channelPercent']);
+                $('#react-percent-div').css('width',response['reactionPercent']);
+                $('#react-percent').html(response['reactionPercent']);
+                $('#user-percent-div').css('width',response['totalPercent']);
+                $('#user-percent').html(response['totalPercent']);
+                $('#user-type').html(response['userType']);
                 
             }
         });

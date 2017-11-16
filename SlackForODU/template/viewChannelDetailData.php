@@ -25,8 +25,15 @@ if ($_SESSION['sess_user']) {
     	}
     }
      if(isset($_GET['archive'])){
-        $result = $connection->query("update channel set archived=1 where channel_name='".$_GET['chDetails']."'");
-        $msg="This channel is archived.";
+        foreach ($channelDetail as $key => $value) {
+            if($value['archived']==1){
+                $result = $connection->query("update channel set archived=0 where channel_name='".$_GET['chDetails']."'");
+                $msg="This channel is unarchived.";
+            }else{
+                $result = $connection->query("update channel set archived=1 where channel_name='".$_GET['chDetails']."'");
+                $msg="This channel is archived.";
+            }
+    }
     }
     if(isset($_GET['addList'])){
     	$_GET['addList']=trim($_GET['addList']);

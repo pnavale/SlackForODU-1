@@ -5,7 +5,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $data=[];
-$userInfo = $users=$reactions=$channels =[];
+$_GET['userProfile']='mater';
+$userInfo = $users=$reactions=$channels =$posts =[];
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";
     $result = $connection->query($query);
@@ -34,7 +35,48 @@ if ($result->num_rows > 0) {
         array_push($reactions, $row);
     }
 }
+$totalPosts=0;
+$query = "SELECT * FROM message";
+$result = $connection->query($query);
+$totalPosts = $result->num_rows;
 
+$totalReactions=0;
+$query = "SELECT * FROM Reply";
+$result = $connection->query($query);
+$totalReactions = $result->num_rows;
+
+$totalChannels=0;
+$query = "SELECT * FROM channel";
+$result = $connection->query($query);
+$totalChannels = $result->num_rows;
+
+$query = "SELECT * FROM message where creator_id='" . $_GET['userProfile'] . "'";
+$result = $connection->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        array_push($posts, $row);
+    }
+}
+
+$postPercent = (count($posts)/$totalPosts)*100;
+
+$reactionPercent = (count($reactions)/$totalReactions)*100;
+
+$channelPercent = (count($channels)/$totalChannels)*100;
+
+$totalPercent = ($postPercent + $reactionPercent + $channelPercent)/3;
+$userType='';
+if($totalPercent>90){
+    $userType = 'Most active user';
+}else if($totalPercent>80){
+    $userType = 'Active user';
+}else if($totalPercent>50){
+    $userType = 'Moderate active user';
+}else if($totalPercent>30){
+    $userType = 'Not so active user';
+}else if($totalPercent>10){
+    $userType = 'Least active user';
+}
 
 if($_SESSION['sess_user']=='admin'){
     $channel=$userInfo=[];
@@ -63,6 +105,11 @@ $data['userInfo'] = $userInfo;
 $data['channels'] = $channels;
 $data['users'] = $users;
 $data['reactions'] = $reactions;
+$data['postPercent']=$postPercent;
+$data['reactionPercent']=$reactionPercent;
+$data['channelPercent']=$channelPercent;
+$data['totalPercent']=$totalPercent;
+$data['userType']=$userType;
 ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');

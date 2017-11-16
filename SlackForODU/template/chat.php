@@ -126,7 +126,8 @@ if ($result->num_rows > 0) {
     <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#128077;</a><span><?php echo count($plusReaction) ?></span>
     <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#x1F44E;</a><span><?php echo count($minusReaction) ?></span>
     &nbsp;&nbsp;
-    <a href="javascript:void(0);" data-href="member.php?msgid=<?php echo $value['msg_id'] ?>" class="delete">Delete</a>
+    <?php if($_SESSION['sess_user']=='admin'){
+    echo "<a href='javascript:void(0);' data-href='member.php?msgid=".$value['msg_id']." class='delete'>Delete</a>";} ?>
     <?php include 'replyPartial.php';?>
     </div>
     <!-- end chat-message-content -->
@@ -137,10 +138,20 @@ if ($result->num_rows > 0) {
 
 }
 
+$limitPg=5;
 for ($page=1;$page<=$totalpages;$page++) {
+    if($page<$limitPg){
     echo '<div class="pagination">';
     echo '<ul class="nav">';
     echo '<li><a class="pagination-clicked" id="page'.$page.'" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
+    echo '</ul>';
+    echo '</div>';
+}
+}
+if($totalpages>=$limitPg){
+    echo '<div class="pagination">';
+    echo '<ul class="nav">';
+    echo '<li><a class="pagination-clicked" id="more">&raquo;</a> </li>';
     echo '</ul>';
     echo '</div>';
 }

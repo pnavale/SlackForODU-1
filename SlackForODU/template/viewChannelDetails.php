@@ -91,6 +91,7 @@ if (!$_SESSION['wkid']) {
                           $('.archive').val('Unarchive');
                          }else{
                           $('.channel-archived').html('No');
+                          $('.archive').val('Archive');
                          }
 
                          if(channel['channel_type']=='public'){
