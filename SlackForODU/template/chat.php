@@ -41,13 +41,22 @@ $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
 $result1 = mysqli_query($connection, $query);
 $number = mysqli_num_rows($result1);
 $totalpages = ceil($number/$limit);
-if (!isset($_GET['page'])) {
-    $page = 1;
-} else {
-    $page = $_GET['page'];
-}
-    $first_result = ($page-1)*$limit;
-    $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$first_result.", ".$limit."";
+// if (!isset($_GET['page'])) {
+//     $page = 1;
+// } else {
+//     $page = $_GET['page'];
+// }
+if( isset($_GET['page'] ) ) {
+            $page = $_GET['page'] + 1;
+            $offset = $limit * $page ;
+         }else {
+            $page = 0;
+            $offset = 0;
+         }
+    $left_rec = $number - ($page * $limit);
+    // $first_result = ($page-1)*$limit;
+    // $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$first_result.", ".$limit."";
+    $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit."";
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -138,23 +147,38 @@ if ($result->num_rows > 0) {
 
 }
 
-$limitPg=5;
-for ($page=1;$page<=$totalpages;$page++) {
-    if($page<$limitPg){
-    echo '<div class="pagination">';
-    echo '<ul class="nav">';
-    echo '<li><a class="pagination-clicked" id="page'.$page.'" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
-    echo '</ul>';
-    echo '</div>';
-}
-}
-if($totalpages>=$limitPg){
-    echo '<div class="pagination">';
-    echo '<ul class="nav">';
-    echo '<li><a class="pagination-clicked" id="more">&raquo;</a> </li>';
-    echo '</ul>';
-    echo '</div>';
-}
+// $limitPg=5;
+// for ($page=1;$page<=$totalpages;$page++) {
+//     if($page<$limitPg){
+//     echo '<div class="pagination">';
+//     echo '<ul class="nav">';
+//     echo '<li><a class="pagination-clicked" id="page'.$page.'" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
+//     echo '</ul>';
+//     echo '</div>';
+// }
+// }
+// if($totalpages>=$limitPg){
+//     echo '<div class="pagination">';
+//     echo '<ul class="nav">';
+//     echo '<li><a class="pagination-clicked" id="more">&raquo;</a> </li>';
+//     echo '</ul>';
+//     echo '</div>';
+// }
+
+if( $page > 0 && $left_rec > $limit) {
+            $last = $page - 2;
+            // echo $page.$last.$left_rec.$limit;
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Last 5 Records</a> |";
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
+         }else if( $page == 0 ) {
+          // echo 'first if'.$page.$last.$left_rec.$limit;
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
+         }else if( $left_rec < $limit ) {
+            // echo 'fsecond if'.$page.$last.$left_rec.$limit;
+            $last = $page - 2;
+             echo 'fsecond if'.$page.$last.$left_rec.$limit;
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
+         }
 ?>
 </div>
 <!-- end chat-history -->
