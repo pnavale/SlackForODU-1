@@ -390,8 +390,7 @@ function file_upload_error_message($error_code)
                 url: 'chatHistory.php',
                 data: { deleteMsg: msgid },
                 success: function(response) {
-                    console.log({ deleteMsg: msgid });
-                    return { deleteMsg: msgid };
+                    window.location.reload();
                 }
             });
         })

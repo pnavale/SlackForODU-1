@@ -32,7 +32,10 @@ if (isset($_POST["submit"])) {
             $result = $connection->query($query);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    array_push($members, $row);
+                    if($row['username']!=$_SESSION['sess_user']){
+                        $uninvited=$row['username'].",";
+                        array_push($members, $row);
+                    }
                 }
             }
             foreach ($members as $member) {
@@ -59,6 +62,7 @@ if (isset($_POST["submit"])) {
             $result = $connection->query($query);
             $user = $_SESSION['sess_user'];
             $wk_id = $_SESSION['wkid'];
+            $joined=$_SESSION['sess_user'].",";
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $error = 'This channel already exists. Please use different name to start a new channel or go to dashboard to see this channel.';

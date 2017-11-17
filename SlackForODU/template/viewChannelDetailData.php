@@ -56,13 +56,17 @@ if ($_SESSION['sess_user']) {
     	$result = $connection->query("update channel set joined='".$removed."', uninvited='".$uninvited1."' where channel_name='".$_GET['chDetails']."'");
     	$msg="Removed user from this channel.";
     }
+    if(isset($_GET['changeMem'])){
+        $result = $connection->query("update channel set channel_type='".$_GET['changeMem']."' where channel_name='".$_GET['chDetails']."'");
+        $msg="Membership changed for this channel.";
+    }
 }
 
 $data['channelDetail'] = $channelDetail;
 $data['uninvited'] = $uninvited1;
 $data['joined']=$joined1;
 $data['msg']=$msg;
-// ob_end_clean();
+ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
 echo json_encode($data);

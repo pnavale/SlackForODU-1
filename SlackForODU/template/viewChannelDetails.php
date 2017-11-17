@@ -238,6 +238,7 @@ if (!$_SESSION['wkid']) {
                 data: { archive: true },
                 success: function(response) {
                     $('.msg').html(response.msg);
+                    window.location.reload();
                 }
             });
     });
@@ -249,6 +250,7 @@ if (!$_SESSION['wkid']) {
                 data: { addList: addList },
                 success: function(response) {
                     $('.msg').html(response.msg);
+                    window.location.reload();
                 }
             });
    	});
@@ -260,6 +262,7 @@ if (!$_SESSION['wkid']) {
                 data: { inviteList: addList },
                 success: function(response) {
                     $('.msg').html(response.msg);
+                    window.location.reload();
                 }
             });
    	});
@@ -271,10 +274,30 @@ if (!$_SESSION['wkid']) {
                 data: { removeList: removeList },
                 success: function(response) {
                 	$('.msg').html(response.msg);
+                  window.location.reload();
                     
                 }
             });
    	});
+   $('.change-membership').click(function() {
+      $chType= $('.channel-type').html();
+      if($chType=='public'){
+        $chType="private";
+      }else{
+        $chType="public";
+      }
+      $.ajax({
+                type: 'GET',
+                url: 'viewChannelDetailData.php?chDetails=' + chDetails,
+                data: { changeMem: $chType },
+                success: function(response) {
+                  $('.msg').html(response.msg);
+                  window.location.reload();
+                    
+                }
+            });
+    });
+
 
    
    console.log(location.search.substring(11,location.search.length));

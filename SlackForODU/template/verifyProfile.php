@@ -5,7 +5,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $data=[];
-$_GET['userProfile']='mater';
 $userInfo = $users=$reactions=$channels =$posts =[];
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";
@@ -110,7 +109,7 @@ $data['reactionPercent']=$reactionPercent;
 $data['channelPercent']=$channelPercent;
 $data['totalPercent']=$totalPercent;
 $data['userType']=$userType;
-ob_end_clean();
+// ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
 echo json_encode($data);
