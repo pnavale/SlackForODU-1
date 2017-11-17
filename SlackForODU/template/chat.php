@@ -107,7 +107,7 @@ if ($result->num_rows > 0) {
             // echo "<canvas style='border:1px solid grey;'' id='my_canvas".$value['msg_id']."' width='300' height='300'></canvas>";
             // echo '<script type="text/javascript">createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
         echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
-        echo "<img width='48' height='48' src='".$value['image_url']."'></div>";
+        echo "<img  src='".$value['image_url']."'></div>";
       }
 
      ?>
@@ -167,16 +167,12 @@ if ($result->num_rows > 0) {
 
 if( $page > 0 && $left_rec > $limit) {
             $last = $page - 2;
-            // echo $page.$last.$left_rec.$limit;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Last 5 Records</a> |";
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
-         }else if( $page == 0 ) {
-          // echo 'first if'.$page.$last.$left_rec.$limit;
+         }else if( $page == 0 && $left_rec!=0) {
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
-         }else if( $left_rec < $limit ) {
-            // echo 'fsecond if'.$page.$last.$left_rec.$limit;
+         }else if( $left_rec < $limit && $left_rec!=0) {
             $last = $page - 2;
-             echo 'fsecond if'.$page.$last.$left_rec.$limit;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
          }
 ?>
@@ -239,12 +235,40 @@ if( $page > 0 && $left_rec > $limit) {
     <p>1. Copy image data into clipboard or press Print Screen <br></p>
     <p>2. Press Ctrl+V (page/iframe must be focused):</p>
     <br><br>
-    <canvas style="border:1px solid grey;" id="my_canvas" width="300" height="300"></canvas></center>
+<!--     <canvas style="border:1px solid grey;" id="my_canvas" width="300" height="300"></canvas></center>
+--><form method="post">   
+ <input name="webupload" id="web-upload" type="text" style="border:  1px solid;" />
+    <br><br>
+    <input type="submit" class="btn btn-success" value="Next" name="webimg" id="web-img" style="width:50%;" />
+    <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
+    </form>
     </div>
     </div>
     </div>
 
 <?php
+    if (isset($_POST['webimg']) && isset($_POST['webupload'])  ) {
+            $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            $result = $connection->query($query);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                        $channel_idSelected = $row['channel_id'];
+                }
+            } 
+            $subject = $channelSelected;
+            $creator_id = $_SESSION['sess_user'];
+            if(!$channelArchived){
+            $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image_url,image_name)
+        values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_POST['webupload']}','image.png')";
+            if (mysqli_query($connection, $sql)) {
+            } else if (mysqli_error($connection)) {
+                echo "Error in posting a message.";
+            }
+        }
+        else{
+          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
+    }
 if (isset($_POST["img"])) {
     if (isset($_FILES['userfile1'])) {
             try {
@@ -345,6 +369,7 @@ function file_upload_error_message($error_code)
              $('.img-add').on('click', function(e) {
                 });
 
+
             $('.pagination-clicked').on('click', function(e) {
                 var data = $(this).data('href');
                 var page = data.substring(data.search('page=') + 5, data.length);
@@ -425,7 +450,7 @@ function file_upload_error_message($error_code)
             });
         });
 
-    var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
+   // var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
 
 /**
  * image pasting into canvas
