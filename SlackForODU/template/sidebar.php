@@ -152,15 +152,16 @@ $('.private_channel').click(function() {
 */
 
 
-    $('.join').click(function() {
+    $('.join').on('click',function() {
         var whichChannelJoined = $(this).val();
         console.log('join', whichChannelJoined);
         $.ajax({
             type: 'GET',
-            url: 'member.php',
+            url: 'sideBarData.php',
             data: { whichChannelJoined: whichChannelJoined },
             success: function(response) {
-                $('.material-icons').css('color','red');
+                $('.material-icons').css('color','');
+                window.location.reload();
             }
         });
     })
