@@ -80,14 +80,31 @@ if (strcmp($crfdate, $prevDate1) > 0) {
         <form method="post">
             <fieldset>
                 <div class="row">
-                    <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
+                    <div class="col-sm-8 col-md-8 col-lg-8 col-xs-8">
                         <input type="text" placeholder="Reply here…" id="<?php echo "reply" . $value['msg_id'] ?>" name="reply_message" autofocus>
                     </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                        <input type="submit" value="Reply" class="btn reply" onClick="window.location.reload()" name="reply" id="<?php echo "msg" . $value['msg_id'] ?>"/>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-4">
+                        <input type="submit" value="Reply" class="btn reply" name="reply" id="<?php echo "msg" . $value['msg_id'] ?>"/>
                         <!-- style="position: absolute; left: -9999px"-->
                     </div>
                 </div>
                 <!--close row div-->
             </fieldset>
         </form>
+<script type="text/javascript">
+    $('.reply').on('click', function() {
+            var msgId = this.id.substring(3, this.id.length);
+            var replyInput = 'reply' + msgId;
+            var replyInput = $('#' + replyInput).val();
+            $.ajax({
+                type: 'GET',
+                url: 'reply.php',
+                data: {
+                    msg_id: msgId,
+                    reply: replyInput
+                },
+                success: function(response) {
+                }
+            });
+        });
+</script>

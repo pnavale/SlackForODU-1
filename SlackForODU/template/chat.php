@@ -101,13 +101,13 @@ if ($result->num_rows > 0) {
             echo "<div class='vl'><blockquote><pre><code>".$value['msg_body']."</code></pre></blockquote></div>";
         }
       }  else if($value['msg_type']=='image'){
-            echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
-            echo '<img width="48" height="48" src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
+            echo "<div class='row' style='margin-left: 0;'><p>Uploaded Image:".$value['image_name']."</p>";
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
       } else if($value['msg_type']=='imageUrl'){
             // echo "<canvas style='border:1px solid grey;'' id='my_canvas".$value['msg_id']."' width='300' height='300'></canvas>";
             // echo '<script type="text/javascript">createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
-        echo "<div><p>Uploaded Image:".$value['image_name']."</p>";
-        echo "<img  src='".$value['image_url']."'></div>";
+        echo "<div class='row' style='margin-left: 0;'><p>Uploaded Image:".$value['image_name']."</p>";
+        echo "<img src='".$value['image_url']."'></div>";
       }
 
      ?>
@@ -132,12 +132,14 @@ if ($result->num_rows > 0) {
     }
 
     ?>
+    <div class="row">
     <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#128077;</a><span><?php echo count($plusReaction) ?></span>
     <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#x1F44E;</a><span><?php echo count($minusReaction) ?></span>
     &nbsp;&nbsp;
     <?php if($_SESSION['sess_user']=='admin'){
     echo "<a href='javascript:void(0);' data-href='member.php?msgid=".$value['msg_id']."' class='delete'>Delete</a>";} ?>
     <?php include 'replyPartial.php';?>
+    </div>
     </div>
     <!-- end chat-message-content -->
 </div>
@@ -169,9 +171,12 @@ if( $page > 0 && $left_rec > $limit) {
             $last = $page - 2;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Last 5 Records</a> |";
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
+         }else if( $page == 0 && $left_rec<=5) {
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'></a>";
          }else if( $page == 0 && $left_rec!=0) {
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
-         }else if( $left_rec < $limit && $left_rec!=0) {
+         }
+         else if( $left_rec < $limit && $left_rec!=0) {
             $last = $page - 2;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
          }
@@ -248,6 +253,7 @@ if( $page > 0 && $left_rec > $limit) {
 
 <?php
     if (isset($_POST['webimg']) && isset($_POST['webupload'])  ) {
+        if(!$channelArchived){
             $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
             $result = $connection->query($query);
             if ($result->num_rows > 0) {
@@ -257,16 +263,16 @@ if( $page > 0 && $left_rec > $limit) {
             } 
             $subject = $channelSelected;
             $creator_id = $_SESSION['sess_user'];
-            if(!$channelArchived){
             $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image_url,image_name)
         values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_POST['webupload']}','image.png')";
             if (mysqli_query($connection, $sql)) {
             } else if (mysqli_error($connection)) {
                 echo "Error in posting a message.";
             }
+
         }
         else{
-          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+          echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }
     }
 if (isset($_POST["img"])) {
@@ -358,6 +364,7 @@ function file_upload_error_message($error_code)
 
         function off() {
             $('.overlay').css('display','none');
+            window.location.reload();
         }
             var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
             $('#'+pageId).addClass('active');
@@ -429,27 +436,7 @@ function file_upload_error_message($error_code)
 
             // $('.emoji').css('color','#9c7248');
         })
-        $('.reply').on('click', function(e) {
-            e.preventDefault();
-            console.log($(this).attr('id'));
-            console.log($(this).attr('id'));
-            var msgId = this.id.substring(3, this.id.length);
-            var replyInput = 'reply' + msgId;
-            var replyInput = $('#' + replyInput).val();
-            console.log(replyInput);
-            console.log(msgId);
-            $.ajax({
-                type: 'GET',
-                url: 'reply.php',
-                data: {
-                    msg_id: msgId,
-                    reply: replyInput
-                },
-                success: function(response) {
-                    window.location.reload();
-                }
-            });
-        });
+    
 
    // var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
 
