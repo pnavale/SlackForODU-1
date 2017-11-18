@@ -3,6 +3,7 @@ include 'includes/db_connection.php';
 if (!isset($_SESSION)) {
     session_start();
 }
+if ($_SESSION['sess_user']) {
 $cname = 'slackbot';
 $oldChannelSelected =$channelSelected = '';
 $totalpages=0;
@@ -10,7 +11,6 @@ $channels = [];
 $channelArchived=false;
 if (isset($_GET["deleteMsg"])) {
     $deleteMsgId = $_GET['deleteMsg'];
-
     $sql = "DELETE FROM message WHERE msg_id='".$deleteMsgId."'";
     if ($connection->query($sql) === TRUE) {
         echo "Record deleted successfully";
@@ -37,34 +37,43 @@ if (isset($_GET["pc"])) {
     $cname = $_GET['pc'];
 }
 $chats = $channelObject = $data=[];
-if ($_SESSION['sess_user']) {
-    $profile = $_SESSION['sess_user_profile_pic'];
+$profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
         $emoji = $_GET["emoji"];
         $person = $_SESSION['sess_user'];
         $msgid = $_GET["msgid"];
         $msg_type = "reaction";
-        $query = "SELECT * FROM Reply WHERE msg_id='" . $msgid . "' and reaction='" . $emoji . "' and replied_by='" . $person . "'";
+        $query = "SELECT * FROM Reply WHERE msg_id='" . $msgid . "' and reply_type='" . $msg_type . "' and replied_by='" . $person . "'";
         $result = $connection->query($query);
+        if (!$channelArchived) {
         if ($result->num_rows > 0) {
-            echo "You can't like/dislike multiple times.";
-        } else {
-            // $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and msg_type='" . $msg_type . "'";
-             if (!$channelArchived) {
-            $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
-            if (mysqli_query($connection, $sql)) {
-                echo "Record updated successfully";
-            } else {
-                echo "Error updating record: " . mysqli_error($connection);
+            while ($row = $result->fetch_assoc()) {
+                echo "Here";
+                if($row['reaction']!=$emoji){
+                    $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and reply_type='" . $msg_type . "' and replied_by='" . $person . "'";
+                    $connection->query($sql);
+                    $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
+                    if (mysqli_query($connection, $sql)) {
+                        echo "Record updated successfully";
+                    } else {
+                        echo "Error updating record: " . mysqli_error($connection);
+                    }
+                }
+                
             }
-        }
+        } 
         else{
-            echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+            $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
+                    if (mysqli_query($connection, $sql)) {
+                        echo "Record updated successfully";
+                    } else {
+                        echo "Error updating record: " . mysqli_error($connection);
+                    }
         }
+    }else{
+        echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }
-    }
-
-
+}
        if ('' != $channelSelected) {
         $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
@@ -94,8 +103,7 @@ if ($_SESSION['sess_user']) {
         }
     }
 
-        if (isset($_POST['message'])) {
-        if (!empty($_POST['message'])) {
+        if (isset($_POST['message']) && !empty($_POST['message'])) {
             $message = verify_input($_POST['message']);
             $subject = $channelSelected;
             $creator_id = $_SESSION['sess_user'];
@@ -110,20 +118,18 @@ if ($_SESSION['sess_user']) {
             $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
             if(!$channelArchived){
-            $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
-        values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic','message')";
-            if (mysqli_query($connection, $sql)) {
-            } else if (mysqli_error($connection)) {
-                echo "Error in posting a message.";
+                    $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
+            values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic','message')";
+                    if (mysqli_query($connection, $sql)) {
+                        } else if (mysqli_error($connection)) {
+                            echo "Error in posting a message.";
+                        }
+                        $_POST['message'] = '';
             }
-            $_POST['message'] = '';
+            else{
+              echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+            }
         }
-        else{
-          echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
-        }
-        }
-
-    }
     
     if (isset($_GET['imgMsg']) && isset($_GET['ch'])  ) {
             $channel_idSelected=$_GET["ch"];
@@ -169,5 +175,6 @@ if ($_SESSION['sess_user']) {
         }
         
     }
+
 }
 

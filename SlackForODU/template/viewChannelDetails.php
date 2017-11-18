@@ -100,10 +100,10 @@ if (!$_SESSION['wkid']) {
                          uninvitedlist=channel['uninvited'];
                          joinedlist=channel['joined'];
                          console.log(joinedlist);
-                         if(channel['channel_name'] == 'general' || channel['channel_name'] == 'random'){
+                         /*if(channel['channel_name'] == 'general' || channel['channel_name'] == 'random'){
                          	$('.ui-widget').html('');
                          	$('.ui-widget').append('<p>No invite need for this channel.</p>');
-                         }
+                         }*/
                 
             })
                 	function stringToArray(uninvitedlist){

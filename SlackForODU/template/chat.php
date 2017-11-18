@@ -136,7 +136,7 @@ if ($result->num_rows > 0) {
     <a href="javascript:void(0);" data-href="member.php?emoji=-1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#x1F44E;</a><span><?php echo count($minusReaction) ?></span>
     &nbsp;&nbsp;
     <?php if($_SESSION['sess_user']=='admin'){
-    echo "<a href='javascript:void(0);' data-href='member.php?msgid=".$value['msg_id']." class='delete'>Delete</a>";} ?>
+    echo "<a href='javascript:void(0);' data-href='member.php?msgid=".$value['msg_id']."' class='delete'>Delete</a>";} ?>
     <?php include 'replyPartial.php';?>
     </div>
     <!-- end chat-message-content -->
@@ -385,6 +385,7 @@ function file_upload_error_message($error_code)
             $('.delete').on('click', function(e) {
             var data = $(this).data('href');
             var msgid = data.substring(data.search('msgid=') + 6, data.length);
+            console.log(msgid);
             $.ajax({
                 type: 'GET',
                 url: 'chatHistory.php',
@@ -419,11 +420,10 @@ function file_upload_error_message($error_code)
 
             $.ajax({
                 type: 'GET',
-                url: 'chat.php',
+                url: 'chatHistory.php',
                 data: { emoji: emoji, person: person, msgid: msgid },
                 success: function(response) {
-                    console.log({ emoji: emoji, person: person, msgid: msgid });
-                    return { emoji: emoji, person: person, msgid: msgid };
+                    window.location.reload();
                 }
             });
 
@@ -445,7 +445,9 @@ function file_upload_error_message($error_code)
                     msg_id: msgId,
                     reply: replyInput
                 },
-                success: function(response) {}
+                success: function(response) {
+                    window.location.reload();
+                }
             });
         });
 
