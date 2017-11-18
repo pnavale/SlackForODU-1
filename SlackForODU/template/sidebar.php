@@ -43,6 +43,11 @@ if ($_SESSION['sess_user']) {
     <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10"><?php echo "<a href='profile.php?userInfo=".$_SESSION['sess_user']."'>See your profile</a>"; ?></div>
     </div>
 
+
+    <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10 col-xs-10"><?php echo "<a href='search.php?userInfo=".$_SESSION['sess_user']."'>Search other's profile</a>"; ?></div>
+    </div>
+
     <div class="row">
         <div class="Channel col-sm-10 col-md-10 col-lg-10 col-xs-10" style="color:#DCDCDC;">
             <span>Channels </span>

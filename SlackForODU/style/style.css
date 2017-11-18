@@ -638,3 +638,6 @@ body {
 .sr-only .progress-type .progress-completed{
       font-size: 13px;
 }
+.userType{
+  color:beige;
+}

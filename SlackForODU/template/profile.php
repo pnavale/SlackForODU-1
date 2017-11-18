@@ -16,7 +16,8 @@ if (!$_SESSION['wkid']) {
         </div>
         <!-- Display username. -->
         <div class="col-sm-8 col-md-8 col-lg-8 col-xs-8">
-            <span class="username"></span>
+            <span class="username"></span><br>
+            <span class="userType"></span>
         </div>
     </div>
     <div class="row">
@@ -130,13 +131,13 @@ if (!$_SESSION['wkid']) {
         $.ajax({
             type: 'GET',
             url: 'verifyProfile.php?userProfile=' + userProfile,
-            data: '',
             success: function(response) {
                 var dateStr = '';
                 console.log(response);
                 // Getting profile picture.
-                $.each( response['userInfo'], function( key, user ) {
+                $.each( response['users'], function( key, user ) {
                   var userImg='';
+                  if(user['username']==userProfile){
                          if(user['image']){
                          userImg="data:image/jpeg;base64,"+user['image'];
                          }else{
@@ -144,6 +145,7 @@ if (!$_SESSION['wkid']) {
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
+                      }
                 });
                 // Getting channel names and channel types.
                 channelDiv= $('.channel-list').clone();
@@ -171,6 +173,7 @@ if (!$_SESSION['wkid']) {
                 $('#user-percent-div').css('width',response['totalPercent']);
                 $('#user-percent').html(response['totalPercent']);
                 $('#user-type').html(response['userType']);
+                $('.userType').html(response['userType']);
                 
             }
         });
