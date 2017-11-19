@@ -118,13 +118,22 @@ $profile = $_SESSION['sess_user_profile_pic'];
             $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
             if(!$channelArchived){
-                    $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
+                if($_SESSION['sess_user']!='admin'){
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
+            }else{
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            }
+                $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                        $sql = "insert into message (subject,creator_id,msg_body,create_date,channel_id,group_id,recipient_id,profile_pic,msg_type)
             values('$subject','$creator_id','$message',NOW(),'$channel_id','$group_id','$recipient_id','$profile_pic','message')";
-                    if (mysqli_query($connection, $sql)) {
-                        } else if (mysqli_error($connection)) {
-                            echo "Error in posting a message.";
-                        }
+                        if (mysqli_query($connection, $sql)) {
+                            } else if (mysqli_error($connection)) {
+                                echo "Error in posting a message.";
+                            }
                         $_POST['message'] = '';
+                }   
+                    
             }
             else{
               echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
@@ -140,17 +149,26 @@ $profile = $_SESSION['sess_user_profile_pic'];
                         $channel_idSelected = $row['channel_id'];
                 }
             } 
-            echo $_GET['imgMsg'];
-            $subject = $channelSelected;
-            $creator_id = $_SESSION['sess_user'];
-            if(!$channelArchived){
-            $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image,image_name)
+             if(!$channelArchived){
+            if($_SESSION['sess_user']!='admin'){
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
+            }else{
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            }
+            $result = $connection->query($query);
+            if ($result->num_rows > 0) {
+                $subject = $channelSelected;
+                $creator_id = $_SESSION['sess_user'];
+               
+                $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image,image_name)
         values('$subject','$creator_id',NOW(),'$channel_idSelected','imageUrl','{$_GET['imgMsg']}','image.png')";
-            if (mysqli_query($connection, $sql)) {
-            } else if (mysqli_error($connection)) {
-                echo "Error in posting a message.";
+                if (mysqli_query($connection, $sql)) {
+                } else if (mysqli_error($connection)) {
+                    echo "Error in posting a message.";
+                }
             }
         }
+
         else{
           echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }

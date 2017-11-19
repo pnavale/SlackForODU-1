@@ -26,7 +26,11 @@ if ($channelSelected) {
 <?php
 $channel_idSelected='';
 $channelArchived=false;
- $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+if($_SESSION['sess_user']!="admin"){
+ $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
+}else{
+    $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+}
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -36,8 +40,9 @@ $channelArchived=false;
                 }
             }
         } 
+
 $limit = 5;
-$query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' and wk_id='".$_SESSION['wkid']."'";
+$query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
 $result1 = mysqli_query($connection, $query);
 if ($result1) {
 $number = mysqli_num_rows($result1);
@@ -209,7 +214,13 @@ if( $page > 0 && $left_rec > $limit) {
                             <img src="../images/img-icon.png">
                             </div>
                             <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
-                            <input type="text" placeholder="Type your message…" name="message" class="input-msg" autofocus>
+                            <?php 
+                            if($result1==true){
+                            echo '<input type="text" placeholder="Type your message…" name="message" class="input-msg" autofocus>';
+                            }else{
+                            echo '<input type="text" placeholder="Type your message…" name="message" class="input-msg" disabled>';
+                            }
+                            ?>
                             </div>
                         </div>
                         </div>
@@ -257,13 +268,20 @@ if( $page > 0 && $left_rec > $limit) {
 <?php
     if (isset($_POST['webimg']) && isset($_POST['webupload'])  ) {
         if(!$channelArchived){
-            $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            if($_SESSION['sess_user']!='admin'){
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
+            }else{
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+            }
             $result = $connection->query($query);
             if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                        $channel_idSelected = $row['channel_id'];
-                }
-            } 
+                $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+                $result = $connection->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                            $channel_idSelected = $row['channel_id'];
+                    }
+                } 
             $subject = $channelSelected;
             $creator_id = $_SESSION['sess_user'];
             $sql = "insert into message (subject,creator_id,create_date,channel_id,msg_type,image_url,image_name)
@@ -274,6 +292,7 @@ if( $page > 0 && $left_rec > $limit) {
             }
 
         }
+    }
         else{
           echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }
@@ -294,15 +313,24 @@ if (isset($_POST["img"])) {
                                 if (strpos(finfo_file($finfo, $_FILES['userfile1']['tmp_name']), "image") === 0) {
                                     // prepare the image for insertion
                                     $imgData = addslashes(file_get_contents($_FILES['userfile1']['tmp_name']));
-                                    $msg= 'Image successfully saved in database.';
+                                    $msg='';
                                    if(!$channelArchived){
-                                    $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['userfile1']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
+                                    if($_SESSION['sess_user']!='admin'){
+                                        $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
+                                        }else{
+                                            $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+                                        }
+                                        $result = $connection->query($query);
+                                        if ($result->num_rows > 0) {
+                                        $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['userfile1']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
+                                                $msg= 'Image successfully saved in database.';
                                                     if ($result) {
                                        
                                                     } else {
                                                         echo mysqli_error($connection);
                                                     }  
                                 }
+                            }
                                 else{
                                     $msg = "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
                                 }
