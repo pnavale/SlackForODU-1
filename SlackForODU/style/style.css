@@ -76,7 +76,7 @@ body {
     /*  font-family: 'Shadows Into Light', cursive !important;  */
     font-family: 'Lato', sans-serif !important;
     color: palevioletred;
-    /*    font-family: verdana;*/
+    /* font-family: verdana;*/
     font-size: 100%;
     background: #eee url("../images/background.png");
 }
@@ -220,7 +220,7 @@ p {
     clear: both;
 }
 
-/* ---------- LIVE-CHAT ---------- */
+/* --------- LIVE-CHAT ---------- */
 
 #live-chat {
     bottom: 0;
@@ -356,7 +356,6 @@ p {
     height: 200px;
     /* width and height can be anything, as long as they're equal */
 }
-
 
 .wkurl {
     cursor: pointer;
@@ -612,8 +611,8 @@ textarea {
   -apple-transition:all 0.3s ease-in-out;
   transition:all 0.3s ease-in-out;
 }
+/* Reputation Metrics END */
 
-/*Reputation Metrics END*/
 body {
     margin: 30px 0px;
 }
