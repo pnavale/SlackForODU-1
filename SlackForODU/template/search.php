@@ -6,6 +6,8 @@ if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
 ?>
+<h3>User's statistics</h3>
+<a href="member.php" class="pull-right">Go to Main Page</a>
 <center>
 <div class="row" style="padding-top: 90px;">
 <label for="autocomplete">Search username: </label>

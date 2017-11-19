@@ -165,7 +165,9 @@ $('.private_channel').click(function() {
             }
         });
     })
-
+    $('.cancelbtn').on('click',function() {
+    $('.notification').css('display', 'none');
+     })
     $('.alert').click(function() {
         console.log('hey');
         if (alertClick % 2 == 0) {

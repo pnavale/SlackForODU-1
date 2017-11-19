@@ -37,8 +37,9 @@ $channelArchived=false;
             }
         } 
 $limit = 5;
-$query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
+$query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' and wk_id='".$_SESSION['wkid']."'";
 $result1 = mysqli_query($connection, $query);
+if ($result1) {
 $number = mysqli_num_rows($result1);
 $totalpages = ceil($number/$limit);
 // if (!isset($_GET['page'])) {
@@ -147,6 +148,7 @@ if ($result->num_rows > 0) {
 <hr>                  
 <?php
 
+
 }
 
 // $limitPg=5;
@@ -180,6 +182,7 @@ if( $page > 0 && $left_rec > $limit) {
             $last = $page - 2;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
          }
+}  
 ?>
 </div>
 <!-- end chat-history -->
