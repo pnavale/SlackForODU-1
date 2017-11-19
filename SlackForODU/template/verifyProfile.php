@@ -6,6 +6,7 @@ if (!isset($_SESSION)) {
 }
 $data=[];
 $userInfo = $users=$reactions=$channels =$posts =[];
+$reactionPercent=$postPercent=$channelPercent=$totalPercent=0;
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";
     $result = $connection->query($query);
@@ -56,12 +57,15 @@ if ($result->num_rows > 0) {
         array_push($posts, $row);
     }
 }
-
+if($totalPosts!=0){
 $postPercent = round((count($posts)/$totalPosts)*100,1,PHP_ROUND_HALF_UP);
-
+}
+if($totalReactions!=0){
 $reactionPercent = round((count($reactions)/$totalReactions)*100,1,PHP_ROUND_HALF_UP);
-
+}
+if($totalChannels!=0){
 $channelPercent = round((count($channels)/$totalChannels)*100,1,PHP_ROUND_HALF_UP);
+}
 
 $totalPercent = round(($postPercent + $reactionPercent + $channelPercent)/3,1,PHP_ROUND_HALF_UP);
 $userType='';
@@ -71,9 +75,9 @@ if($totalPercent>90){
     $userType = 'Active user';
 }else if($totalPercent>50){
     $userType = 'Moderate active user';
-}else if($totalPercent>30){
-    $userType = 'Not so active user';
 }else if($totalPercent>10){
+    $userType = 'Not so active user';
+}else {
     $userType = 'Least active user';
 }
 
