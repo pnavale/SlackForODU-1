@@ -8,8 +8,6 @@
  * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
  * http://jquery.org/license
- *
- * Date: 2014-05-01T17:11Z
  */
 
 (function( global, factory ) {
@@ -60,7 +58,6 @@ var toString = class2type.toString;
 var hasOwn = class2type.hasOwnProperty;
 
 var support = {};
-
 
 
 var
@@ -550,12 +547,6 @@ var Sizzle =
 /*!
  * Sizzle CSS Selector Engine v1.10.19
  * http://sizzlejs.com/
- *
- * Copyright 2013 jQuery Foundation, Inc. and other contributors
- * Released under the MIT license
- * http://jquery.org/license
- *
- * Date: 2014-04-18
  */
 (function( window ) {
 
