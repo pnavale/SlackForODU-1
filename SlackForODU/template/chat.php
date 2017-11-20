@@ -235,35 +235,45 @@ if( $page > 0 && $left_rec > $limit) {
         <!-- end chat -->
     </div>
     <!-- end live-chat -->
+    
     <div class="overlay">
-    <div style="background-color: white;height:750px;">
-    <center>
-    <form action="" enctype="multipart/form-data" method="POST" >
+    <div style="background-color: white;height:250px;">
+     <h3>Image Upload</h3><br><br>
+    <div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Local Image Upload</a></li>
+    <li><a href="#tabs-2">Web Image Upload</a></li>
+  </ul>
+  <div id="tabs-1">
+      <form action="" enctype="multipart/form-data" method="POST" >
                 <br> Upload your image here:
                 <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
                 <input name="userfile1" type="file" />
                 <br>
                 <br>
-                <input type="submit" class="btn btn-success" value="Next" name="img" style="width:50%;" />
-                <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
+                <input type="submit" class="btn btn-success" value="Next" name="img" style="width:30%;" /><br>
+                <input type="button" class="btn btn-default" value="Cancel" style="width:30%;" onclick="off()" />
     </form>
-    
-     <div>
-     <br><br>
-     <br><br>
+  </div>
+  <div id="tabs-2">
+  <h3>Web Image Upload</h3>
     <p>1. Copy image data into clipboard or press Print Screen <br></p>
-    <p>2. Press Ctrl+V (page/iframe must be focused):</p>
+    <p>2. Press Ctrl+V or paste in the input field:</p>
     <br><br>
 <!--     <canvas style="border:1px solid grey;" id="my_canvas" width="300" height="300"></canvas></center>
 --><form method="post">   
  <input name="webupload" id="web-upload" type="text" style="border:  1px solid;" />
     <br><br>
-    <input type="submit" class="btn btn-success" value="Next" name="webimg" id="web-img" style="width:50%;" />
-    <input type="button" class="btn btn-default" value="Cancel" style="width:50%;" onclick="off()" />
+    <input type="submit" class="btn btn-success" value="Next" name="webimg" id="web-img" style="width:30%;" /><br>
+    <input type="button" class="btn btn-default" value="Cancel" style="width:30%;" onclick="off()" />
     </form>
-    </div>
-    </div>
-    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
 
 <?php
     if (isset($_POST['webimg']) && isset($_POST['webupload'])  ) {
@@ -389,6 +399,9 @@ function file_upload_error_message($error_code)
 ?>
 
         <script type="text/javascript">
+        $( function() {
+    $( "#tabs" ).tabs();
+  } );
         function on() {
             $('.overlay').css('display','block');
         }
