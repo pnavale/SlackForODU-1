@@ -10,7 +10,10 @@ include 'includes/htmlheader.php';
         <h1>Welcome to Slack for ODU</h1>
     </center>
     <!-- Display username. -->
-    <h3>Welcome, <?=$_SESSION['sess_user_fullname'];?>! <a href="logout.php" class="pull-right">Logout</a></h3>
+    <h3>Welcome, <?=$_SESSION['sess_user_fullname'];?>! <a href="logout.php" class="pull-right">| Logout |</a>
+
+        <a href="../help/help.html" class="pull-right">| Help |</a>
+    </h3>
     <div class="row">
         <!-- Display sidebar. -->
         <div class="col-sm-0 col-md-3 col-lg-3 col-xs-0" style="background-color:#2c2d30;">
