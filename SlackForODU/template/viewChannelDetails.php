@@ -8,6 +8,7 @@ if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
 ?>
+<a href="member.php" class="pull-right">Go to Main Page</a>
 <div class="login-container" style="width:400px">
 <h4>Channel Details:</h4>
 <br><br>

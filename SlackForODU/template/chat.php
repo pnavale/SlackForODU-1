@@ -426,7 +426,7 @@ function file_upload_error_message($error_code)
             console.log(msgid);
             $.ajax({
                 type: 'GET',
-                url: 'chatHistory.php',
+                url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
                 data: { deleteMsg: msgid },
                 success: function(response) {
                     window.location.reload();
@@ -458,7 +458,7 @@ function file_upload_error_message($error_code)
 
             $.ajax({
                 type: 'GET',
-                url: 'chatHistory.php',
+                url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
                 data: { emoji: emoji, person: person, msgid: msgid },
                 success: function(response) {
                     window.location.reload();

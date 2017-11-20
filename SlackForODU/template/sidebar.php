@@ -202,7 +202,11 @@ $('.private_channel').click(function() {
                 $.each( response['channels'], function( key, channel ) {
                     var channelDiv = $('<div class="channel-item col-sm-10 col-md-10 col-lg-10 col-xs-10"></div>');
                     var href = "member.php?ch="+channel['channel_name'];
-                    var span = $('<span style="color:#FFFFFF;" class="chItem"></span>');
+                    if(channel['archived']==0){
+                        var span = $('<span style="color:#FFFFFF;" class="chItem"></span>');
+                    }else{
+                        var span = $('<span style="color:#A52A2A;" class="chItem"></span>');
+                    }
                     var a = $('<a name="ch" class="channel-list-item"></a>');
                     a.attr('href',href);
                     span.html('#'+channel['channel_name']);
