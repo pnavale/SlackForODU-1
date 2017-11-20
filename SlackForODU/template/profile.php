@@ -6,6 +6,7 @@ if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
 ?>
+<a href="member.php" class="pull-right">Go to Main Page</a>
 <div class="row"> 
 <div class="col-sm-12 col-md-3 col-lg-3 col-xs-12">
 <div class="short-profile" style="border:1px;padding-left:5%;background-color: #0E76BD;">

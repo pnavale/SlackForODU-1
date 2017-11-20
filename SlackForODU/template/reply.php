@@ -2,8 +2,7 @@
 include 'includes/db_connection.php';
 include 'includes/functions.php';
 session_start();
-?>
-    <?php
+
 if ($_SESSION['sess_user']) {
     if (isset($_GET["msg_id"])) {
         if(!empty($_GET["msg_id"]) && $_GET["msg_id"]!=''){
@@ -12,6 +11,7 @@ if ($_SESSION['sess_user']) {
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
         $channelArchived=false;
+        if(!empty($replyMsg)){
         $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
@@ -23,17 +23,23 @@ if ($_SESSION['sess_user']) {
             }
         }
         if(!$channelArchived){ 
-        $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
+        $query = "SELECT * FROM Reply WHERE reply_msg='" . $replyMsg . "' and replied_by='".$replied_by."' and msg_id='".$msgid."'";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+        }else{
+            $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reply_type) values('$msgid','$replyMsg','$replied_by',NOW(),'$msg_type')";
         if (mysqli_query($connection, $sql)) {
             echo "Record updated successfully";
         } else {
             echo "Error updating record: " . mysqli_error($connection);
+        }
         }
     }else{
           echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }
 
     }
+}
     }
 }
 ?>

@@ -20,6 +20,20 @@ if (isset($_GET['userProfile'])) {
         }
     }
 }
+if (isset($_GET['userProfile']) && $_GET['userProfile']=='admin') {
+    $query = "SELECT * FROM users";
+    $result = $connection->query($query);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $row['image'] = base64_encode($row['image']);
+            array_push($users, $row);
+            if($row['username'] == $_GET['userProfile']){
+                array_push($userInfo, $row);
+            }
+        }
+    }
+}
+
 
 $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_GET['userProfile'] . "%' or channel_creator='" . $_GET['userProfile'] . "'";
 $result = $connection->query($query);

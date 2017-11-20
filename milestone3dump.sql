@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `channel`
 --
--- drop database slack;
+drop database slack;
 create database IF NOT EXISTS slack;
 
 use slack;
@@ -61,11 +61,11 @@ INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel
 (5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', 'ashu,', 'private', 'agosa003,doc', 'mater,sally,chick,mcmissile,mcqueen', 0),
 (6, 'fashion', 'doc', '2017-10-31 12:10:02', 'wk1', 'fashion sense', ',agosa003,doc', 'public', ',mater', 'ashu,doc,sally,chick,mcmissile,mcqueen', 0),
 (7, 'fashionq', 'doc', '2017-10-31 12:12:48', 'wk1', 'fashion sense', ',agosa003,doc', 'public', '', 'ashu,mater,sally,chick,mcmissile,mcqueen', 0),
-(8, 'commun', 'doc', '2017-10-31 12:14:29', 'wk1', 'csjkjs', ',agosa003,', 'public', ',doc', 'ashu,mater,sally,chick,mater,mcmissile,mcqueen', 0),
-(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,,sally', 'public', ',mater', 'ashu,chick,mcmissile,mcqueen', 0),
+(8, 'commun', 'doc', '2017-10-31 12:14:29', 'wk1', 'csjkjs', ',agosa003,', 'public', ',doc', 'ashu,mater,sally,chick,mcmissile,mcqueen', 0),
+(9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',agosa003,doc,sally', 'public', ',mater', 'ashu,chick,mcmissile,mcqueen', 0),
 (10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',agosa003,doc,mater,sally', 'public', '', 'ashu,chick,mcmissile,mcqueen', 0),
-(11, 'towmaterstalltales', 'mater', '2017-11-12 18:36:21', 'wk1', '', ',', 'private', ',mcqueen,mater', ',agosa003,ashu,chick,doc,mcmissile,sally', 0),
-(12, 'test', 'admin', '2017-11-17 16:27:19', 'wk1', '', 'mater,,agosa003,ashu,chick', 'public', '', 'doc,mcmissile,mcqueen,sally', 1);
+(11, 'towmaterstalltales', 'mater', '2017-11-12 18:36:21', 'wk1', '', '', 'private', ',mcqueen,mater', ',agosa003,ashu,chick,doc,mcmissile,sally', 0),
+(12, 'test', 'admin', '2017-11-17 16:27:19', 'wk1', '', 'mater,agosa003,ashu,chick', 'public', '', 'doc,mcmissile,mcqueen,sally', 1);
 
 -- --------------------------------------------------------
 

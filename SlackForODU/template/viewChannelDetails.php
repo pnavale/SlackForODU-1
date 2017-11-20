@@ -33,6 +33,13 @@ if (!$_SESSION['wkid']) {
   <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-archived">  
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+    <p>Users :</p>
+  </div>
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 users" style="word-wrap: break-word;">  
+  </div>
+</div>
 <br><br>
 <?php if($_SESSION['sess_user']== 'admin'){
 	echo "<div class='row change-mem'><button class='change-membership'>Change Membership</button></div>";
@@ -86,6 +93,13 @@ if (!$_SESSION['wkid']) {
                          console.log(channel);
                          $('.channel-name').html(channel['channel_name']);
                          $('.channel-type').html(channel['channel_type']);
+                         if (channel['joined'].substring(channel['joined'].length-1) == ",")
+                          {
+                            channel['joined'] = channel['joined'].substring(0, channel['joined'].length-1);
+                          }else if(channel['joined'].substring(0,1) == ","){
+                            channel['joined'] = channel['joined'].substring(1, channel['joined'].length);
+                          }
+                         $('.users').html(channel['joined']);
                          if(channel['archived']==1){
                           $('.channel-archived').html('Yes');
                           $('.archive').val('Unarchive');
