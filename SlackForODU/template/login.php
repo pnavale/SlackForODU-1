@@ -18,7 +18,7 @@ if (!$_SESSION['wkid']) {
         </div>
         <br>
         <form action="" method="POST">
-            <input type="text" class="form-control" id="user" placeholder="username or email id">
+            <input type="text" class="form-control" id="user" placeholder="username">
             <br>
             <input type="password" class="form-control" id="pass" placeholder="password">
             <br>
