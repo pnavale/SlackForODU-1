@@ -98,7 +98,7 @@ if (strcmp($crfdate, $prevDate1) > 0) {
             var replyInput = $('#' + replyInput).val();
             $.ajax({
                 type: 'GET',
-                url: 'reply.php',
+                url: 'reply.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
                 data: {
                     msg_id: msgId,
                     reply: replyInput

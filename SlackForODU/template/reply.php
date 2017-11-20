@@ -2,7 +2,7 @@
 include 'includes/db_connection.php';
 include 'includes/functions.php';
 session_start();
-
+$channelArchived=false;
 if ($_SESSION['sess_user']) {
     if (isset($_GET["msg_id"])) {
         if(!empty($_GET["msg_id"]) && $_GET["msg_id"]!=''){
@@ -10,8 +10,10 @@ if ($_SESSION['sess_user']) {
         $msgid = $_GET["msg_id"];
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
-        $channelArchived=false;
         if(!empty($replyMsg)){
+        if (isset($_GET["ch"])) {
+            $channelSelected = $_GET['ch'];
+            }
         $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {

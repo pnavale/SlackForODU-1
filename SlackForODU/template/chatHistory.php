@@ -9,25 +9,6 @@ $oldChannelSelected =$channelSelected = '';
 $totalpages=0;
 $channels = [];
 $channelArchived=false;
-if (isset($_GET["deleteMsg"])) {
-    $deleteMsgId = $_GET['deleteMsg'];
-    $sql = "DELETE FROM message WHERE msg_id='".$deleteMsgId."'";
-    if ($connection->query($sql) === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $conn->error;
-    }
-}
-
-
-$query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
-$result = $connection->query($query);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        array_push($channels, $row);
-    }
-}
-
 if (isset($_GET["ch"])) {
     $cname = '';
     $channelSelected = $_GET['ch'];
@@ -37,18 +18,53 @@ if (isset($_GET["pc"])) {
     $cname = $_GET['pc'];
 }
 $chats = $channelObject = $data=[];
+$query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result1 = $connection->query($query);
+        if ($result1->num_rows > 0) {
+            while ($row = $result1->fetch_assoc()) {
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
+            }
+        } 
+if (isset($_GET["deleteMsg"])) {
+    $deleteMsgId = $_GET['deleteMsg'];
+    $sql = "DELETE FROM message WHERE msg_id='".$deleteMsgId."'";
+    if ($connection->query($sql) === TRUE) {
+        echo "Record deleted successfully";
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+}
+$query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
+$result = $connection->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        array_push($channels, $row);
+    }
+}
+
+
 $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_GET["emoji"]) || isset($_GET["person"]) || isset($_GET["msgid"])) {
         $emoji = $_GET["emoji"];
         $person = $_SESSION['sess_user'];
         $msgid = $_GET["msgid"];
         $msg_type = "reaction";
+        $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result1 = $connection->query($query);
+        if ($result1->num_rows > 0) {
+            while ($row = $result1->fetch_assoc()) {
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
+            }
+        } 
         $query = "SELECT * FROM Reply WHERE msg_id='" . $msgid . "' and reply_type='" . $msg_type . "' and replied_by='" . $person . "'";
         $result = $connection->query($query);
         if (!$channelArchived) {
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "Here";
                 if($row['reaction']!=$emoji){
                     $sql = "DELETE FROM Reply WHERE msg_id='" . $msgid . "' and reply_type='" . $msg_type . "' and replied_by='" . $person . "'";
                     $connection->query($sql);
@@ -65,7 +81,7 @@ $profile = $_SESSION['sess_user_profile_pic'];
         else{
             $sql = "insert into Reply(msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$msgid','','$person',NOW(),'$emoji','$msg_type')";
                     if (mysqli_query($connection, $sql)) {
-                        echo "Record updated successfully";
+                        echo "Record updated successfully2";
                     } else {
                         echo "Error updating record: " . mysqli_error($connection);
                     }
@@ -117,6 +133,16 @@ $profile = $_SESSION['sess_user_profile_pic'];
             $group_id = '';
             $image = $_SESSION['sess_image'];
             $profile_pic = $_SESSION['sess_user_profile_pic'];
+            $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $channel_idSelected = $row['channel_id'];
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
+            }
+        } 
             if(!$channelArchived){
                 if($_SESSION['sess_user']!='admin'){
                 $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
@@ -143,12 +169,15 @@ $profile = $_SESSION['sess_user_profile_pic'];
     if (isset($_GET['imgMsg']) && isset($_GET['ch'])  ) {
             $channel_idSelected=$_GET["ch"];
             $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
-            $result = $connection->query($query);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                        $channel_idSelected = $row['channel_id'];
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $channel_idSelected = $row['channel_id'];
+                     if($row['archived']==1){
+                    $channelArchived=true;
                 }
-            } 
+            }
+        } 
              if(!$channelArchived){
             if($_SESSION['sess_user']!='admin'){
                 $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
@@ -180,6 +209,16 @@ $profile = $_SESSION['sess_user_profile_pic'];
         $msgid = $_GET["msg_id"];
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
+        $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result = $connection->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $channel_idSelected = $row['channel_id'];
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
+            }
+        } 
         if(!$channelArchived){
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {

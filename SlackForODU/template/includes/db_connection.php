@@ -1,5 +1,6 @@
 <?php
 // Create connection
+
 $connection = mysqli_connect('localhost', 'root', '');
 // $connection=mysqli_connect('localhost','admin','M0n@rch$');
 //mysql_select_db('slack',$connection)or die(mysql_error());
