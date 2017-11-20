@@ -9,36 +9,36 @@ if (!$_SESSION['wkid']) {
 }
 ?>
 <a href="member.php" class="pull-right">Go to Main Page</a>
-<div class="login-container" style="width:400px">
+<div class="login-container" style="width:500px">
 <h4>Channel Details:</h4>
 <br><br>
 <div class="row">
-	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 ">
+	<div class="col-sm-3 col-md-3 col-lg-3 col-xs-3 ">
 	<p>Channel Name :</p>
 	</div>
-	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-name">	
+	<div class="col-sm-9 col-md-9 col-lg-9 col-xs-9 channel-name">	
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+	<div class="col-sm-3 col-md-3 col-lg-3 col-xs-3">
 		<p>Channel Type :</p>
 	</div>
-	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-type">	
+	<div class="col-sm-9 col-md-9 col-lg-9 col-xs-9 channel-type">	
 	</div>
 </div>
 <div class="row">
-  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+  <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3">
     <p>Channel Archived :</p>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 channel-archived">  
+  <div class="col-sm-9 col-md-9 col-lg-9 col-xs-9 channel-archived">  
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">
+  <div class="col-sm-3 col-md-3 col-lg-3 col-xs-3">
     <p>Users :</p>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 users" style="word-wrap: break-word;">  
+  <div class="col-sm-9 col-md-9 col-lg-9 col-xs-9 users" style="word-wrap: break-word;">  
   </div>
 </div>
 <br><br>

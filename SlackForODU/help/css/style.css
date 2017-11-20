@@ -17,7 +17,7 @@ body {
   font-size: 100%;
   font-family: "Open Sans", sans-serif;
   color: #4e5359;
-  background-color: #f3f3f5;
+  background: #eee url("../../images/background.png");
 }
 body::after {
   /* overlay layer visible on small devices when the right panel slides in */
@@ -58,8 +58,8 @@ Main components
 -------------------------------- */
 header {
   position: relative;
-  height: 180px;
-  line-height: 180px;
+  height: 150px;
+  line-height: 150px;
   text-align: center;
   background-color: #4682B4;
 }
@@ -72,8 +72,8 @@ header h1 {
 }
 @media only screen and (min-width: 1024px) {
   header {
-    height: 240px;
-    line-height: 240px;
+    height: 200px;
+    line-height: 200px;
   }
   header h1 {
     font-size: 36px;
