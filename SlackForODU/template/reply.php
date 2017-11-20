@@ -11,6 +11,9 @@ if ($_SESSION['sess_user']) {
         $msg_type = "reply";
         $replied_by = $_SESSION['sess_user'];
         if(!empty($replyMsg)){
+        if (isset($_GET["ch"])) {
+            $channelSelected = $_GET['ch'];
+            }
         $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
