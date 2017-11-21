@@ -9,6 +9,7 @@
 *::after, *::before {
   content: '';
 }
+
 /* body */
 body {
   font-size: 100%;
