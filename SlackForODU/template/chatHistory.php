@@ -30,12 +30,25 @@ $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
         } 
 if (isset($_GET["deleteMsg"])) {
     $deleteMsgId = $_GET['deleteMsg'];
+    $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "'";
+        $result1 = $connection->query($query);
+        if ($result1->num_rows > 0) {
+            while ($row = $result1->fetch_assoc()) {
+                     if($row['archived']==1){
+                    $channelArchived=true;
+                }
+            }
+        } 
+    if (!$channelArchived) {
     $sql = "DELETE FROM message WHERE msg_id='".$deleteMsgId."'";
     if ($connection->query($sql) === TRUE) {
         echo "Record deleted successfully";
     } else {
         echo "Error deleting record: " . $conn->error;
     }
+}else{
+        echo "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
+        }
 }
 $query = "SELECT * FROM channel where channel_creator='default' or  joined like '%" . $_SESSION['sess_user'] . "%' or channel_creator='".$_SESSION['sess_user']."'";
 $result = $connection->query($query);
