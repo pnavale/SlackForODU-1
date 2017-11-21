@@ -119,10 +119,7 @@ if (!$_SESSION['wkid']) {
 </div>
 <script type="text/javascript">
  var privateCount=0;
-    // Function to go to change profile picture page.
-    $('.profile-img').on('click', function(e) {
-        window.location.href ="changeProfilePic.php";
-        })
+ var currentUser='';
     // Function for button to show private channels.
      $('.private_channel').on('click', function(e) {
       if(privateCount%2==0){
@@ -152,6 +149,7 @@ if (!$_SESSION['wkid']) {
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
+                      currentUser=response['sess_user'];
                         if(response['sess_user']!=user['username']){
                           console.log('here');
                           $('.private_channel').html('');
@@ -178,13 +176,13 @@ if (!$_SESSION['wkid']) {
                 });
 
                $('#post-percent-div').css('width',response['postPercent']);
-                $('#post-percent').html(response['postPercent']);
+                $('#post-percent').html(response['postPercent']+'%');
                 $('#channel-percent-div').css('width',response['channelPercent']);
-                $('#channel-percent').html(response['channelPercent']);
+                $('#channel-percent').html(response['channelPercent']+'%');
                 $('#react-percent-div').css('width',response['reactionPercent']);
-                $('#react-percent').html(response['reactionPercent']);
+                $('#react-percent').html(response['reactionPercent']+'%');
                 $('#user-percent-div').css('width',response['totalPercent']);
-                $('#user-percent').html(response['totalPercent']);
+                $('#user-percent').html(response['totalPercent']+'%');
                 $('#user-type').html(response['userType']);
                 $('.userType').html(response['userType']);
                 
@@ -193,4 +191,10 @@ if (!$_SESSION['wkid']) {
     }
    
     setData(location.search.substring(10,location.search.length));
+     // Function to go to change profile picture page.
+    $('.profile-img').on('click', function(e) {
+        if(currentUser==$('.username').html()){
+        window.location.href ="changeProfilePic.php";
+        }
+        })
 </script>

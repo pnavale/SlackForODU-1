@@ -87,7 +87,8 @@ if (isset($_POST["cancel"])) {
     header("Location: member.php");
 }
 ?>
-        <div class="login-container" style="width:600px">
+<a href="member.php" class="pull-right">Go to Main Page</a>     
+<div class="login-container" style="width:600px">
             <h2>Create a Channel</h2>
             <br>
             <br>
