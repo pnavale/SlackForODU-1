@@ -90,14 +90,14 @@ if (!$_SESSION['wkid']) {
             <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" id="channel-percent-div">
                 <span class="sr-only" style="font-size:13px;">60% Complete</span>
             </div>
-            <span class="progress-type" style="font-size:13px;">Channel Subscribed</span>
+            <span class="progress-type" style="font-size:13px;">Channels subscribed</span>
             <span class="progress-completed" style="font-size:13px;" id="channel-percent">60%</span>
         </div>
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="post-percent-div">
                 <span class="sr-only">40% Complete (success)</span>
             </div>
-            <span class="progress-type" style="font-size:13px;">Posts Posted</span>
+            <span class="progress-type" style="font-size:13px;">Posts posted</span>
             <span class="progress-completed" style="font-size:13px;" id="post-percent">40%</span>
         </div>
         <div class="progress">
