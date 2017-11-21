@@ -280,7 +280,19 @@ if( $page > 0 && $left_rec > $limit) {
 
 
 <?php
-    if (isset($_POST['webimg']) && isset($_POST['webupload'])  ) {
+ function isImage( $url )
+  {
+    $pos = strrpos( $url, ".");
+    if ($pos === false)
+      return false;
+    $ext = strtolower(trim(substr( $url, $pos)));
+    $imgExts = array(".gif", ".jpg", ".jpeg", ".png", ".tiff", ".tif"); // this is far from complete but that's always going to be the case...
+    if ( in_array($ext, $imgExts) )
+      return true;
+    return false;
+  }
+
+    if (isset($_POST['webimg']) && isset($_POST['webupload']) &&  isImage($_POST['webupload'])) {
         if(!$channelArchived){
             if($_SESSION['sess_user']!='admin'){
                 $query = "SELECT * FROM channel WHERE channel_name='" . $channelSelected . "' and joined like '%" . $_SESSION['sess_user'] . "%'";
