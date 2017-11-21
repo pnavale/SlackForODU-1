@@ -23,7 +23,7 @@ if (!$_SESSION['wkid']) {
     </div>
     <div class="row">
     <!-- Add button to show private channels. -->    
-    <a type="button" href="#" class="private_channel" style="color:black;">Show private channel</a>
+    <a type="button" href="#" class="private_channel" style="color:black;">Show private channel(s)</a>
     </div>
     <!-- Display subscribed channels with channel type. -->
     <div class="row channels">
