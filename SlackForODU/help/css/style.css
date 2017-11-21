@@ -44,7 +44,8 @@ body.cd-overlay::after {
 }
 
 a {
-  color: #a9c056;
+/*    steel blue color for text colors */
+  color: #4682b4; 
   text-decoration: none;
 }
 
