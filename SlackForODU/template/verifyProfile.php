@@ -5,9 +5,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $data=[];
-$userInfo = $users=$reactions=$channels =$posts[];
+$userInfo = $users=$reactions=$channels =$posts =[];
 $reactionPercent=$postPercent=$channelPercent=$totalPercent=0;
-
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";
     $result = $connection->query($query);

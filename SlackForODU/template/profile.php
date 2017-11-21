@@ -75,7 +75,7 @@ if (!$_SESSION['wkid']) {
 <div class="statBubbleContainer col-sm-2 col-md-4 col-lg-4 col-xs-2">
 <div class="statBubble facebookLikes">
   <div class="statNum" id="reaction-metric">
-  132
+  0
   </div>
 </div>
   <h3>Reactions</h3>
