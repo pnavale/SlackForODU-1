@@ -103,7 +103,7 @@ if ($result->num_rows > 0) {
         if(substr($value['msg_body'],0,4)!='&gt;'){
           echo "<div><p>".$value['msg_body']."</p></div>";;
         }else{
-            $value['msg_body']=ltrim($value['msg_body'], '&gt;');
+            $value['msg_body']=str_replace('&gt;', '', $value['msg_body']);
             echo "<div class='vl'><blockquote><pre><code>".$value['msg_body']."</code></pre></blockquote></div>";
         }
       }  else if($value['msg_type']=='image'){
