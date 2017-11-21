@@ -41,7 +41,7 @@ if (!$_SESSION['wkid']) {
 <div class="statBubbleContainer col-sm-2 col-md-4 col-lg-4 col-xs-2">
 <div class="statBubble websitesLaunched">
   <div class="statNum" id="channel-metric">
-  0
+  50
   </div>
 </div>
   <h3>Channels</h3>
@@ -52,7 +52,7 @@ if (!$_SESSION['wkid']) {
 <div class="statBubbleContainer col-sm-2 col-md-4 col-lg-4 col-xs-2">
 <div class="statBubble teamSize">
   <div class="statNum" id="member-metric">
-  0
+  3
   </div>
 </div>
   <h3>Users</h3>
@@ -62,7 +62,7 @@ if (!$_SESSION['wkid']) {
 <a class="nounderline" title="Posts">
 <div class="statBubbleContainer col-sm-2 col-md-4 col-lg-4 col-xs-2">
 <div class="statBubble topSEORank">
-  <div class="statNum" id="posts-metric">
+  <div class="statNum" id="member-metric">
   0
   </div>
 </div>
@@ -75,7 +75,7 @@ if (!$_SESSION['wkid']) {
 <div class="statBubbleContainer col-sm-2 col-md-4 col-lg-4 col-xs-2">
 <div class="statBubble facebookLikes">
   <div class="statNum" id="reaction-metric">
-  0
+  132
   </div>
 </div>
   <h3>Reactions</h3>
@@ -162,7 +162,6 @@ if (!$_SESSION['wkid']) {
                 channelDiv= $('.channel-list');
                 $('#channel-metric').html(response['channels'].length);
                 $('#member-metric').html(response['users'].length);
-                $('#posts-metric').html(response['posts'].length);
                 $('#reaction-metric').html(response['reactions'].length);
                 $.each( response['channels'], function( key, channel ) {
                         if(channel['channel_type']=='public'){

@@ -13,7 +13,7 @@ if (isset($_GET['userProfile'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $row['image'] = base64_encode($row['image']); 
-            $data['sess_user']=$_SESSION['sess_user'];
+            $data['user']=$_SESSION['sess_user'];
             array_push($users, $row);
             if($row['username'] == $_GET['userProfile']){
                 array_push($userInfo, $row);
@@ -97,7 +97,7 @@ if($totalPercent>90){
     $userType = 'Least active user';
 }
 
-if($_GET['userProfile']=='admin'){
+if($_SESSION['sess_user']=='admin'){
     $channel=$userInfo=[];
     $query = "SELECT * FROM users WHERE username='admin'";
     $result = $connection->query($query);
@@ -129,7 +129,6 @@ $data['reactionPercent']=$reactionPercent;
 $data['channelPercent']=$channelPercent;
 $data['totalPercent']=$totalPercent;
 $data['userType']=$userType;
-$data['posts']=$posts;
 // ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
