@@ -12,11 +12,17 @@ if (isset($_GET['userProfile'])) {
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $row['image'] = base64_encode($row['image']);
+            $row['image'] = base64_encode($row['image']); 
+            if($_SESSION['sess_user']==$row['username']){
+                $row['userType']='sess_user';
+            }else{
+                 $row['userType']='user';
+            }
             array_push($users, $row);
             if($row['username'] == $_GET['userProfile']){
                 array_push($userInfo, $row);
             }
+
         }
     }
 }

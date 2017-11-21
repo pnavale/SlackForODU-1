@@ -146,6 +146,11 @@ if (!$_SESSION['wkid']) {
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
+                        if(user['userType']!='sess_user'){
+                          console.log(user['userType']);
+                          $('.private_channel').html('');
+                        }
+                        
                       }
                 });
                 // Getting channel names and channel types.
