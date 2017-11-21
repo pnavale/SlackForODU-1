@@ -34,7 +34,7 @@ if (isset($_POST["submit"])) {
 //    if (!isset($_FILES['userfile'])) {
 //            echo '<p>Please select a file</p>';
 //        }
-    if (!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email']) && !empty($_POST['fullname']) && isset($_FILES['userfile'])) {
+    if (!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email']) && !empty($_POST['fullname'])) {
             try {
                 $maxsize = 10000000; //set to approx 10 MB
                     //check associated error code
