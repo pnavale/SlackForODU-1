@@ -1,8 +1,5 @@
-/* -------------------------------- 
+/* --------- Primary style --------------- */
 
-Primary style
-
--------------------------------- */
 *, *::after, *::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -51,11 +48,8 @@ a {
   text-decoration: none;
 }
 
-/* -------------------------------- 
+/* ------- Main components ---------- */
 
-Main components 
-
--------------------------------- */
 header {
   position: relative;
   height: 150px;
