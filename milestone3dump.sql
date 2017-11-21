@@ -54,16 +54,16 @@ CREATE TABLE `channel` (
 --
 
 INSERT INTO `channel` (`channel_id`, `channel_name`, `channel_creator`, `channel_created`, `wk_id`, `purpose`, `invites`, `channel_type`, `joined`, `uninvited`, `archived`) VALUES
-(1, 'general', 'default', '2017-09-04 09:27:20', 'wk1', '', '', 'public', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen,mater,', 'pnavale', 0),
-(2, 'random', 'default', '2017-10-02 03:11:04', 'wk1', '', '', 'public', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen,mater,', 'pnavale', 0),
-(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk1', '', ',ashu,', 'public', ',mater', 'chick,doc,mcmissile,mcqueen,sally,agosa003,pnavale', 0),
+(1, 'general', 'default', '2017-09-04 09:27:20', 'wk1', '', '', 'public', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen,mater,pnavale', '', 0),
+(2, 'random', 'default', '2017-10-02 03:11:04', 'wk1', '', '', 'public', 'ashu,agosa003,doc,sally,chick,mcmissile,mcqueen,mater,pnavale', '', 0),
+(3, 'foodie', 'mcqueen', '2017-10-01 07:15:00', 'wk1', '', 'chick,ashu,', 'public', 'mcmissile,doc,mater', 'mcqueen,agosa003,sally,pnavale', 0),
 (4, 'travel', 'mater', '2017-09-04 05:15:26', 'wk1', '', ',doc,', 'public', ',mater', 'ashu,agosa003,sally,chick,mcmissile,mcqueen,pnavale', 0),
 (5, 'fitness', 'sally', '2017-10-13 04:17:00', 'wk1', '', 'ashu,', 'private', 'agosa003,doc', 'mater,sally,chick,mcmissile,mcqueen,pnavale', 0),
-(6, 'fashion', 'doc', '2017-10-31 12:10:02', 'wk1', 'fashion sense', ',agosa003,doc', 'public', ',mater', 'ashu,doc,sally,chick,mcmissile,mcqueen,pnavale', 0),
-(7, 'fashionq', 'doc', '2017-10-31 12:12:48', 'wk1', 'fashion sense', ',agosa003,doc', 'public', 'doc', 'ashu,mater,sally,chick,mcmissile,mcqueen,pnavale', 0),
+(6, 'fashion', 'doc', '2017-10-31 12:10:02', 'wk1', 'fashion sense', ',agosa003,doc', 'public', ',mater', 'ashu,sally,chick,mcmissile,mcqueen,pnavale', 0),
+(7, 'fashionq', 'doc', '2017-10-31 12:12:48', 'wk1', 'fashion sense', ',agosa003,', 'public', 'doc', 'ashu,mater,sally,chick,mcmissile,mcqueen,pnavale', 0),
 (8, 'commun', 'doc', '2017-10-31 12:14:29', 'wk1', 'csjkjs', ',agosa003,', 'public', ',doc', 'ashu,mater,sally,chick,mcmissile,mcqueen,pnavale', 0),
 (9, 'general/b /b', 'agosa003', '2017-10-31 15:11:25', 'wk1', '', ',doc,sally', 'public', ',mater,agosa003', 'ashu,chick,mcmissile,mcqueen,pnavale', 0),
-(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',,agosa003,doc,mater,sally', 'public', 'agosa003,mcmissile', 'ashu,chick,mcqueen,pnavale', 0),
+(10, 'generalqw', 'agosa003', '2017-10-31 15:13:37', 'wk1', '', ',doc,mater,sally', 'public', 'agosa003,mcmissile', 'ashu,chick,mcqueen,pnavale', 0),
 (11, 'towmaterstalltales', 'mater', '2017-11-12 18:36:21', 'wk1', '', '', 'private', ',mcqueen,mater', ',agosa003,ashu,chick,doc,mcmissile,sally,pnavale', 0),
 (12, 'test', 'admin', '2017-11-17 16:27:19', 'wk1', '', 'mater,agosa003,ashu,chick', 'public', 'admin', 'doc,mcmissile,mcqueen,sally,pnavale', 1);
 
