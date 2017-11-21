@@ -1,4 +1,5 @@
 <?php
+
 include 'includes/db_connection.php';
 if (!isset($_SESSION)) {
     session_start();
@@ -218,7 +219,8 @@ $profile = $_SESSION['sess_user_profile_pic'];
                     $channelArchived=true;
                 }
             }
-        } 
+        }
+        
         if(!$channelArchived){
         $sql = "insert into Reply(profile_pic,msg_id,reply_msg,replied_by,replied_at,reaction,reply_type) values('$profile','$msgid','$replyMsg','$replied_by',NOW(),'','$msg_type')";
         if (mysqli_query($connection, $sql)) {
@@ -226,7 +228,7 @@ $profile = $_SESSION['sess_user_profile_pic'];
         } else {
             echo "Error updating record: " . mysqli_error($connection);
         }
-        }
+    }
         else{
           echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
         }
@@ -234,4 +236,3 @@ $profile = $_SESSION['sess_user_profile_pic'];
     }
 
 }
-
