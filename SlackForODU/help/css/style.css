@@ -387,7 +387,8 @@ header h1 {
     top: 50%;
     height: 2px;
     width: 13px;
-    background: #cfdca0;
+    /* dark steel blue color of drop-down arrow icon*/
+    background: #1d3549;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transition-property: -webkit-transform;
