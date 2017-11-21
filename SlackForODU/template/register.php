@@ -61,22 +61,30 @@ if (isset($_POST["submit"])) {
                                         if ($result->num_rows < 1) {
                                             $result1 = $connection->query("INSERT INTO users(username,password,email_id,group_id,full_name,workspace_id,channel_id,profile_pic,signup_date,image) VALUES
                                                 ('$user','$pass','$email','','$fullname','$wk_id','','{$_FILES['userfile']['name']}',NOW(),'{$imgData}')");
-                                                    if ($result1) {
-                                                        $result2 = $connection->query("SELECT * FROM channel WHERE wk_id='" . $wk_id . "'");
+                                            if ($result1) {
+                                                $result2 = $connection->query("SELECT * FROM channel");
                                                         $uninvited = '';
-                                                            if ($result2->num_rows > 0) {
-                                                            while ($row = $result2->fetch_assoc()) {
-                                                                $uninvited = '';
-                                                                $uninvited = $row['uninvited'] . "," . $user;
-                                                                $result = $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
+                                                if ($result2->num_rows > 0) {
+                                                    while ($row = $result2->fetch_assoc()) {
+                                                        $uninvited = $joined='';
+                                                        $uninvited = $row['uninvited'] . "," . $user;  
+                                                         if($row['channel_name']!='general' && $row['channel_name']!='random'){  
+                                                            $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
+                                                            }
+
+                                                            if($row['channel_name']=='general'){
+                                                                $joined=$row['joined']. "," . $user;
+                                                               $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                                                                }
+                                                                if($row['channel_name']=='random'){
+                                                                        $joined=$row['joined']. "," . $user;
+                                                               $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                                                                }
+                                                            }
                                                             }
                                                         }
-                        
-                                                                echo "Account Successfully Created";
-                                                                header("Location: member.php");
-                                                            } else {
-                                                                echo mysqli_error($connection);
-                                                                }  
+                                                        echo "Account Successfully Created";
+                                                        header("Location: member.php");
                                                     
                                                 }
                                                  else {
