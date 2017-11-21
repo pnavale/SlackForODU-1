@@ -173,18 +173,22 @@ if ($result->num_rows > 0) {
 //     echo '</ul>';
 //     echo '</div>';
 // }
-
+$final=$totalpages-2;
 if( $page > 0 && $left_rec > $limit) {
             $last = $page - 2;
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=-1'>First Page</a>|";
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Last 5 Records</a> |";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>|";
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$final."'>Last Page</a>";
          }else if( $page == 0 && $left_rec<=5) {
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'></a>";
          }else if( $page == 0 && $left_rec!=0) {
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>";
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>|";
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$final."'>Last Page</a>";
          }
          else if( $left_rec < $limit && $left_rec!=0) {
             $last = $page - 2;
+            echo "<a href = 'member.php?ch=".$channelSelected."&page=-1'>First Page</a>|";
             echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
          }
 }  
