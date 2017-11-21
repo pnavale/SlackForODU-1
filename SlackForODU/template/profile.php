@@ -27,7 +27,7 @@ if (!$_SESSION['wkid']) {
     </div>
     <!-- Display subscribed channels with channel type. -->
     <div class="row channels">
-        <div class=" channel-list">
+        <div class="channel-list">
         </div>
     </div>
      <div class="row">
@@ -118,13 +118,19 @@ if (!$_SESSION['wkid']) {
   </div>
 </div>
 <script type="text/javascript">
+ var privateCount=0;
     // Function to go to change profile picture page.
     $('.profile-img').on('click', function(e) {
         window.location.href ="changeProfilePic.php";
         })
     // Function for button to show private channels.
      $('.private_channel').on('click', function(e) {
+      if(privateCount%2==0){
         $('.private').css('display','block');
+      }else{
+        $('.private').css('display','none');
+      }
+
         })
     // Setting user profile data
     function setData(userProfile) {
@@ -146,15 +152,16 @@ if (!$_SESSION['wkid']) {
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
-                        if(user['userType']!='sess_user'){
-                          console.log(user['userType']);
+                        if(response['sess_user']!=user['username']){
+                          console.log('here');
                           $('.private_channel').html('');
                         }
                         
                       }
                 });
                 // Getting channel names and channel types.
-                channelDiv= $('.channel-list').clone();
+                $('.channel-list').html('');
+                channelDiv= $('.channel-list');
                 $('#channel-metric').html(response['channels'].length);
                 $('#member-metric').html(response['users'].length);
                 $('#reaction-metric').html(response['reactions'].length);
@@ -163,8 +170,8 @@ if (!$_SESSION['wkid']) {
                             channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">'+channel['channel_name']+'</div>');
                             channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6">'+channel['channel_type']+'</div>');
                         }else{
-                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;">'+channel['channel_name']+'</div>');
-                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;">'+channel['channel_type']+'</div>');
+                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;color:#CA6F1E;">'+channel['channel_name']+'</div>');
+                            channelDiv.append('<div class="col-sm-6 col-md-6 col-lg-6 col-xs-6 private" style="display:none;color:#CA6F1E;">'+channel['channel_type']+'</div>');
                         }
                          $('.channels').append(channelDiv);   
                      
