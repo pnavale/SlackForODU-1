@@ -162,7 +162,7 @@ if (!$_SESSION['wkid']) {
                 channelDiv= $('.channel-list');
                 $('#channel-metric').html(response['channels'].length);
                 $('#member-metric').html(response['users'].length);
-                $('#posts-metric').html(response['posts'].length);
+                $('#posts-metric').html(response['posts']);
                 $('#reaction-metric').html(response['reactions'].length);
                 $.each( response['channels'], function( key, channel ) {
                         if(channel['channel_type']=='public'){

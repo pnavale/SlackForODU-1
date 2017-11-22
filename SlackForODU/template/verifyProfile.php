@@ -127,7 +127,7 @@ $data['reactionPercent']=$reactionPercent;
 $data['channelPercent']=$channelPercent;
 $data['totalPercent']=$totalPercent;
 $data['userType']=$userType;
-$data['posts']=$posts;
+$data['posts'] = count($posts);
 ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
