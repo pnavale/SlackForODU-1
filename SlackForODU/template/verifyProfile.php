@@ -118,8 +118,6 @@ if($_SESSION['sess_user']=='admin'){
             }
         }
 }
-    
-$data['posts']=$posts;
 $data['userInfo'] = $userInfo;
 $data['channels'] = $channels;
 $data['users'] = $users;
@@ -129,8 +127,8 @@ $data['reactionPercent']=$reactionPercent;
 $data['channelPercent']=$channelPercent;
 $data['totalPercent']=$totalPercent;
 $data['userType']=$userType;
-
-// ob_end_clean();
+$data['posts']=$posts;
+ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
 echo json_encode($data);
