@@ -149,9 +149,9 @@ if (!$_SESSION['wkid']) {
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
-                      currentUser=response['sess_user'];
-                        if(response['sess_user']!=user['username']){
-                          console.log('here');
+                      currentUser=response['user'];
+                        if(currentUser!=user['username']){
+                          console.log('here'+currentUser);
                           $('.private_channel').html('');
                         }
                         
