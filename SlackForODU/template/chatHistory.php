@@ -178,6 +178,15 @@ $profile = $_SESSION['sess_user_profile_pic'];
             else{
               echo   "This channel is archived so you can't post or react to any post until admin unarchive this channel.";
             }
+            if($cname!=''){
+                $sql = "insert into message (subject,creator_id,msg_body,create_date,recipient_id,profile_pic,msg_type)
+            values('$subject','$creator_id','$message',NOW(),'$recipient_id','$profile_pic','message')";
+                        if (mysqli_query($connection, $sql)) {
+                            } else if (mysqli_error($connection)) {
+                                echo "Error in posting a message.";
+                            } 
+                $_POST['message'] = '';
+            }
         }
     
     if (isset($_GET['imgMsg']) && isset($_GET['ch'])  ) {

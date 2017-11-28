@@ -42,7 +42,12 @@ if($_SESSION['sess_user']!="admin"){
         } 
 
 $limit = 5;
+if($channel_idSelected!=''){
 $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
+}
+else{
+ $query = "SELECT * FROM message WHERE channel_id=NULL";   
+}
 $result1 = mysqli_query($connection, $query);
 if ($result1) {
 $number = mysqli_num_rows($result1);
@@ -62,7 +67,16 @@ if( isset($_GET['page'] ) ) {
     $left_rec = $number - ($page * $limit);
     // $first_result = ($page-1)*$limit;
     // $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$first_result.", ".$limit."";
+    if($channel_idSelected!=''){
     $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit."";
+    }else{
+    $query = "SELECT * FROM message WHERE creator_id='" . $_SESSION['sess_user'] . "' and recipient_id='" . $cname . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit.""; 
+    $result = $connection->query($query);
+    if ($result->num_rows <= 0) {
+        $query = "SELECT * FROM message WHERE creator_id='" .$cname. "' and recipient_id='" .  $_SESSION['sess_user'] . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit.""; 
+        $result = $connection->query($query);
+    }
+    }
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -229,7 +243,7 @@ if( $page > 0 && $left_rec > $limit) {
                         </div>
                         </div>
                         <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                            <input type="submit" value="Send" class="btn msg" name="submit" onClick="window.location.reload()"/>
+                            <input type="submit" value="Send" class="btn msg" name="submit" />
                         </div>
                     </div>
                 </fieldset>
