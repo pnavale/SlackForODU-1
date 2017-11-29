@@ -313,12 +313,9 @@ if (!$_SESSION['wkid']) {
             });
     });
 
-
    
    console.log(location.search.substring(11,location.search.length));
    setData(location.search.substring(11,location.search.length));
 
 
- 
-
-    </script>
+   </script>
