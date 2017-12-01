@@ -253,7 +253,19 @@ if( $page > 0 && $left_rec > $limit) {
         <!-- end chat -->
     </div>
     <!-- end live-chat -->
-    
+     <div class="overlay1">
+         
+    </div>
+<div class="overlay1">
+    <div style="background-color: white;height:250px;">
+     <h3>File Upload</h3><br><br>
+    <form method="post" enctype="multipart/form-data">
+	<input type="file" name="file" /><br><br>
+    <input type="submit" class="btn btn-success" value="Upload" name="btn-upload" style="width:10%;" />
+     <input type="button" class="btn btn-default" value="Cancel" style="width:10%;" onclick="off()" />
+	</form>
+    </div>
+</div>
     <div class="overlay">
     <div style="background-color: white;height:250px;">
      <h3>Image Upload</h3><br><br>
@@ -334,7 +346,31 @@ $('[name="webupload"]').on('change', function() {
  //      return true;
  //    return false;
  //  }
-
+if(isset($_POST['btn-upload']))
+{    
+     
+	$file = rand(1000,100000)."-".$_FILES['file']['name'];
+    $file_loc = $_FILES['file']['tmp_name'];
+	$file_size = $_FILES['file']['size'];
+	$file_type = $_FILES['file']['type'];
+	$folder="../uploads/";
+	
+	// new file size in KB
+	$new_size = $file_size/1024;  
+	// new file size in KB
+	
+	// make file name in lower case
+	$new_file_name = strtolower($file);
+	// make file name in lower case
+	
+	$final_file=str_replace(' ','-',$new_file_name);
+	$creator_id = $_SESSION['sess_user'];
+	if(move_uploaded_file($file_loc,$folder.$final_file))
+	{
+		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file-type,file-size) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size')";
+		mysqli_query($connection, $sql);
+	}
+}
     if (isset($_POST['webimg']) && isset($_POST['webupload'])) {
         if(!$channelArchived){
             if($_SESSION['sess_user']!='admin'){
@@ -467,6 +503,7 @@ function file_upload_error_message($error_code)
 
         function off() {
             $('.overlay').css('display','none');
+            $('.overlay1').css('display','none');
             window.location.reload();
         }
             var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
@@ -540,7 +577,9 @@ function file_upload_error_message($error_code)
             // $('.emoji').css('color','#9c7248');
         })
     
-
+    $('.code-add').on('click', function(e) {
+    $('.overlay1').css('display','block');
+ })
    // var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
 
 /**

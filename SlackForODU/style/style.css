@@ -386,7 +386,7 @@ a:active {
     background-color: cyan;
 }
 
-.overlay{
+.overlay,.overlay1{
   display: none;
   position: absolute;
   top: 0;

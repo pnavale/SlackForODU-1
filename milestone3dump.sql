@@ -89,7 +89,9 @@ CREATE TABLE `message` (
   `reacted` varchar(22) NOT NULL,
   `image` blob NOT NULL,
   `image_name` text NOT NULL,
-  `image_url` text NOT NULL
+  `image_url` text NOT NULL,
+    `file-type` varchar(30) NOT NULL,
+  `file-size` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
