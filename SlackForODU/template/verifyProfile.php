@@ -1,25 +1,13 @@
 <?php
 include 'includes/db_connection.php';
 include 'includes/getCommonInfo.php';
+include 'includes/functions.php';
 if (!isset($_SESSION)) {
     session_start();
 }
 $data=[];
 $userInfo = $users=$reactions=$channels =$posts =[];
 $reactionPercent=$postPercent=$channelPercent=$totalPercent=0;
-
-function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
-    $url = 'https://www.gravatar.com/avatar/';
-    $url .= md5( strtolower( trim( $email ) ) );
-    $url .= "?s=$s&d=$d&r=$r";
-    if ( $img ) {
-        //$url = '<img src="' . $url . '"';
-        foreach ( $atts as $key => $val )
-            $url .= ' ' . $key . '="' . $val . '"';
-        //$url .= ' />';
-    }
-    return $url;
-}
 
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";

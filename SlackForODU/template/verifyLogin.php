@@ -23,6 +23,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             $dbprofile_pic = $row['profile_pic'];
             $dbchannel = $row['channel_id'];
             $dbimage = $row['image'];
+            $email_id = $row['email_id'];
         }
 
         if (($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id) || ($user=='admin' && $pass == 'admin')) {
@@ -30,6 +31,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             $_SESSION['sess_user_fullname'] = $dbfullname;
             $_SESSION['sess_user_profile_pic'] = $dbprofile_pic;
             $_SESSION['sess_image'] = $dbimage;
+            $_SESSION['sess_email_id'] = $email_id;
             $_SESSION['sess_user_wk'] = $dbworkspace_id;
             $_SESSION['sess_user_ch'] = $dbchannel;
             $data['success'] = true;
@@ -43,7 +45,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         $data['message'] = "Invalid username or password!";
     }
 }
-
+$data['sess']=$_SESSION;
 // ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');

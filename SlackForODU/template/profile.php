@@ -16,13 +16,14 @@ if (!$_SESSION['wkid']) {
             <img class="profile-img">
         </div>
         <!-- Display username. -->
-        <div class="col-sm-8 col-md-8 col-lg-8 col-xs-8">
+        <div style="color:black;" class="col-sm-8 col-md-8 col-lg-8 col-xs-8">
             <span class="username"></span><br>
             <span class="userType"></span>
         </div>
     </div>
     <div class="row">
-    <!-- Add button to show private channels. -->    
+    <!-- Add button to show private channels. -->  
+    <a style="color:black;"  href="#" class="gravatar">Set your Gravatar pic as a Profile Pic<a><br> <br> 
     <a type="button" href="#" class="private_channel" style="color:black;">Show private channel(s)</a>
     </div>
     <!-- Display subscribed channels with channel type. -->
@@ -120,6 +121,7 @@ if (!$_SESSION['wkid']) {
 <script type="text/javascript">
  var privateCount=0;
  var currentUser='';
+ var gravatarUrl=localUrl='';
     // Function for button to show private channels.
      $('.private_channel').on('click', function(e) {
       if(privateCount%2==0){
@@ -129,6 +131,16 @@ if (!$_SESSION['wkid']) {
       }
 
         })
+          $('.gravatar').on('click', function(e) {
+              if($('.gravatar').html()=='Set your Gravatar pic as a Profile Pic'){
+                $('.profile-img').attr('src',gravatarUrl);
+                $('.gravatar').html('Set your profile pic instead of gravatar');
+              }else{
+                $('.profile-img').attr('src',localUrl);
+                $('.gravatar').html('Set your Gravatar pic as a Profile Pic')
+              }
+        })
+     
     // Setting user profile data
     function setData(userProfile) {
          var channelDiv ='';
@@ -145,12 +157,21 @@ if (!$_SESSION['wkid']) {
                   if(user['username']==userProfile){
                     console.log("here",userProfile);
                     console.log(user['gravatar_exist']);
-                    if(currentUser==userProfile && useruser['gravatar_exist']){
+                    if(currentUser==userProfile && user['gravatar_exist'] && user['gravatar_want']==0){
                       userImg=user['gravatar'];
+                      gravatarUrl=userImg;
+                      $('.gravatar').html('Set your profile pic instead of gravatar');
                     }else if(user['image']){
+                      $('.gravatar').html('');
                          userImg="data:image/jpeg;base64,"+user['image'];
+                         localUrl=userImg;
                          }else{
                           userImg="../image/person.png";
+                         }
+                         gravatarUrl=user['gravatar'];
+                         localUrl="data:image/jpeg;base64,"+user['image'];
+                         if(localUrl==''){
+                          localUrl="../image/person.png";
                          }
                         $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
@@ -203,4 +224,6 @@ if (!$_SESSION['wkid']) {
         window.location.href ="changeProfilePic.php";
         }
         })
+
+
 </script>

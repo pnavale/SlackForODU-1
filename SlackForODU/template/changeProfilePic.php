@@ -18,6 +18,7 @@ if (!$_SESSION['wkid']) {
 </form>
 </center>
  <?php
+ $gravatar_want=0;
 if (isset($_POST["submit"])) {
     $msg = [];
     if (isset($_FILES['userfile'])) {
@@ -37,20 +38,23 @@ if (isset($_POST["submit"])) {
                                     $imgData = addslashes(file_get_contents($_FILES['userfile']['tmp_name']));
                                     $msg= 'Image successfully saved in database.';
                                     $wk_id = $_SESSION['wkid'];
-                                    $result = $connection->query("update users set profile_pic='".$_FILES['userfile']['name']."', image='".$imgData."' where username='".$_SESSION['sess_user']."'");
+                
+                                    if(get_gravatar($_SESSION['sess_email_id'])){
+                                        $gravatar_want = 1;
+                                    }
+                                    echo $gravatar_want;
+                                    $result = $connection->query("update users set profile_pic='".$_FILES['userfile']['name']."', image='".$imgData."' , gravatar_want ='".$gravatar_want."' where username='".$_SESSION['sess_user']."'");
                                                     if ($result) {
-                                                        echo "Account Successfully Created";
                                                         $query = "SELECT * FROM users WHERE username='" . $_SESSION['sess_user'] . "'";
                                                         $result = $connection->query($query);
                                                         if ($result->num_rows > 0) {
                                                             while ($row = $result->fetch_assoc()) {
                                                         $_SESSION['sess_image']=$row['image'];
                                                             }}
-                                                        header("Location: member.php");
+                                                       header("Location: member.php");
                                                     } else {
                                                         echo mysqli_error($connection);
                                                     }  
-    
                                 } else {
                                     $msg = "Uploaded file is not an image.";
                                 }
