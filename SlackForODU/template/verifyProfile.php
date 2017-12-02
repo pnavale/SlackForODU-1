@@ -7,6 +7,20 @@ if (!isset($_SESSION)) {
 $data=[];
 $userInfo = $users=$reactions=$channels =$posts =[];
 $reactionPercent=$postPercent=$channelPercent=$totalPercent=0;
+
+function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+    $url = 'https://www.gravatar.com/avatar/';
+    $url .= md5( strtolower( trim( $email ) ) );
+    $url .= "?s=$s&d=$d&r=$r";
+    if ( $img ) {
+        //$url = '<img src="' . $url . '"';
+        foreach ( $atts as $key => $val )
+            $url .= ' ' . $key . '="' . $val . '"';
+        //$url .= ' />';
+    }
+    return $url;
+}
+
 if (isset($_GET['userProfile'])) {
     $query = "SELECT * FROM users WHERE workspace_id='" . $_SESSION['wkid'] . "'";
     $result = $connection->query($query);
@@ -14,6 +28,11 @@ if (isset($_GET['userProfile'])) {
         while ($row = $result->fetch_assoc()) {
             $row['image'] = base64_encode($row['image']); 
             $data['user']=$_SESSION['sess_user'];
+                $url=get_gravatar($row['email_id']);
+                if($url){
+                    $row['gravatar_exist']=true;
+                    $row['gravatar']=$url;
+                }
             array_push($users, $row);
             if($row['username'] == $_GET['userProfile']){
                 array_push($userInfo, $row);

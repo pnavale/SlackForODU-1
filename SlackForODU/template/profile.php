@@ -138,11 +138,16 @@ if (!$_SESSION['wkid']) {
             success: function(response) {
                 var dateStr = '';
                 console.log(response);
+                currentUser=response['user'];
                 // Getting profile picture.
                 $.each( response['users'], function( key, user ) {
                   var userImg='';
                   if(user['username']==userProfile){
-                         if(user['image']){
+                    console.log("here",userProfile);
+                    console.log(user['gravatar_exist']);
+                    if(currentUser==userProfile && useruser['gravatar_exist']){
+                      userImg=user['gravatar'];
+                    }else if(user['image']){
                          userImg="data:image/jpeg;base64,"+user['image'];
                          }else{
                           userImg="../image/person.png";
