@@ -128,6 +128,11 @@ if ($result->num_rows > 0) {
             // echo '<script type="text/javascript">createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
         echo "<div class='row' style='margin-left: 0;'><p>Uploaded Image:".$value['image_name']."</p>";
         echo "<img src='".$value['image_url']."'></div>";
+      }else if($value['msg_type']=='file'){
+        echo "<div class='row' style='margin-left: 0;'><p>Uploaded file:".$value['msg_body']."</p>";
+        //echo "<p>Uploaded file type:".$value['file_type']."</p>";
+        //echo "<p>Uploaded file size:".$value['file_size']."</p>";
+        echo "<a href='uploads/".$value['msg_body']."' target='_blank'>view file</a></div>";
       }
 
      ?>
@@ -253,14 +258,12 @@ if( $page > 0 && $left_rec > $limit) {
         <!-- end chat -->
     </div>
     <!-- end live-chat -->
-     <div class="overlay1">
-         
-    </div>
 <div class="overlay1">
-    <div style="background-color: white;height:250px;">
+    <div style="background-color: white;height:auto;">
      <h3>File Upload</h3><br><br>
     <form method="post" enctype="multipart/form-data">
-	<input type="file" name="file" /><br><br>
+	<input type="file" name="file" class="file-upload"/><br><br>
+    <div id="thumb-output1"></div>
     <input type="submit" class="btn btn-success" value="Upload" name="btn-upload" style="width:10%;" />
      <input type="button" class="btn btn-default" value="Cancel" style="width:10%;" onclick="off()" />
 	</form>
@@ -298,7 +301,7 @@ if( $page > 0 && $left_rec > $limit) {
     <input type="submit" class="btn btn-success" value="Next" name="webimg" id="web-img" style="width:30%;" /><br>
     <input type="button" class="btn btn-default" value="Cancel" style="width:30%;" onclick="off()" />
     </form>
-      <img src="http://webspace.webring.com/people/jv/vladilyich/preview.gif" class="preview" />
+      <img src="" class="preview" />
   </div>
 </div>
 </div>
@@ -318,6 +321,29 @@ $('#file-input').on('change', function(){ //on file input change
                     return function(e) {
                         var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
                         $('#thumb-output').append(img); //append image to output element
+                    };
+                    })(file);
+                    fRead.readAsDataURL(file); //URL representing the file's data.
+                }
+            });
+            
+        }else{
+            alert("Your browser doesn't support File API!"); //if File API is absent
+        }
+    });
+$('.file-upload').on('change', function(){ //on file input change
+        if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
+        {
+            $('#thumb-output1').html(''); //clear html of output element
+            var data = $(this)[0].files; //this file data
+            
+            $.each(data, function(index, file){ //loop though each file
+                if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+                    var fRead = new FileReader(); //new filereader
+                    fRead.onload = (function(file){ //trigger function on successful read
+                    return function(e) {
+                        var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
+                        $('#thumb-output1').append(img); //append image to output element
                     };
                     })(file);
                     fRead.readAsDataURL(file); //URL representing the file's data.
@@ -362,13 +388,24 @@ if(isset($_POST['btn-upload']))
 	// make file name in lower case
 	$new_file_name = strtolower($file);
 	// make file name in lower case
-	
 	$final_file=str_replace(' ','-',$new_file_name);
 	$creator_id = $_SESSION['sess_user'];
+     if(substr($file_type,0,5)=='image'){
+        $imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
+        $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['file']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
+        $msg= 'Image successfully saved in database.';
+        if ($result) {} else {
+         echo mysqli_error($connection);
+           } 
+        }else
 	if(move_uploaded_file($file_loc,$folder.$final_file))
 	{
-		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file-type,file-size) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size')";
-		mysqli_query($connection, $sql);
+		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size')";
+		if(mysqli_query($connection, $sql)){
+
+        }else if (mysqli_error($connection)) {
+                echo "Error in posting a message.". mysqli_error($connection);
+            }
 	}
 }
     if (isset($_POST['webimg']) && isset($_POST['webupload'])) {
