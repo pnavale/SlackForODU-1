@@ -42,6 +42,7 @@ if (!$_SESSION['wkid']) {
                 pass: $('#pass').val()
             },
             success: function(response) {
+                console.log('bdc');
                 if (response['success']) {
                     window.location = 'member.php';
                 } else {
