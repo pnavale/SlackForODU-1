@@ -2,7 +2,7 @@
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
-// $_GET['code']='05cc187ee8e255087f44';
+$_GET['code']='05cc187ee8e255087f44';
 if(isset($_GET['code']))
     {
             $code = $_GET['code'];
