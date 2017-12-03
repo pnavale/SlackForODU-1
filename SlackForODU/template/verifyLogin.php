@@ -45,6 +45,7 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         $data['message'] = "Invalid username or password!";
     }
 }
+
 $data['sess']=$_SESSION;
 // ob_end_clean();
 mysqli_close($connection);
