@@ -9,7 +9,7 @@ if(isset($_GET['code']))
             $code = $_GET['code'];
             $post = http_build_query(array(
                 'client_id' => 'bc6659230040d5e910fb',
-                'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/member.php',
+                'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/loginGit.php',
                 'client_secret' => '032a86e7b2c0257c5a4aa355a4afb462f3f8d2c1',
                 'code' => $code,
             ));

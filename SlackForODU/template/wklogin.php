@@ -17,7 +17,7 @@ include 'includes/htmlheader.php';
             <br>
             <input type="submit" value="Continue &#8594;" id="verifyWS" class="btn btn-success" name="submit" />
 
-            <a href="login.php" class="btn btn-default" style="width: 100%;">
+            <a href="https://github.com/login/oauth/authorize?scope=user&email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
      Sign in with Github</a>
         </form>
     </div>
