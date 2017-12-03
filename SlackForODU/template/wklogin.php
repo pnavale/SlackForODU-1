@@ -2,13 +2,12 @@
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
-$_GET['code']='05cc187ee8e255087f44';
 if(isset($_GET['code']))
     {
             $code = $_GET['code'];
             $post = http_build_query(array(
                 'client_id' => 'bc6659230040d5e910fb',
-                'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/loginGit.php',
+                'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/wklogin.php',
                 'client_secret' => '032a86e7b2c0257c5a4aa355a4afb462f3f8d2c1',
                 'code' => $code,
             ));
