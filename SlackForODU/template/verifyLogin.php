@@ -1,6 +1,8 @@
 <?php
 include 'includes/db_connection.php';
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 $data = [
     'success' => false,
@@ -25,7 +27,6 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             $dbimage = $row['image'];
             $email_id = $row['email_id'];
         }
-
         if (($user == $dbusername && $pass == $dbpassword && $_SESSION['wkid'] == $dbworkspace_id) || ($user=='admin' && $pass == 'admin')) {
             $_SESSION['sess_user'] = $dbusername;
             $_SESSION['sess_user_fullname'] = $dbfullname;
@@ -45,9 +46,9 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
         $data['message'] = "Invalid username or password!";
     }
 }
-
+echo $data['message'];
 $data['sess']=$_SESSION;
-// ob_end_clean();
+ob_end_clean();
 mysqli_close($connection);
-header('Content-Type: application/json');
-echo json_encode($data);
+// header('Content-Type: application/json');
+// echo json_encode($data);

@@ -29,15 +29,11 @@ if (!$_SESSION['wkid']) {
             <br>
             <br>
             <a href="register.php" class="btn btn-default" style="width: 100%;">Sign up</a>
-             <br>
-<!--             <br><a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
-    Login with Github</a> -->
         </form>
     </div>
     <script type="text/javascript">
     $('#verifyLogin').on('click', function(e) {
         e.preventDefault();
-        console.log('i m here');
         $.ajax({
             type: 'POST',
             url: 'verifyLogin.php',
@@ -47,7 +43,6 @@ if (!$_SESSION['wkid']) {
             },
             success: function(response) {
                 if (response['success']) {
-                    console.log('i m here',response);
                     window.location = 'member.php';
                 } else {
                     $('#errorMsg span:first').html(response['message']);
