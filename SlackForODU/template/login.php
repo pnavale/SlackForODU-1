@@ -37,6 +37,7 @@ if (!$_SESSION['wkid']) {
     <script type="text/javascript">
     $('#verifyLogin').on('click', function(e) {
         e.preventDefault();
+        console.log('i m here');
         $.ajax({
             type: 'POST',
             url: 'verifyLogin.php',
@@ -46,6 +47,7 @@ if (!$_SESSION['wkid']) {
             },
             success: function(response) {
                 if (response['success']) {
+                    console.log('i m here',response);
                     window.location = 'member.php';
                 } else {
                     $('#errorMsg span:first').html(response['message']);
