@@ -3,8 +3,8 @@ include 'includes/db_connection.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-require "init.php";
-goToAuthUrl();
+// require "init.php";
+// goToAuthUrl();
 $data = [
     'success' => false,
     'message' => 'Please enter Username and Password!',
