@@ -7,6 +7,7 @@ if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
 ?>
+
 <center>
 <form action="" enctype="multipart/form-data"   method="POST">
             <br> Upload your profile pic:
