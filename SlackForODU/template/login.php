@@ -1,10 +1,11 @@
 <?php
 include 'includes/htmlheader.php';
+require "init.php";
 session_start();
 if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
-
+goToAuthUrl();
 ?>
     <br>
     <br>
@@ -31,7 +32,7 @@ if (!$_SESSION['wkid']) {
             <a href="register.php" class="btn btn-default" style="width: 100%;">Sign up</a>
              <br>
             <br><a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
-     Login with Github</a>
+     Sign in with Github</a>
         </form>
     </div>
     <script type="text/javascript">
