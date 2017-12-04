@@ -1,43 +1,9 @@
 <?php
 include 'includes/htmlheader.php';
-require_once 'vendor/autoload.php';
-use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
-
-$config =[
-    'consumer_key'      => '3R3owmBJlwURYQci6SConhxmK',
-    'consumer_secret'   => 'j2hZy9AuC1GYEImQEPx13wUas2VOnMMemIYkvtPflM6TaLSrCd',
-    'url_login'         => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/',
-    'url_callback'      => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/callback.php',
-];
-
-// create TwitterOAuth object
-$twitteroauth = new TwitterOAuth($config['consumer_key'], $config['consumer_secret']);
-// request token of application
-$request_token = $twitteroauth->oauth(
-    'oauth/request_token', [
-        'oauth_callback' => $config['url_callback']
-    ]
-);
-// throw exception if something gone wrong
-if($twitteroauth->getLastHttpCode() != 200) {
-    throw new \Exception('There was a problem performing this request');
-}
-// save token of application to session
-$_SESSION['oauth_token'] = $request_token['oauth_token'];
-$_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
-// generate the URL to make request to authorize our application
-$url = $twitteroauth->url(
-    'oauth/authorize', [
-        'oauth_token' => $request_token['oauth_token']
-    ]
-);
-// and redirect
-header('Location: '. $url);
-
 ?>
     <br>
     <br>
@@ -65,6 +31,8 @@ header('Location: '. $url);
              <br>
             <br><a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
      Sign in with Github</a>
+            <br><a href="twitter_login.php" class="btn btn-default" style="width: 100%;">
+     Sign in with Twitter</a>
         </form>
     </div>
     <script type="text/javascript">
