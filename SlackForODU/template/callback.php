@@ -1,4 +1,7 @@
 <?php
+define('CONSUMER_KEY', 'YOUR CONSUMER KEY'); // YOUR CONSUMER KEY
+define('CONSUMER_SECRET', 'YOUR CONSUMER SECRET KEY'); //YOUR CONSUMER SECRET KEY 
+define('OAUTH_CALLBACK', 'http://localhost/login_with_twitter_using_php/index.php');  // Redirect URL 
 require_once 'vendor/autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
@@ -42,6 +45,8 @@ $user = $twitter->get('account/verify_credentials');
 // if something's wrong, go and log in again
 if(isset($user->error)) {
     header('Location: ' . $config['url_login']);
+}else{
+    header('Location: ' . member.php);
 }
 // post a tweet
 $status = $twitter->post(
