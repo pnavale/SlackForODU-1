@@ -1,5 +1,20 @@
 <?php
 include 'includes/htmlheader.php';
+
+require "boot.php";
+$app_id = "3R3owmBJlwURYQci6SConhxmK";
+$app_secret = "j2hZy9AuC1GYEImQEPx13wUas2VOnMMemIYkvtPflM6TaLSrCd";
+
+use Abraham\TwitterOAuth\TwitterOAuth;
+
+$twitteroauth = new TwitterOAuth($app_id,$app_secret);
+
+$twitter = new TwitterAuth($twitteroauth);
+
+if (isset($_GET['oauth_token'])) {
+    $payload = $twitter->getPayload();
+    $twitter->setPayload($payload);
+}
 ?>
     <div class="login-container">
         <center>
@@ -19,6 +34,23 @@ include 'includes/htmlheader.php';
 
             <a href="https://github.com/login/oauth/authorize?scope=user&email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
      Sign in with Github</a>
+
+       <?php
+        $data = false;
+        if (isset($_SESSION['TwitterPayload'])) {
+            $data = $_SESSION['TwitterPayload'];
+        }
+
+        if (!$data) {
+            echo '<a class="btn btn-default" href="' . $twitter->getUrl() . '">Sign In with Twitter</a>';
+
+        }
+        else {
+            $payload = $_SESSION['TwitterPayload'];
+            var_dump($payload);
+            echo '<br> <a href="/logout.php">Log Out!</a>';
+        }
+    ?>
         </form>
     </div>
     <script type="text/javascript">
