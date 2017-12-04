@@ -1,5 +1,5 @@
 <?php
-include("./includes/db_connection.php");
+include("db_connection.php");
 
 	function confirm_query($result_set) {
 		if (!$result_set) {
@@ -67,15 +67,6 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
     }
     return $url;
 }
-
-function git_validate_user($user_name) {
-        global $connection;
-        $user_name = verify_input($user_name);
-        $query = "SELECT * from users where username = '$user_name'";
-        $result = mysqli_query($connection,$query);
-        if(!$result){die(" git_validate_user: Database query failed.");}
-              return ($result); 
-           }
 
 
 ?>

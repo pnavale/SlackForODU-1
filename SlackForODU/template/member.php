@@ -1,15 +1,15 @@
 <?php
 session_start();
-require "init.php";
-fetchData();
+//require "init.php";
+//fetchData();
 
 //Go to Login page if not already logged in.
 if (!isset($_SESSION["sess_user"])) {
     header("location:login.php");
 }
-if (!isset($_SESSION["user"])) {
-    header("location:index.php");
-}
+//if (!isset($_SESSION["user"])) {
+//    header("location:index.php");
+//}
 include 'includes/htmlheader.php';
 ?>
     <center>
@@ -19,7 +19,6 @@ include 'includes/htmlheader.php';
     <h3>Welcome, <?=$_SESSION['sess_user_fullname'];?>! 
     <a href="logout.php" class="pull-right"> Logout </a>
     <a href="../help/help.html" class="pull-right">Help&nbsp;&nbsp;&nbsp;</a>
-    <?php var_dump($_SESSION['payload '])?>
 
         
     </h3>

@@ -1,14 +1,14 @@
 <?php
 include 'includes/htmlheader.php';
-require "init.php";
+//require "init.php";
 session_start();
 if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
 }
-if (!$_SESSION['user']) {
-    header("Location: member.php");
-}
-goToAuthUrl();
+//if (!$_SESSION['user']) {
+//    header("Location: member.php");
+//}
+//goToAuthUrl();
 ?>
     <br>
     <br>

@@ -28,7 +28,6 @@ if (!empty($_POST['workspaceName'])) {
         $data['message'] = 'We couldn’t find your workspace';
     }
 }
-
 ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
