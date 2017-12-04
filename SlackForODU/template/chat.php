@@ -104,7 +104,11 @@ $query = "SELECT * FROM users where username='" . $value['creator_id'] . "'";
 $result = $connection->query($query);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-            echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';
+            if($row['group_id']=='gituser'){
+                 echo '<img width="32" height="32" src="'.$row['profile_pic']) . '"/>';
+            }else{
+             echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
+            }
     }
 }
 ?>
