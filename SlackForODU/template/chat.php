@@ -105,7 +105,7 @@ $result = $connection->query($query);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
             if($row['group_id']=='gituser'){
-                 echo '<img width="32" height="32" src="'.$row['profile_pic']) . '"/>';
+                 echo '<img width="32" height="32" src="https://github.com/'.$row['username'] . '.png"/>';
             }else{
              echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
             }
