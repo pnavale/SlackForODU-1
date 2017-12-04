@@ -2,7 +2,7 @@
 
 function goToAuthUrl(){
 	$client_id = 'bc6659230040d5e910fb';
-	$redirect_url = 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/member.php';
+	$redirect_url = 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/login.php';
 	if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		$url = 'https://github.com/login/oauth/authorize?client_id='.$client_id.'&redirect_url='.$redirect_url.'&scope=user'; 
 		header('location:'. $url);
@@ -12,7 +12,7 @@ function goToAuthUrl(){
 
 function fetchData(){
 	$client_id = 'bc6659230040d5e910fb';
-	$redirect_url = 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/member.php';
+	$redirect_url = 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/login.php';
     $client_secret = '032a86e7b2c0257c5a4aa355a4afb462f3f8d2c1';
     if($_SERVER['REQUEST_METHOD']== 'GET'){
         if(isset($_GET['code'])){
