@@ -165,7 +165,13 @@ if (!$_SESSION['wkid']) {
                       $('.gravatar').html('');
                          userImg="data:image/jpeg;base64,"+user['image'];
                          localUrl=userImg;
-                         }else{
+                         }else if(user['git_user']){
+                      $('.gravatar').html('');
+                         userImg=user['profile_pic'];
+                         localUrl=userImg;
+                         }
+                      
+                      else{
                           userImg="../image/person.png";
                          }
                          gravatarUrl=user['gravatar'];

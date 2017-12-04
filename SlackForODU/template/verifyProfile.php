@@ -16,11 +16,17 @@ if (isset($_GET['userProfile'])) {
         while ($row = $result->fetch_assoc()) {
             $row['image'] = base64_encode($row['image']); 
             $data['user']=$_SESSION['sess_user'];
-                $url=get_gravatar($row['email_id']);
-                if($url){
-                    $row['gravatar_exist']=true;
-                    $row['gravatar']=$url;
+            $url=get_gravatar($row['email_id']);
+            if($url){
+                $row['gravatar_exist']=true;
+                $row['gravatar']=$url;
+            }
+            if($_SESSION["git_user"]){
+                if($row['username'] == $_SESSION["sess_user"]){
+                    $row['git_user']=true;
+                    $row['profile_pic'] == $_SESSION["git_image"];
                 }
+            }
             array_push($users, $row);
             if($row['username'] == $_GET['userProfile']){
                 array_push($userInfo, $row);
