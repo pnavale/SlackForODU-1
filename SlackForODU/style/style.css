@@ -423,6 +423,7 @@ a:active {
 textarea {
   background-color: white;
 }
+
 /*.active {
   box-shadow: 0px 0px 10px 10px rgba(0,0,255,.4);
 } */ 
@@ -611,6 +612,7 @@ textarea {
   -apple-transition:all 0.3s ease-in-out;
   transition:all 0.3s ease-in-out;
 }
+
 /* Reputation Metrics END */
 
 body {
