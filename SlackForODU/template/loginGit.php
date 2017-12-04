@@ -69,22 +69,36 @@ if(isset($_GET['code']))
                 echo "User do not Exists";
                 $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$user_data['login']}', '$fullname','{$email_data[0]['email']}', NOW(),'gituser','{$_SESSION['wkid']}','$profile_pic' ) ";
                 $result_id = mysqli_query($connection, $query);
+                $result2 = $connection->query("SELECT * FROM channel");
+                if ($result2->num_rows > 0) {
+                   while ($row = $result2->fetch_assoc()) {
+                     $uninvited = $row['uninvited'] . "," . $username;  
+                     if($row['channel_name']!='general' && $row['channel_name']!='random'){  
+                           $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
+                            }
+                       if($row['channel_name']=='general'){
+                            $joined=$row['joined']. "," . $username;
+                            $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                            }
+                        if($row['channel_name']=='random'){
+                           $joined=$row['joined']. "," . $username;
+                           $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                           }
+                        }
+                }
                 $query = "SELECT * from users where email_id = '".$email_data[0]['email']."'";
-                echo $query;
                 $result = $connection->query($query);
                 if ($result->num_rows > 0)
                 {
                     error_log("inside if");
                     while($row = $result->fetch_assoc()) {
-                    //$_SESSION["uid"] = (int)$row_new["u_id"];
-                  //  echo $_SESSION["uid"];
-                    $_SESSION["username"] = $row_new["username"];
-                    echo $_SESSION["username"]; 
-                    $_SESSION["git_user"] = 'True';
-                    echo $_SESSION["git_user"];
-                    $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
-                    echo $_SESSION["git_image"];
-                   redirect_to("member.php");
+                        $_SESSION["username"] = $row_new["username"];
+                        echo $_SESSION["username"]; 
+                        $_SESSION["git_user"] = 'True';
+                        echo $_SESSION["git_user"];
+                        $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
+                        echo $_SESSION["git_image"];
+                       redirect_to("member.php");
                 }
                 }
     }
