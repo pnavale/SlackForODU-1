@@ -21,12 +21,6 @@ if (isset($_GET['userProfile'])) {
                 $row['gravatar_exist']=true;
                 $row['gravatar']=$url;
             }
-            if($_SESSION["git_user"]){
-                if($row['username'] == $_SESSION["sess_user"]){
-                    $row['git_user']=true;
-                    $row['profile_pic'] == 'https://github.com/'.$row["username"].'png';
-                }
-            }
             array_push($users, $row);
             if($row['username'] == $_GET['userProfile']){
                 array_push($userInfo, $row);

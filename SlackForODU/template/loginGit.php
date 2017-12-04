@@ -9,7 +9,8 @@ if(isset($_GET['code']))
             $code = $_GET['code'];
             $post = http_build_query(array(
                 'client_id' => 'bc6659230040d5e910fb',
-                'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/loginGit.php',
+//                'redirect_url' => 'http://localhost/SlackForODU/SlackForODU/template/loginGit.php',
+                    'redirect_url' => 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/loginGit.php',
                 'client_secret' => '032a86e7b2c0257c5a4aa355a4afb462f3f8d2c1',
                 'code' => $code,
             ));
@@ -36,6 +37,7 @@ if(isset($_GET['code']))
             $user_data  = json_decode($data, true);
             $username = $user_data['login'];
             $fullname = $user_data['name'];
+            $profile_pic=$user_data['avatar_url'];
             /*- Get User e-mail Details -*/                
             $url = "https://api.github.com/user/emails?access_token=".$access_token."";
             $options  = array('http' => array('user_agent'=> $_SERVER['HTTP_USER_AGENT']));
@@ -65,7 +67,7 @@ if(isset($_GET['code']))
             else
             {
                 echo "User do not Exists";
-                $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id) VALUES ('{$user_data['login']}', '$fullname','{$email_data[0]['email']}', NOW(),'gituser','{$_SESSION['wkid']}') ";
+                $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$user_data['login']}', '$fullname','{$email_data[0]['email']}', NOW(),'gituser','{$_SESSION['wkid']}','$profile_pic' ) ";
                 $result_id = mysqli_query($connection, $query);
                 $query = "SELECT * from users where email_id = '".$email_data[0]['email']."'";
                 echo $query;

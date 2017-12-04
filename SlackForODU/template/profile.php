@@ -154,9 +154,16 @@ if (!$_SESSION['wkid']) {
                 // Getting profile picture.
                 $.each( response['users'], function( key, user ) {
                   var userImg='';
+                    
                   if(user['username']==userProfile){
                     console.log("here",userProfile);
                     console.log(user['gravatar_exist']);
+                     if(user['group_id']== "gituser"){
+                        $('.gravatar').html('');
+                         userImg='https://github.com/'+user['username']+'.png';
+                         localUrl=userImg;
+                         }
+                      else 
                     if(currentUser==userProfile && user['gravatar_exist'] && user['gravatar_want']==0){
                       userImg=user['gravatar'];
                       gravatarUrl=userImg;
@@ -165,12 +172,7 @@ if (!$_SESSION['wkid']) {
                       $('.gravatar').html('');
                          userImg="data:image/jpeg;base64,"+user['image'];
                          localUrl=userImg;
-                         }else if(user['git_user']){
-                      $('.gravatar').html('');
-                         userImg=user['profile_pic'];
-                         localUrl=userImg;
                          }
-                      
                       else{
                           userImg="../image/person.png";
                          }
