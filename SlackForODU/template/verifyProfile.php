@@ -24,7 +24,7 @@ if (isset($_GET['userProfile'])) {
             if($_SESSION["git_user"]){
                 if($row['username'] == $_SESSION["sess_user"]){
                     $row['git_user']=true;
-                    $row['profile_pic'] == $_SESSION["git_image"];
+                    $row['profile_pic'] == "https://github.com/".$row['username']."png";
                 }
             }
             array_push($users, $row);
