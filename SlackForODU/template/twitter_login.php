@@ -4,7 +4,7 @@ require 'autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 define('CONSUMER_KEY', '3R3owmBJlwURYQci6SConhxmK'); // add your app consumer key between single quotes
 define('CONSUMER_SECRET', 'j2hZy9AuC1GYEImQEPx13wUas2VOnMMemIYkvtPflM6TaLSrCd'); // add your app consumer secret key between single quotes
-define('OAUTH_CALLBACK', 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/twitter_login.php'); // your app callback URL
+define('OAUTH_CALLBACK', 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/callback.php'); // your app callback URL
 if (!isset($_SESSION['access_token'])) {
   $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
   $request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => OAUTH_CALLBACK));
