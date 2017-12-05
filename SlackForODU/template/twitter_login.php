@@ -58,6 +58,9 @@ if(isset($_GET['request']))
              die("error, try again later!");
       }
       
+  }else{
+    //Display login button
+    echo '<a href="twitter_login.php?request=twitter"><img src="image/login_button.jpg" /></a>';
   }
 ?>  
 
