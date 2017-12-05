@@ -20,5 +20,5 @@ if (!isset($_SESSION['access_token'])) {
   echo $user->screen_name;
   echo $user->profile_image_url;
   echo $user->id;
-  echo $user->email
+  echo $user->email;
 }
