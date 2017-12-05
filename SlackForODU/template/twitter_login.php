@@ -27,55 +27,49 @@ if (!isset($_SESSION['access_token'])) {
   $row = mysqli_fetch_assoc($result);
   if ($result->num_rows > 0){
     echo $row['username'].$row['email_id'];
-//                echo "User Exists";
-                $_SESSION["sess_user"]=$row["username"];
-                $_SESSION["username"] = $row["username"];
-//                echo $_SESSION["username"];
-                $_SESSION["twitter_user"] = 'True';
-//                echo $_SESSION["git_user"];
-                $_SESSION["twitter_image"] = 'https://github.com/'.$row["username"].'png';
-//                echo $_SESSION["git_image"];
-                $_SESSION['sess_user_fullname'] = $row["full_name"];
-                //https://twitter.com/TwitterEng/profile_image?size=original 
-                $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-                redirect_to("member.php");
+    $_SESSION["username"] = $row["username"];
+    $_SESSION["twitter_user"] = 'True';
+    $_SESSION['sess_user_fullname'] = $row["full_name"];
+    //https://twitter.com/TwitterEng/profile_image?size=original 
+    $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+    header("Location: member.php");
+    }else {
+        echo "User do not Exists";
+        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
+        $result_id = mysqli_query($connection, $query);
+        $result2 = $connection->query("SELECT * FROM channel");
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+              $uninvited = $row['uninvited'] . "," . $username;  
+              if($row['channel_name']!='general' && $row['channel_name']!='random'){  
+                 $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
+                  }
+              if($row['channel_name']=='general'){
+                 $joined=$row['joined']. "," . $username;
+                 $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                 }
+              if($row['channel_name']=='random'){
+                  $joined=$row['joined']. "," . $username;
+                  $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                }
+        }
+      }
+      $query = "SELECT * from users where email_id = '".$email_id."'";
+      $result = $connection->query($query);
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $_SESSION["username"] = $row_new["username"]; 
+          $_SESSION["twitter_user"] = 'True';
+          $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
+          echo $row['username'].$row['email_id'];
+          $_SESSION["username"] = $row["username"];
+          $_SESSION["twitter_user"] = 'True';
+          $_SESSION['sess_user_fullname'] = $row["full_name"];
+          //https://twitter.com/TwitterEng/profile_image?size=original 
+          $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+          header("Location: member.php");
+                }
             }
-            else
-            {
-                echo "User do not Exists";
-                $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
-                $result_id = mysqli_query($connection, $query);
-                $result2 = $connection->query("SELECT * FROM channel");
-                if ($result2->num_rows > 0) {
-                   while ($row = $result2->fetch_assoc()) {
-                     $uninvited = $row['uninvited'] . "," . $username;  
-                     if($row['channel_name']!='general' && $row['channel_name']!='random'){  
-                           $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
-                            }
-                       if($row['channel_name']=='general'){
-                            $joined=$row['joined']. "," . $username;
-                            $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
-                            }
-                        if($row['channel_name']=='random'){
-                           $joined=$row['joined']. "," . $username;
-                           $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
-                           }
-                        }
-                }
-                $query = "SELECT * from users where email_id = '".$email_id."'";
-                $result = $connection->query($query);
-                if ($result->num_rows > 0)
-                {
-                    while($row = $result->fetch_assoc()) {
-                        $_SESSION["username"] = $row_new["username"];
-                        echo $_SESSION["username"]; 
-                        $_SESSION["git_user"] = 'True';
-                        echo $_SESSION["git_user"];
-                        $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
-                        echo $_SESSION["git_image"];
-                       redirect_to("member.php");
-                }
-                }
                 //redirect_to("member.php");
     }
 }
