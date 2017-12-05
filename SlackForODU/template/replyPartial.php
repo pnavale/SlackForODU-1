@@ -19,14 +19,14 @@ if ($_SESSION['sess_user']) {
             $crfdate = date_format(new DateTime($value['replied_at']), 'l, F j, Y');
             $crdate = date_format(new DateTime($value['replied_at']), 'g:i a');
             ?>
-    <center>
+    <p class="center">
         <?php
 if (strcmp($crfdate, $prevDate1) > 0) {
                 echo $crfdate;
                 $prevDate1 = $crfdate;
             }
             ?>
-    </center>
+    </p>
     <div class="chat-message clearfix">
                         <?php 
            

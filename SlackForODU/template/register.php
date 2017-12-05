@@ -9,9 +9,10 @@ if (!$_SESSION['wkid']) {
 ?>
     <h2><p style="text-align:right;"><a href="register.php">Sign up</a> | <a href="login.php">Sign in</a></p></h2>
     <div class="login-container" style="width: 400px;">
-        <center>
+        <p class="center">
             <h4>Sign up to your workspace</h4>
-            <img src="../images/logo.png" alt="SlackForODU Logo"></center>
+            <img src="../images/logo.png" alt="SlackForODU Logo"></p>
+            
         <form action="" enctype="multipart/form-data"   method="POST">
             Username:
             <input type="text" class="form-control" name="user">

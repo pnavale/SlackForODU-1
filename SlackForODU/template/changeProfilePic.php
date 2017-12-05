@@ -8,7 +8,7 @@ if (!$_SESSION['wkid']) {
 }
 ?>
 
-<center>
+<div class="center">
 <form action="" enctype="multipart/form-data"   method="POST">
             <br> Upload your profile pic:
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
@@ -17,7 +17,7 @@ if (!$_SESSION['wkid']) {
             <br>
             <input type="submit" class="btn btn-success" value="Next" name="submit" style="width:50%;" />
 </form>
-</center>
+</div>
  <?php
  $gravatar_want=0;
 if (isset($_POST["submit"])) {

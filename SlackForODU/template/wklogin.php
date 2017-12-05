@@ -2,9 +2,9 @@
 include 'includes/htmlheader.php';
 ?>
     <div class="login-container">
-        <center>
+        <p class="center">
             <h4>Sign in to your workspace URL</h4>
-        </center>
+        </p>
         <img src="../images/logo.png" alt="SlackForODU Logo">
         <div class='error-msg' id="errorMsg" style="margin-left: -2%;">
             <span style="font-size:14px;"></span>

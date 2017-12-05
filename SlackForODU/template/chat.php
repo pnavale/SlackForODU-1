@@ -92,7 +92,7 @@ foreach ($chats as $value) {
     $crfdate = date_format(new DateTime($value['create_date']), 'l, F j, Y');
     $crdate = date_format(new DateTime($value['create_date']), 'g:i a');
 if (strcmp($crfdate, $prevDate) > 0) {
-        echo "<center>".$crfdate."</center>";
+        echo "<p class='center'>".$crfdate."</p>";
         $prevDate = $crfdate;
     }
     ?>

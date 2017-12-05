@@ -134,7 +134,7 @@ mysqli_close($connection);
                 <!--  <span class="error"><?php echo $invitesErr; ?></span>-->
                 <br>
                 <br>
-                <center>
+                <div class="center">
                     <div class="input-group"> Channel Type
                         <span style="padding: 40px;">
 <input  type="radio" name="chType"
@@ -151,7 +151,7 @@ value="private">Private</span>
 ?>
 value="public">Public</span>
                     </div>
-                </center>
+                </div>
                 <br>
                 <br>
                 <div class="btn-group" style="width:100%;">

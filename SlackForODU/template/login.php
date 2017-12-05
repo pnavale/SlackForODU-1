@@ -8,9 +8,9 @@ if (!$_SESSION['wkid']) {
     <br>
     <br>
     <div class="login-container">
-        <center>
+        <div class="center">
             <h4>Login to enter in your slack workspace</h4>
-        </center>
+        </div>
         <img src="../images/logo.png" alt="SlackForODU Logo">
         <div class='error-msg' id="errorMsg" style="margin-left: -2%;">
             <span style="font-size:14px;"></span>

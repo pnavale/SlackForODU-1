@@ -642,3 +642,7 @@ body {
 .userType{
   color:beige;
 }
+
+.center{
+  text-align:center;
+}
