@@ -31,7 +31,7 @@ if (!$_SESSION['wkid']) {
              <br>
             <br><a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=bc6659230040d5e910fb" class="btn btn-default" style="width: 100%;">
      Sign in with Github</a>
-     <br><br><a href="twitter_login.php?request=twitter" class="btn btn-default" style="width: 100%;">
+     <br><br><a href="twitter_login.php" class="btn btn-default" style="width: 100%;">
      Sign in with Twitter</a>
         </form>
     </div>
