@@ -15,7 +15,7 @@ if (!$_SESSION['wkid']) {
 <input type="submit" class="btn btn-success" id="search" id="Search" style="width: 20%;" >
 </div>
 </center>
-<script type="text/javascript">
+<script >
  var users=[];
 function setData() {
 	console.log('gvgv');

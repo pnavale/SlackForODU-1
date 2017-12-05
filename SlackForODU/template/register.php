@@ -11,7 +11,7 @@ if (!$_SESSION['wkid']) {
     <div class="login-container" style="width: 400px;">
         <center>
             <h4>Sign up to your workspace</h4>
-            <img src="../images/logo.png"></center>
+            <img src="../images/logo.png" alt="SlackForODU Logo"></center>
         <form action="" enctype="multipart/form-data"   method="POST">
             Username:
             <input type="text" class="form-control" name="user">

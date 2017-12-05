@@ -11,7 +11,7 @@ if (!$_SESSION['wkid']) {
         <center>
             <h4>Login to enter in your slack workspace</h4>
         </center>
-        <img src="../images/logo.png">
+        <img src="../images/logo.png" alt="SlackForODU Logo">
         <div class='error-msg' id="errorMsg" style="margin-left: -2%;">
             <span style="font-size:14px;"></span>
         </div>
@@ -35,7 +35,7 @@ if (!$_SESSION['wkid']) {
      Sign in with Twitter</a>
         </form>
     </div>
-    <script type="text/javascript">
+    <script >
     $('#verifyLogin').on('click', function(e) {
         e.preventDefault();
         $.ajax({

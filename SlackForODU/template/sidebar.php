@@ -86,7 +86,7 @@ if ($_SESSION['sess_user']) {
        </div>
     </div>
 </div>
-    <script type="text/javascript">
+    <script >
     var click = 0;
     var alertClick = 0;
     var private_channel =0;

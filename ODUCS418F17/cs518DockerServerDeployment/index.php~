@@ -89,7 +89,7 @@ print_R($_POST);
 <meta charset="utf-8">
 <title>CS418 Docker deployment system</title>
 <link rel="stylesheet" type="text/css" href="cs418deployment.css" />
-<script type="text/javascript" src="cs418deployment.js"></script>
+<script  src="cs418deployment.js"></script>
 <script>
 	function authenticateWithGitHub(){
 		//alert("hi there " + document.getElementById('csusername').value + "!");

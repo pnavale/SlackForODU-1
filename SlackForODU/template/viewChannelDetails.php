@@ -75,7 +75,7 @@ if (!$_SESSION['wkid']) {
 <div><p class="msg"></p></div>
 </div>
 
-   <script type="text/javascript">
+   <script >
     var availableTags = [];
     var uninvitedlist = '';
     var availableTagsR = [];

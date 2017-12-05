@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script >
     function setData(channelName) {
         $.ajax({
             type: 'GET',

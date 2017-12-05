@@ -91,7 +91,7 @@ if (strcmp($crfdate, $prevDate1) > 0) {
                 <!--close row div-->
             </fieldset>
         </form>
-<script type="text/javascript">
+<script >
     $('.reply').on('click', function() {
             var msgId = this.id.substring(3, this.id.length);
             var replyInput = 'reply' + msgId;

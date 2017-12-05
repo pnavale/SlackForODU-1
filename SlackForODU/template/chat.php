@@ -129,7 +129,7 @@ if ($result->num_rows > 0) {
             echo '<img src="data:image/jpeg;base64,' . base64_encode($value['image']) . '"/></div>';
       } else if($value['msg_type']=='imageUrl'){
             // echo "<canvas style='border:1px solid grey;'' id='my_canvas".$value['msg_id']."' width='300' height='300'></canvas>";
-            // echo '<script type="text/javascript">createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
+            // echo '<script >createImage("'.$value['image_url'].'","'.$value['msg_id'].'"); </script>';
         echo "<div class='row' style='margin-left: 0;'><p>Uploaded Image:".$value['image_name']."</p>";
         echo "<img src='".$value['image_url']."'></div>";
       }else if($value['msg_type']=='file'){
@@ -534,7 +534,7 @@ function file_upload_error_message($error_code)
 
 ?>
 
-        <script type="text/javascript">
+        <script >
         $( function() {
     $( "#tabs" ).tabs();
   } );

@@ -118,7 +118,7 @@ if (!$_SESSION['wkid']) {
 
   </div>
 </div>
-<script type="text/javascript">
+<script >
  var privateCount=0;
  var currentUser='';
  var gravatarUrl=localUrl='';

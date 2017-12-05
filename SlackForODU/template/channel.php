@@ -160,7 +160,7 @@ value="public">Public</span>
                 </div>
             </form>
         </div>
-        <script type="text/javascript">
+        <script >
         // Return an array of the selected opion values
         // select is an HTML select element
         $('#invites').val()

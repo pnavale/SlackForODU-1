@@ -2,7 +2,7 @@
 <head>
 <title>JavaScript Scope Example</title>
 
-<script type="text/javascript">
+<script >
 
 window.onerror = function ( message )
 {
@@ -24,7 +24,7 @@ var myGlobal = "TheGlobal";
 <td>
 window.myVariable = myGlobal;
 <td>
-<script type="text/javascript">
+<script >
 window.myVariable = myGlobal;
 document.write("<p>" + window.myVariable + "</p>");
 </script>
@@ -33,7 +33,7 @@ document.write("<p>" + window.myVariable + "</p>");
 <td>
 var myVariable1 = myGlobal;
 <td>
-<script type="text/javascript">
+<script >
 var myVariable1 = myGlobal;
 document.write("<p>" + myVariable1 + "</p>");
 </script>
@@ -43,7 +43,7 @@ document.write("<p>" + myVariable1 + "</p>");
 <td>
 myVariable2 = myGlobal;
 <td>
-<script type="text/javascript">
+<script >
 myVariable2 = myGlobal;
 document.write("<p>" + myVariable2 + "</p>");
 </script>

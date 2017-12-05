@@ -84,7 +84,7 @@ $clientSecret = "xyz7847234234";
 <meta charset="utf-8">
 <title>CS418 Docker deployment system</title>
 <link rel="stylesheet" type="text/css" href="cs418deployment.css" />
-<script type="text/javascript" src="cs418deployment.js"></script>
+<script  src="cs418deployment.js"></script>
 <script>
 	function authenticateWithGitHub(){
 		window.location.href = "https://github.com/login/oauth/authorize?client_id=<?=$clientId ?>&scope=repo&state="+document.getElementById('csusername').value;

@@ -5,7 +5,7 @@ include 'includes/htmlheader.php';
         <center>
             <h4>Sign in to your workspace URL</h4>
         </center>
-        <img src="../images/logo.png">
+        <img src="../images/logo.png" alt="SlackForODU Logo">
         <div class='error-msg' id="errorMsg" style="margin-left: -2%;">
             <span style="font-size:14px;"></span>
         </div>
@@ -19,7 +19,7 @@ include 'includes/htmlheader.php';
 
         </form>
     </div>
-    <script type="text/javascript">
+    <script >
     $('#verifyWS').on('click', function(e) {
         e.preventDefault();
         $.ajax({
