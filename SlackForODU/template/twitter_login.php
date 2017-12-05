@@ -1,5 +1,7 @@
 <?php
 session_start();
+include("includes/db_connection.php");
+include("includes/functions.php");
 require 'autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 define('CONSUMER_KEY', '3R3owmBJlwURYQci6SConhxmK'); // add your app consumer key between single quotes
