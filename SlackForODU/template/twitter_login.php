@@ -29,6 +29,7 @@ if (!isset($_SESSION['access_token'])) {
   echo $query;
   $result = $connection->query($query);
   $row = mysqli_fetch_assoc($result);
+  echo $row['username'].$row['email_id'];
   if ($result->num_rows > 0){
     echo "i m here";
     echo $row['username'].$row['email_id'];
