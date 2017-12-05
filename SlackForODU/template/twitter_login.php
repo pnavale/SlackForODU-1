@@ -29,18 +29,18 @@ if (!isset($_SESSION['access_token'])) {
   echo $query;
   $result = $connection->query($query);
   $row = mysqli_fetch_assoc($result);
-  // if ($result->num_rows > 0){
-  //   echo $row['username'].$row['email_id'];
-  //   $_SESSION["username"] = $row["username"];
-  //   $_SESSION["twitter_user"] = 'True';
-  //   $_SESSION['sess_user_fullname'] = $row["full_name"];
-  //   //https://twitter.com/TwitterEng/profile_image?size=original 
-  //   $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-  //   header("Location: member.php");
-  //   }else {
-  //       echo "User do not Exists";
-  //       $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
-  //       $result_id = mysqli_query($connection, $query);
+  if ($result->num_rows > 0){
+    echo $row['username'].$row['email_id'];
+    $_SESSION["username"] = $row["username"];
+    $_SESSION["twitter_user"] = 'True';
+    $_SESSION['sess_user_fullname'] = $row["full_name"];
+    //https://twitter.com/TwitterEng/profile_image?size=original 
+    $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+    header("Location: member.php");
+    }else {
+        echo "User do not Exists";
+        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
+        $result_id = mysqli_query($connection, $query);
   //       $result2 = $connection->query("SELECT * FROM channel");
   //       if ($result2->num_rows > 0) {
   //           while ($row = $result2->fetch_assoc()) {
@@ -58,18 +58,18 @@ if (!isset($_SESSION['access_token'])) {
   //               }
   //       }
   //     }
-  //     $query = "SELECT * from users where email_id = '".$email_id."'";
-  //     $result = $connection->query($query);
-  //     if ($result->num_rows > 0) {
-  //       while($row = $result->fetch_assoc()) {
-  //         $_SESSION["username"] = $row["username"];
-  //         $_SESSION["twitter_user"] = 'True';
-  //         $_SESSION['sess_user_fullname'] = $row["full_name"];
-  //         //https://twitter.com/TwitterEng/profile_image?size=original 
-  //         $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-  //         header("Location: member.php");
-  //               }
-  //           }
-  //               //redirect_to("member.php");
-  //   }
+      $query = "SELECT * from users where email_id = '".$email_id."'";
+      $result = $connection->query($query);
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $_SESSION["username"] = $row["username"];
+          $_SESSION["twitter_user"] = 'True';
+          $_SESSION['sess_user_fullname'] = $row["full_name"];
+          //https://twitter.com/TwitterEng/profile_image?size=original 
+          $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+          header("Location: member.php");
+                }
+            }
+                //redirect_to("member.php");
+    }
 }
