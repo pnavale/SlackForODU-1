@@ -18,8 +18,10 @@ if(isset($_GET['request']))
     //Any value other than 200 is failure, so continue only if http code is 200
     if($connection->http_code == '200')
     {
+    echo "inside if";
     //redirect user to twitter
     $twitter_url = $connection->getAuthorizeURL($request_token['oauth_token']);
+    echo "inside if".$twitter_url;
     header('Location: ' . $twitter_url); 
     }else{
     die("error connecting to twitter! try again later!");
