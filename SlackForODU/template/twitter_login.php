@@ -1,9 +1,11 @@
 <?php
-session_start();
 include("includes/db_connection.php");
 include("includes/functions.php");
 require 'autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
+  if (!isset($_SESSION)) {
+        session_start();
+    }
 define('CONSUMER_KEY', '3R3owmBJlwURYQci6SConhxmK'); // add your app consumer key between single quotes
 define('CONSUMER_SECRET', 'j2hZy9AuC1GYEImQEPx13wUas2VOnMMemIYkvtPflM6TaLSrCd'); // add your app consumer secret key between single quotes
 define('OAUTH_CALLBACK', 'http://asmi92.cs518.cs.odu.edu/SlackForODU/template/callback.php'); // your app callback URL
