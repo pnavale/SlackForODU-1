@@ -60,10 +60,6 @@ if (!isset($_SESSION['access_token'])) {
       $result = $connection->query($query);
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-          $_SESSION["username"] = $row_new["username"]; 
-          $_SESSION["twitter_user"] = 'True';
-          $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
-          echo $row['username'].$row['email_id'];
           $_SESSION["username"] = $row["username"];
           $_SESSION["twitter_user"] = 'True';
           $_SESSION['sess_user_fullname'] = $row["full_name"];
