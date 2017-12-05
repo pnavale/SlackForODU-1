@@ -75,7 +75,7 @@ if( isset($_GET['page'] ) ) {
     if ($result->num_rows <= 0) {
         $query = "SELECT * FROM message WHERE creator_id='" .$cname. "' and recipient_id='" .  $_SESSION['sess_user'] . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit.""; 
         $result = $connection->query($query);
-    }
+    	}
     }
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
@@ -96,7 +96,6 @@ if (strcmp($crfdate, $prevDate) > 0) {
         $prevDate = $crfdate;
     }
     ?>
-
 
 <div class="chat-message clearfix">
 <?php 
@@ -175,7 +174,6 @@ if ($result->num_rows > 0) {
 <!-- end chat-message -->
 <hr>                  
 <?php
-
 
 }
 
@@ -362,7 +360,6 @@ $('[name="webupload"]').on('change', function() {
      $('img.preview').prop('src', this.value);
 });
 </script>
-
 
 <?php
  // function isImage( $url )
