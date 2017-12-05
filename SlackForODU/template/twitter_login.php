@@ -4,7 +4,7 @@
 // Include config file and twitter PHP Library
 include_once("config.php");
 include_once("twitter/twitteroauth.php");
-
+echo $_GET['request'];
 if(isset($_GET['request']))
 {
     //Fresh authentication
@@ -14,7 +14,7 @@ if(isset($_GET['request']))
     //Received token info from twitter
     $_SESSION['token']      = $request_token['oauth_token'];
     $_SESSION['token_secret']   = $request_token['oauth_token_secret'];
-
+    echo $_SESSION['token'];
     //Any value other than 200 is failure, so continue only if http code is 200
     if($connection->http_code == '200')
     {
