@@ -27,12 +27,12 @@ if (!isset($_SESSION['access_token'])) {
   $email_id=$user->email;
   $fullname=$user->name;
   echo $username;
-  // $_SESSION["username"] = $row["username"];
-  // $_SESSION["twitter_user"] = 'True';
-  // $_SESSION['sess_user_fullname'] = $row["full_name"];
-  //   //https://twitter.com/TwitterEng/profile_image?size=original 
-  // $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-  // header("Location: member.php");
+  $_SESSION["sess_user"] = $row["username"];
+  $_SESSION["twitter_user"] = 'True';
+  $_SESSION['sess_user_fullname'] = $row["full_name"];
+    //https://twitter.com/TwitterEng/profile_image?size=original 
+  $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+  header("Location: member.php");
   // $query = "SELECT * from users where email_id = '".$email_id."'";
   // echo $query;
   // $result = $connection->query($query);
