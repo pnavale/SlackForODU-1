@@ -28,7 +28,6 @@ if (!isset($_SESSION['access_token'])) {
   $query = "SELECT * from users where email_id = '".$email_id."'";
   echo $query;
   $result = $connection->query($query);
-  echo $result;
   $row = mysqli_fetch_assoc($result);
   echo $row['username'].$row['email_id'];
   if ($result->num_rows > 0){
