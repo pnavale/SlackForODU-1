@@ -135,6 +135,7 @@ if ($result->num_rows > 0) {
         echo "<div class='row' style='margin-left: 0;'><p>Uploaded file:".$value['msg_body']."</p>";
         //echo "<p>Uploaded file type:".$value['file_type']."</p>";
         //echo "<p>Uploaded file size:".$value['file_size']."</p>";
+        //echo "<a href='".$value['file']."' target='_blank'>view file</a></div>";
         echo "<a href='uploads/".$value['msg_body']."' target='_blank'>view file</a></div>";
       }
 
@@ -390,6 +391,7 @@ if(isset($_POST['btn-upload']))
 	$new_file_name = strtolower($file);
 	// make file name in lower case
 	$final_file=str_replace(' ','-',$new_file_name);
+    $fileData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
 	$creator_id = $_SESSION['sess_user'];
      if(substr($file_type,0,5)=='image'){
         $imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
@@ -401,7 +403,7 @@ if(isset($_POST['btn-upload']))
         }else
 	if(move_uploaded_file($file_loc,$folder.$final_file))
 	{
-		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size')";
+		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size, file) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size','$fileData')";
 		if(mysqli_query($connection, $sql)){
 
         }else if (mysqli_error($connection)) {
