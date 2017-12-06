@@ -26,9 +26,18 @@ if (!$_SESSION['wkid']) {
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input name="userfile" type="file" />
             <br>
+            <div class="g-recaptcha" data-sitekey="6Ley-TsUAAAAAMTG_2XWeKFoY-h3-nV5u1t6NjVi"></div>
+            <br>
             <br>
             <input type="submit" class="btn btn-success" value="Next" name="submit" />
         </form>
+        
+        <?php 
+            foreach ($_POST as $key => $value) {
+                echo '<p><strong>' . $key.':</strong> '.$value.'</p>';
+            }
+        ?>
+
         <?php
 if (isset($_POST["submit"])) {
     $msg = [];
