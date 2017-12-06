@@ -401,7 +401,6 @@ if(isset($_POST['btn-upload']))
          echo mysqli_error($connection);
            } 
         }else
-	if(move_uploaded_file($file_loc,$folder.$final_file))
 	{
 		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size, file) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size','$fileData')";
 		if(mysqli_query($connection, $sql)){
