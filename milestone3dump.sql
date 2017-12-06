@@ -120,7 +120,8 @@ CREATE TABLE `message` (
   `image_name` text NOT NULL,
   `image_url` text NOT NULL,
   `file_size` int(11) NOT NULL,
-  `file_type` varchar(30) NOT NULL
+  `file_type` varchar(30) NOT NULL,
+  `file` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
