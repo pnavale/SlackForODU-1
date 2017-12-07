@@ -139,6 +139,7 @@ if ($result->num_rows > 0) {
 //        echo "<a href=''></a>";
         echo '<object data="data:'.$value['file_type'].';base64,'.base64_encode($value['file']).'" type="'.$value['file_type'].'" style="height:200px;width:60%"></object></div>';
         // echo '<img src="data:'.$value['file_type'].';base64,' . base64_encode($value['file']) . '"/></div>';
+           echo "<a href='uploads/".$value['msg_body']."' target='_blank'>view file</a></div>";
       }
 
      ?>
