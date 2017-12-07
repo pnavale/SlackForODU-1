@@ -57,11 +57,11 @@ if (!$_SESSION['wkid']) {
  
         ?>
         
-        <?php 
-            foreach ($_POST as $key => $value) {
-                echo '<p><strong>' . $key.':</strong> '.$value.'</p>';
-            }
-        ?>
+        <!-- <?php 
+            // foreach ($_POST as $key => $value) {
+            //     echo '<p><strong>' . $key.':</strong> '.$value.'</p>';
+            // }
+        ?> -->
 
 
 
