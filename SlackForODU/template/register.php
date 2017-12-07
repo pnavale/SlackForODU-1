@@ -26,16 +26,52 @@ if (!$_SESSION['wkid']) {
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
             <input name="userfile" type="file" />
             <br>
+            <div class="g-recaptcha" data-sitekey="6Ley-TsUAAAAAMTG_2XWeKFoY-h3-nV5u1t6NjVi"></div>
+            <br>
             <br>
             <input type="submit" class="btn btn-success" value="Next" name="submit" />
         </form>
+
+        <?php
+ 
+            // grab recaptcha library
+            require_once "recaptchalib.php";
+
+            // your secret key
+            $secret = "6Ley-TsUAAAAAIQ2toBweMQlLGZJuzu070bIWInd";
+ 
+            // empty response
+            $response = null;
+ 
+            // check secret key
+            $reCaptcha = new ReCaptcha($secret);
+
+            // if submitted check response
+            if ($_POST["g-recaptcha-response"]) {
+                $response = $reCaptcha->verifyResponse(
+                $_SERVER["REMOTE_ADDR"],
+                $_POST["g-recaptcha-response"]
+                );
+            }
+
+ 
+        ?>
+        
+        <!-- <?php 
+            // foreach ($_POST as $key => $value) {
+            //     echo '<p><strong>' . $key.':</strong> '.$value.'</p>';
+            // }
+        ?> -->
+
+
+
         <?php
 if (isset($_POST["submit"])) {
     $msg = [];
 //    if (!isset($_FILES['userfile'])) {
 //            echo '<p>Please select a file</p>';
 //        }
-    if (!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email']) && !empty($_POST['fullname']) && isset($_FILES['userfile'])) {
+    if (!empty($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['email']) && !empty($_POST['fullname']) && isset($_FILES['userfile']) && $response != null && $response->success) {
             try {
                 $maxsize = 10000000; //set to approx 10 MB
                     //check associated error code
