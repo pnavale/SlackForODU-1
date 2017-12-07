@@ -136,6 +136,7 @@ if ($result->num_rows > 0) {
         //echo "<p>Uploaded file type:".$value['file_type']."</p>";
         //echo "<p>Uploaded file size:".$value['file_size']."</p>";
         //echo "<a href='".$value['file']."' target='_blank'>view file</a></div>";
+//        echo "<a href=''></a>";
         echo '<object data="data:'.$value['file_type'].';base64,'.base64_encode($value['file']).'" type="'.$value['file_type'].'" style="height:200px;width:60%"></object></div>';
         // echo '<img src="data:'.$value['file_type'].';base64,' . base64_encode($value['file']) . '"/></div>';
       }
@@ -394,6 +395,7 @@ if(isset($_POST['btn-upload']))
 	$final_file=str_replace(' ','-',$new_file_name);
     $fileData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
 	$creator_id = $_SESSION['sess_user'];
+    if(move_uploaded_file($file_loc,$folder.$final_file)){
      if(substr($file_type,0,5)=='image'){
         $imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
         $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['file']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
@@ -410,6 +412,7 @@ if(isset($_POST['btn-upload']))
                 echo "Error in posting a message.". mysqli_error($connection);
             }
 	}
+    }
 }
     if (isset($_POST['webimg']) && isset($_POST['webupload'])) {
         if(!$channelArchived){
