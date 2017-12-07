@@ -136,7 +136,7 @@ if ($result->num_rows > 0) {
         //echo "<p>Uploaded file type:".$value['file_type']."</p>";
         //echo "<p>Uploaded file size:".$value['file_size']."</p>";
         //echo "<a href='".$value['file']."' target='_blank'>view file</a></div>";
-        echo '<img src="data:'.$value['file_type'].';base64,' . base64_encode($value['file']) . '"/></div>";
+        echo '<img src="data:'.$value['file_type'].';base64,' . base64_encode($value['file']) . '"/></div>';
       }
 
      ?>
