@@ -396,7 +396,6 @@ if(isset($_POST['btn-upload']))
 	$final_file=str_replace(' ','-',$new_file_name);
     $fileData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
 	$creator_id = $_SESSION['sess_user'];
-    if(move_uploaded_file($file_loc,$folder.$final_file)){
      if(substr($file_type,0,5)=='image'){
         $imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
         $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['file']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
@@ -404,7 +403,7 @@ if(isset($_POST['btn-upload']))
         if ($result) {} else {
          echo mysqli_error($connection);
            } 
-        }else
+        }else if(move_uploaded_file($file_loc,$folder.$final_file))
 	{
 		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size, file) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size','$fileData')";
 		if(mysqli_query($connection, $sql)){
@@ -413,7 +412,7 @@ if(isset($_POST['btn-upload']))
                 echo "Error in posting a message.". mysqli_error($connection);
             }
 	}
-    }
+    
 }
     if (isset($_POST['webimg']) && isset($_POST['webupload'])) {
         if(!$channelArchived){
