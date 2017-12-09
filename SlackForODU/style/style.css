@@ -403,6 +403,7 @@ a:active {
 }
 
 /* Copy Pasting Image*/
+
 .target {
   border: solid 1px #aaa;
   min-height: 200px;
