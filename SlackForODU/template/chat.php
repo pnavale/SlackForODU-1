@@ -40,7 +40,6 @@ if($_SESSION['sess_user']!="admin"){
                 }
             }
         } 
-
 $limit = 5;
 if($channel_idSelected!=''){
 $query = "SELECT * FROM message WHERE channel_id='" . $channel_idSelected . "'";
@@ -75,7 +74,7 @@ if( isset($_GET['page'] ) ) {
     if ($result->num_rows <= 0) {
         $query = "SELECT * FROM message WHERE creator_id='" .$cname. "' and recipient_id='" .  $_SESSION['sess_user'] . "' ORDER BY create_date desc LIMIT ".$offset.", ".$limit.""; 
         $result = $connection->query($query);
-    	}
+        }
     }
     $result = $connection->query($query);
     if ($result->num_rows > 0) {
@@ -83,7 +82,6 @@ if( isset($_GET['page'] ) ) {
             array_push($chats, $row);
             }
     }
-
 $prevDate = '';
 usort($chats, function ($a, $b) {
     return strtotime($a['create_date']) - strtotime($b['create_date']);
@@ -137,11 +135,10 @@ if ($result->num_rows > 0) {
         //echo "<p>Uploaded file size:".$value['file_size']."</p>";
         //echo "<a href='".$value['file']."' target='_blank'>view file</a></div>";
 //        echo "<a href=''></a>";
-        echo '<object data="data:'.$value['file_type'].';base64,'.base64_encode($value['file']).'" type="'.$value['file_type'].'" style="height:200px;width:60%"></object></div>';
+        // echo '<object data="data:'.$value['file_type'].';base64,'.base64_encode($value['file']).'" type="'.$value['file_type'].'" style="height:200px;width:60%"></object>';
         // echo '<img src="data:'.$value['file_type'].';base64,' . base64_encode($value['file']) . '"/></div>';
-           echo "<a href='../uploads/".$value['msg_body']."' target='_blank'>view file</a></div>";
+           echo "<a href='../uploads/".$value['msg_body']."' target='_blank'>Download file</a></div>";
       }
-
      ?>
     <?php
     $plusReaction = [];
@@ -162,7 +159,6 @@ if ($result->num_rows > 0) {
             array_push($minusReaction, $row);
         }
     }
-
     ?>
     <div class="row">
     <a href="javascript:void(0);" data-href="member.php?emoji=+1&person=<?php echo $value['creator_id'] ?>&msgid=<?php echo $value['msg_id'] ?>" class="emoji">&#128077;</a><span><?php echo count($plusReaction) ?></span>
@@ -178,9 +174,7 @@ if ($result->num_rows > 0) {
 <!-- end chat-message -->
 <hr>                  
 <?php
-
 }
-
 // $limitPg=5;
 // for ($page=1;$page<=$totalpages;$page++) {
 //     if($page<$limitPg){
@@ -268,11 +262,11 @@ if( $page > 0 && $left_rec > $limit) {
     <div style="background-color: white;height:auto;">
      <h3>File Upload</h3><br><br>
     <form method="post" enctype="multipart/form-data">
-	<input type="file" name="file" class="file-upload"/><br><br>
+    <input type="file" name="file" class="file-upload"/><br><br>
     <div id="thumb-output1"></div>
     <input type="submit" class="btn btn-success" value="Upload" name="btn-upload" style="width:10%;" />
      <input type="button" class="btn btn-default" value="Cancel" style="width:10%;" onclick="off()" />
-	</form>
+    </form>
     </div>
 </div>
     <div class="overlay">
@@ -380,22 +374,22 @@ $('[name="webupload"]').on('change', function() {
 if(isset($_POST['btn-upload']))
 {    
      
-	$file = rand(1000,100000)."-".$_FILES['file']['name'];
+    $file = rand(1000,100000)."-".$_FILES['file']['name'];
     $file_loc = $_FILES['file']['tmp_name'];
-	$file_size = $_FILES['file']['size'];
-	$file_type = $_FILES['file']['type'];
-	$folder="../uploads/";
-	
-	// new file size in KB
-	$new_size = $file_size/1024;  
-	// new file size in KB
-	
-	// make file name in lower case
-	$new_file_name = strtolower($file);
-	// make file name in lower case
-	$final_file=str_replace(' ','-',$new_file_name);
+    $file_size = $_FILES['file']['size'];
+    $file_type = $_FILES['file']['type'];
+    $folder="../uploads/";
+    
+    // new file size in KB
+    $new_size = $file_size/1024;  
+    // new file size in KB
+    
+    // make file name in lower case
+    $new_file_name = strtolower($file);
+    // make file name in lower case
+    $final_file=str_replace(' ','-',$new_file_name);
     $fileData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
-	$creator_id = $_SESSION['sess_user'];
+    $creator_id = $_SESSION['sess_user'];
      if(substr($file_type,0,5)=='image'){
         $imgData = addslashes(file_get_contents($_FILES['file']['tmp_name']));
         $result=$connection->query("insert into message (image_name,channel_id,image,creator_id,create_date,msg_type,subject)values ('{$_FILES['file']['name']}','$channel_idSelected','{$imgData}','{$_SESSION['sess_user']}',NOW(),'image','$channelSelected')");
@@ -404,14 +398,13 @@ if(isset($_POST['btn-upload']))
          echo mysqli_error($connection);
            } 
         }else if(move_uploaded_file($file_loc,$folder.$final_file))
-	{
-		$sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size, file) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size','$fileData')";
-		if(mysqli_query($connection, $sql)){
-
+    {
+        $sql="INSERT INTO message(creator_id,create_date,channel_id,msg_type,msg_body,file_type,file_size, file) VALUES('$creator_id',NOW(),'$channel_idSelected','file','$final_file','$file_type','$new_size','$fileData')";
+        if(mysqli_query($connection, $sql)){
         }else if (mysqli_error($connection)) {
                 echo "Error in posting a message.". mysqli_error($connection);
             }
-	}
+    }
     
 }
     if (isset($_POST['webimg']) && isset($_POST['webupload'])) {
@@ -438,7 +431,6 @@ if(isset($_POST['btn-upload']))
             } else if (mysqli_error($connection)) {
                 echo "Error in posting a message.";
             }
-
         }
     }
         else{
@@ -486,7 +478,6 @@ if (isset($_POST["img"])) {
                                     $msg = "Uploaded file is not an image.";
                                 }
                             } else {
-
                                 // if the file is not less than the maximum allowed, print an error
                                 $msg = '<div>File exceeds the Maximum File limit</div>
                                 <div>Maximum File limit is ' . $maxsize . ' bytes</div>
@@ -511,7 +502,6 @@ if (isset($_POST["img"])) {
                         }
 }
 // Function to return error message based on error code
-
 function file_upload_error_message($error_code)
 {
     switch ($error_code) {
@@ -533,7 +523,6 @@ function file_upload_error_message($error_code)
             return 'Unknown upload error';
     }
 }  
-
 ?>
 
         <script >
@@ -543,7 +532,6 @@ function file_upload_error_message($error_code)
         function on() {
             $('.overlay').css('display','block');
         }
-
         function off() {
             $('.overlay').css('display','none');
             $('.overlay1').css('display','none');
@@ -551,15 +539,10 @@ function file_upload_error_message($error_code)
         }
             var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
             $('#'+pageId).addClass('active');
-
                 $('.code-add').on('click', function(e) {
-
                 });
-
              $('.img-add').on('click', function(e) {
                 });
-
-
             $('.pagination-clicked').on('click', function(e) {
                 var data = $(this).data('href');
                 var page = data.substring(data.search('page=') + 5, data.length);
@@ -607,7 +590,6 @@ function file_upload_error_message($error_code)
             var emoji = data.substring(17, 19);
             var msgid = data.substring(data.search('msgid=') + 6, data.length);
             var person = data.substring(27, data.search('&msgid='));
-
             $.ajax({
                 type: 'GET',
                 url: 'chatHistory.php?ch='+location.search.substring(location.search.indexOf('ch=')+3,location.search.length),
@@ -616,7 +598,6 @@ function file_upload_error_message($error_code)
                     window.location.reload();
                 }
             });
-
             // $('.emoji').css('color','#9c7248');
         })
     
@@ -624,7 +605,6 @@ function file_upload_error_message($error_code)
     $('.overlay1').css('display','block');
  })
    // var CLIPBOARD = new CLIPBOARD_CLASS("my_canvas", true);
-
 /**
  * image pasting into canvas
  * 
@@ -635,10 +615,8 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
   var _self = this;
   var canvas = document.getElementById(canvas_id);
   var ctx = document.getElementById(canvas_id).getContext("2d");
-
   //handlers
   document.addEventListener('paste', function (e) { _self.paste_auto(e); }, false);
-
   //on paste
   this.paste_auto = function (e) {
     if (e.clipboardData) {
@@ -693,6 +671,5 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
 }
         </script>
         <?php
-
 mysqli_close($connection);
 ?>
