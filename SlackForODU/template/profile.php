@@ -118,9 +118,14 @@ if (!$_SESSION['wkid']) {
 
   </div>
 </div>
+<div>
+  <input type="button" id="bar-chart" class="btn btn-default" value="Show individual Distribution"/>
+  <div id="myDiv"></div>
+</div>
 <script >
  var privateCount=0;
  var currentUser='';
+ var date=dateCount=chartUsers=countUsers=[];
  var gravatarUrl=localUrl='';
     // Function for button to show private channels.
      $('.private_channel').on('click', function(e) {
@@ -150,6 +155,31 @@ if (!$_SESSION['wkid']) {
             success: function(response) {
                 var dateStr = '';
                 console.log(response);
+                date=response['dateArray'];
+                dateCount=response['postCountByDate'];
+                date=date.slice(1);
+                dateCount=dateCount.slice(1);
+                console.log(date);
+                console.log(dateCount);
+                chartUsers=response['chartUsers'];
+                countUsers=response['usersCount'];
+                console.log(chartUsers);
+                console.log(countUsers);
+                var trace1 = [
+                      {
+                        x: date,
+                        y: dateCount,
+                        type: 'scatter'
+                      }
+                    ];
+                      var layout = {
+                        title: 'Active Status of You',
+                        xaxis:{title: 'Date when you posted'},
+                        yaxis:{title: 'Count of posts'},
+                      };
+
+                    Plotly.newPlot('myDiv', trace1, layout);
+                  
                 currentUser=response['user'];
                 // Getting profile picture.
                 $.each( response['users'], function( key, user ) {
@@ -232,6 +262,39 @@ if (!$_SESSION['wkid']) {
         window.location.href ="changeProfilePic.php";
         }
         })
+var countChart=0;
+$('#bar-chart').on('click', function(e) {
+      $('#myDiv').html('');
+      if(countChart%2==0) {
+      var trace2 = [{ x: chartUsers,
+                      y: countUsers,
+                      type: 'bar'}];
+      var layout = {title: 'Active Status of all users',
+                    xaxis:{title: 'Username of users'},
+                    yaxis:{title: 'Count of posts posted'}};
+        
+      Plotly.newPlot('myDiv', trace2, layout);
+      $('#bar-chart').val('Show my activeness');
 
+    }
+     else {
+        var trace1 = [
+                      {
+                        x: date,
+                        y: dateCount,
+                        type: 'scatter'
+                      }
+                    ];
+                      var layout = {
+                        title: 'Active Status of You',
+                        xaxis:{title: 'Date when you posted'},
+                        yaxis:{title: 'Count of posts'},
+                      };
+
+                    Plotly.newPlot('myDiv', trace1, layout);
+        $('#bar-chart').val('Show individual Distribution');
+      }
+      countChart++;
+  })
 
 </script>

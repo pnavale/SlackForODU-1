@@ -6,7 +6,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $data=[];
-$userInfo = $users=$reactions=$channels =$posts =[];
+$userInfo = $users=$reactions=$channels =$posts =$date=$dateCount=$usersCount=$totalPost=$singleUser=[];
 $reactionPercent=$postPercent=$channelPercent=$totalPercent=0;
 
 if (isset($_GET['userProfile'])) {
@@ -62,6 +62,13 @@ $totalPosts=0;
 $query = "SELECT * FROM message";
 $result = $connection->query($query);
 $totalPosts = $result->num_rows;
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $row['image'] = base64_encode($row['image']); 
+        $row['file'] = base64_encode($row['file']); 
+        array_push($totalPost, $row);
+    }
+}
 
 $totalReactions=0;
 $query = "SELECT * FROM Reply";
@@ -77,6 +84,8 @@ $query = "SELECT * FROM message where creator_id='" . $_GET['userProfile'] . "'"
 $result = $connection->query($query);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $row['image'] = base64_encode($row['image']); 
+        $row['file'] = base64_encode($row['file']); 
         array_push($posts, $row);
     }
 }
@@ -125,6 +134,40 @@ if($_SESSION['sess_user']=='admin'){
             }
         }
 }
+$countP = $countPost=0;
+$prevDate = '';
+$countUser=0;
+foreach ($posts as $value) {
+    $crfdate = date_format(new DateTime($value['create_date']), 'F j');
+     $countP++;
+     $countPost++;
+    if (strcmp($crfdate, $prevDate)== 0) {
+        }else{
+            array_push($date, $prevDate);
+            array_push($dateCount, $countP);
+            $countP=0;
+        }
+
+        if(count($posts)==$countPost){
+            array_push($date, $crfdate);
+            array_push($dateCount, $countP);
+        }
+        $prevDate = $crfdate;
+}
+
+foreach ($users as $value) {
+        array_push($singleUser, $value['username']);
+        foreach ($totalPost as $post) {
+            if($value['username'] == $post['creator_id']){
+                   $countUser++;
+                }
+        }
+        array_push($usersCount,$countUser);
+        $countUser=0;
+        
+}
+
+
 $data['userInfo'] = $userInfo;
 $data['channels'] = $channels;
 $data['users'] = $users;
@@ -135,6 +178,11 @@ $data['channelPercent']=$channelPercent;
 $data['totalPercent']=$totalPercent;
 $data['userType']=$userType;
 $data['posts'] = count($posts);
+$data['postsArray'] = $posts;
+$data['postCountByDate'] = $dateCount;
+$data['dateArray'] = $date;
+$data['usersCount'] = $usersCount;
+$data['chartUsers'] = $singleUser;
 ob_end_clean();
 mysqli_close($connection);
 header('Content-Type: application/json');
