@@ -193,6 +193,7 @@ if ($result->num_rows > 0) {
 //     echo '</div>';
 // }
 $final=$totalpages-2;
+echo $left_rec."<br>".$page;
 if( $page > 0 && $left_rec > $limit) {
             $last = $page - 2;
             echo "<a href = 'member.php?ch=".$channelSelected."&page=-1'>First Page</a>|";
