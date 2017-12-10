@@ -21,11 +21,19 @@ if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
             $_SESSION["twitter_user"] = 'True';
             $_SESSION['sess_user_fullname'] = $row["full_name"];
             //https://twitter.com/TwitterEng/profile_image?size=original 
+            if($_SESSION["twitter_user"]){
             $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+            }else{
+              $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
               }
+            }
     }else {
         // echo "User do not Exists";
+        if($_SESSION["twitter_user"]){
         $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$_SESSION['sess_user']}', '{$_SESSION['sess_user_fullname']}','{$_SESSION['email_id']}', NOW(),'twitteruser','{$_SESSION['wkid']}','{$_SESSION['sess_user_profile_pic']}' ) ";
+        }else{
+        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$_SESSION['sess_user']}', '{$_SESSION['sess_user_fullname']}','{$_SESSION['email_id']}', NOW(),'gituser','{$_SESSION['wkid']}','{$_SESSION['sess_user_profile_pic']}' ) ";
+        }
         $result_id = mysqli_query($connection, $query);
         $result2 = $connection->query("SELECT * FROM channel");
         if ($result2->num_rows > 0) {

@@ -47,6 +47,17 @@ if(isset($_GET['code']))
             $email_id = $email_data[0]['email'];
             $email_primary = $email_data[0]['primary'];
             $email_verified = $email_data[0]['verified'];
+            $_SESSION["sess_user"]=$username;
+            $_SESSION["username"] = $username;
+//                echo $_SESSION["username"];
+            $_SESSION["git_user"] = 'True';
+            $_SESSION["email_id"]=$email_id;
+//                echo $_SESSION["git_user"];
+            $_SESSION["git_image"] = 'https://github.com/'.$username.'png';
+//                echo $_SESSION["git_image"];
+            $_SESSION['sess_user_fullname'] = $fullname;
+            $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$username.'png';
+                redirect_to("member.php");
             $query = "SELECT * from users where email_id = '".$email_id."'";
             $result = $connection->query($query);
             $row = mysqli_fetch_assoc($result);
