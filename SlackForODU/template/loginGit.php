@@ -97,10 +97,10 @@ if(isset($_GET['code']))
                         $_SESSION["git_user"] = 'True';
                         $_SESSION['email_id']=$email_data[0]['email'];
                         $_SESSION["sess_user_fullname"] = 'https://github.com/'.$row_new["username"].'.png';
-                       redirect_to("member.php");
                 }
                 }
                  redirect_to("member.php");
-    }
+        }
+        redirect_to("member.php");
     }
  ?>   
