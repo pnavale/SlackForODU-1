@@ -38,9 +38,10 @@ if (!isset($_SESSION['access_token'])) {
    echo $_SESSION['sess_user_fullname'];
   $query = "SELECT * from users where email_id = '".$email_id."'";
   $result = $connection->query($query);
+  echo $result;
   if ($result->num_rows > 0){
     while ($row = $result->fetch_assoc()) {
-      echo $row['username'].$row['email_id'];
+    echo $row['username'].$row['email_id'];
     echo "i m here";
     echo $row['username'].$row['email_id'];
     $_SESSION["username"] = $row["username"];
@@ -49,7 +50,7 @@ if (!isset($_SESSION['access_token'])) {
     //https://twitter.com/TwitterEng/profile_image?size=original 
     $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
     header("Location: member.php");
-    }
+      }
     }else {
         echo "User do not Exists";
         $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
