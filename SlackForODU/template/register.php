@@ -2,6 +2,7 @@
 include 'includes/htmlheader.php';
 include 'includes/db_connection.php';
 include 'includes/functions.php';
+include 'includes/recaptchalib.php';
 session_start();
 if (!$_SESSION['wkid']) {
     header("Location: wklogin.php");
@@ -35,7 +36,7 @@ if (!$_SESSION['wkid']) {
         <?php
  
             // grab recaptcha library
-            require_once "recaptchalib.php";
+            //require_once "recaptchalib.php";
 
             // your secret key
             $secret = "6Ley-TsUAAAAAIQ2toBweMQlLGZJuzu070bIWInd";
