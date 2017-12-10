@@ -186,7 +186,6 @@ if( $page > 0 && $left_rec > $limit) {
             echo "<li class='page' id='".$final."'><a href='javascript:void(0);'>Last Page</a></li>";
             echo "</ul>";
          }else if( $page == 0 && $left_rec<=5) {
-            echo $left_rec."<br>".$limit;
             echo '<ul class="pagination text-center" id="pagination"> ';
             echo "<li class='page' id='".$page."'><a href='javascript:void(0);'></a></li>";
             echo "</ul>";
@@ -197,7 +196,6 @@ if( $page > 0 && $left_rec > $limit) {
             echo "</ul>";
          }
          else if( $left_rec <= $limit && $left_rec!=0) {
-            echo $left_rec."<br>".$limit;
             $last = $page - 2;
             echo '<ul class="pagination text-center" id="pagination">';
             echo "<li class='page' id='-1'><a href='javascript:void(0);'>First Page</a></li>";
