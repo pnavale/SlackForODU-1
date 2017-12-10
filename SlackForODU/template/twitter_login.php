@@ -39,17 +39,18 @@ if (!isset($_SESSION['access_token'])) {
   $query = "SELECT * from users where email_id = '".$email_id."'";
   echo $query;
   $result = $connection->query($query);
-  $row = mysqli_fetch_assoc($result);
-  echo $row['username'].$row['email_id'];
   if ($result->num_rows > 0){
-  //   echo "i m here";
-  //   echo $row['username'].$row['email_id'];
-  //   $_SESSION["username"] = $row["username"];
-  //   $_SESSION["twitter_user"] = 'True';
-  //   $_SESSION['sess_user_fullname'] = $row["full_name"];
-  //   //https://twitter.com/TwitterEng/profile_image?size=original 
-  //   $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-  //   header("Location: member.php");
+    while ($row = $result->fetch_assoc()) {
+      echo $row['username'].$row['email_id'];
+    echo "i m here";
+    echo $row['username'].$row['email_id'];
+    $_SESSION["username"] = $row["username"];
+    $_SESSION["twitter_user"] = 'True';
+    $_SESSION['sess_user_fullname'] = $row["full_name"];
+    //https://twitter.com/TwitterEng/profile_image?size=original 
+    $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+    header("Location: member.php");
+    }
     }else {
         echo "User do not Exists";
         $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
