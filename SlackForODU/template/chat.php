@@ -21,6 +21,7 @@ if ($channelSelected) {
             <!-- <span class="chat-message-counter">3</span> -->
 </header>
 
+
 <div class="chat">
     <div class="chat-history">
 <?php
@@ -172,71 +173,55 @@ if ($result->num_rows > 0) {
     <!-- end chat-message-content -->
 </div>
 <!-- end chat-message -->
-<hr>                  
+<hr>                 
 <?php
 }
-// $limitPg=5;
-// for ($page=1;$page<=$totalpages;$page++) {
-//     if($page<$limitPg){
-//     echo '<div class="pagination">';
-//     echo '<ul class="nav">';
-//     echo '<li><a class="pagination-clicked" id="page'.$page.'" href="member.php?ch='.$channelSelected.'&page='.$page .'">' . $page . '</a> </li>';
-//     echo '</ul>';
-//     echo '</div>';
-// }
-// }
-// if($totalpages>=$limitPg){
-//     echo '<div class="pagination">';
-//     echo '<ul class="nav">';
-//     echo '<li><a class="pagination-clicked" id="more">&raquo;</a> </li>';
-//     echo '</ul>';
-//     echo '</div>';
-// }
 $final=$totalpages-2;
 if( $page > 0 && $left_rec > $limit) {
+            echo '<ul class="pagination text-center" id="pagination"> ';
             $last = $page - 2;
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=-1'>First Page</a>|";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Last 5 Records</a> |";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>|";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$final."'>Last Page</a>";
+            echo "<li class='page' id='-1'><a href='javascript:void(0);'>First Page</a></li>";
+            echo "<li class='page' id='".$last."'><a href='javascript:void(0);'>Last 5 Records</a></li> ";
+            echo "<li class='page' id='".$page."'><a href='javascript:void(0);'>Next 5 Records</a></li>";
+            echo "<li class='page' id='".$final."'><a href='javascript:void(0);'>Last Page</a></li>";
+            echo "</ul>";
          }else if( $page == 0 && $left_rec<=5) {
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'></a>";
+            echo $left_rec."<br>".$limit;
+            echo '<ul class="pagination text-center" id="pagination"> ';
+            echo "<li class='page' id='".$page."'><a href='javascript:void(0);'></a></li>";
+            echo "</ul>";
          }else if( $page == 0 && $left_rec!=0) {
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$page."'>Next 5 Records</a>|";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$final."'>Last Page</a>";
+            echo '<ul class="pagination text-center" id="pagination"> ';
+            echo "<li class='page' id='".$page."'><a href='javascript:void(0);'>Next 5 Records</a></li>";
+            echo "<li class='page' id='".$final."'><a href='javascript:void(0);'>Last Page</a></li>";
+            echo "</ul>";
          }
-         else if( $left_rec < $limit && $left_rec!=0) {
+         else if( $left_rec <= $limit && $left_rec!=0) {
+            echo $left_rec."<br>".$limit;
             $last = $page - 2;
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=-1'>First Page</a>|";
-            echo "<a href = 'member.php?ch=".$channelSelected."&page=".$last."'>Previous 5 Records</a>";
-         }
-}  
+            echo '<ul class="pagination text-center" id="pagination">';
+            echo "<li class='page' id='-1'><a href='javascript:void(0);'>First Page</a></li>";
+            echo "<li class='page' id='".$last."'><a href='javascript:void(0);'>Previous 5 Records</a></li>";
+            echo "</ul>";
+         }       
+} 
 ?>
+
 </div>
-<!-- end chat-history -->
+    <!-- end chat-history -->
 <!-- <p class="chat-feedback">Your partner is typing… </p>-->
-<!--     <center>
-    <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul></center>   -->
-<!-- 
-  <div style="text-align: right;"><a href="#" class="btn paginationBtn" name="">Older Messages</a></div>  -->
-            <form method="post">
-                <fieldset>
-                    <div class="row">
-                        <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
-                        <div class="row">
-                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 code-add">
-                            <img src="../images/code-snippet.png">
-                            </div>
-                            <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 img-add" onclick="on()" >
-                            <img src="../images/img-icon.png">
-                            </div>
-                            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
+<form method="post">
+    <fieldset>
+        <div class="row">
+            <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
+                <div class="row">
+                    <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 code-add">
+                        <img src="../images/code-snippet.png">
+                    </div>
+                    <div class="col-sm-2 col-md-1 col-lg-1 col-xs-2 img-add" onclick="on()" >
+                        <img src="../images/img-icon.png">
+                    </div>
+                    <div class="col-sm-8 col-md-10 col-lg-10 col-xs-8">
                             <?php 
                             if($result1==true){
                             echo '<input type="text" placeholder="Type your message…" name="message" class="input-msg" autofocus>';
@@ -244,16 +229,16 @@ if( $page > 0 && $left_rec > $limit) {
                             echo '<input type="text" placeholder="Type your message…" name="message" class="input-msg" disabled>';
                             }
                             ?>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
-                            <input type="submit" value="Send" class="btn msg" name="submit" />
-                        </div>
                     </div>
-                </fieldset>
-            </form>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-2 col-lg-2 col-xs-4">
+                <input type="submit" value="Send" class="btn msg" name="submit" />
+            </div>
         </div>
+    </fieldset>
+</form>
+</div>
 
         <!-- end chat -->
     </div>
@@ -308,6 +293,25 @@ if( $page > 0 && $left_rec > $limit) {
 </div>
 
 <script>
+$(".page").on('click',function(e){
+ //e.preventDefault();
+ console.log("i m here");
+ var ch = location.search.substring(4,location.search.length);
+ console.log(ch);
+ $("#live-chat").html('loading...');
+ $("#pagination a").removeClass('active');
+ $(this).addClass('active');
+        var pageNum = this.id;
+        //window.location.replace("member.php?ch="+ch+"&page=" + pageNum);
+        $.ajax({
+            type: 'GET',
+            url: "chat.php?ch="+ch+"&page=" + pageNum,
+            success: function(response) {
+                   jQuery("#live-chat").load("chat.php?ch="+ch+"&page=" + pageNum);
+                }
+            });
+    });
+
 $('#file-input').on('change', function(){ //on file input change
         if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
         {
@@ -342,7 +346,7 @@ $('.file-upload').on('change', function(){ //on file input change
                     var fRead = new FileReader(); //new filereader
                     fRead.onload = (function(file){ //trigger function on successful read
                     return function(e) {
-                        var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
+                        var img = $('<img width="128" height="128"/>').addClass('thumb').attr('src', e.target.result); //create image element 
                         $('#thumb-output1').append(img); //append image to output element
                     };
                     })(file);
@@ -537,23 +541,11 @@ function file_upload_error_message($error_code)
             $('.overlay1').css('display','none');
             window.location.reload();
         }
-            var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
+        var pageId="page"+location.search.substring(location.search.indexOf('page=')+5,location.search.length);
             $('#'+pageId).addClass('active');
                 $('.code-add').on('click', function(e) {
                 });
              $('.img-add').on('click', function(e) {
-                });
-            $('.pagination-clicked').on('click', function(e) {
-                var data = $(this).data('href');
-                var page = data.substring(data.search('page=') + 5, data.length);
-                console.log("sjjcb",data,page);
-                $.ajax({
-                    type: 'GET',
-                    url: 'chat.php?page='+page,
-                    data: { page: page },
-                    success: function(response) {
-                    }
-                });
                 });
             $('.delete').on('click', function(e) {
             var data = $(this).data('href');
