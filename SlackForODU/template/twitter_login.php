@@ -37,7 +37,6 @@ if (!isset($_SESSION['access_token'])) {
    echo $_SESSION["twitter_user"];
    echo $_SESSION['sess_user_fullname'];
   $query = "SELECT * from users where email_id = '".$email_id."'";
-  echo $query;
   $result = $connection->query($query);
   if ($result->num_rows > 0){
     while ($row = $result->fetch_assoc()) {
