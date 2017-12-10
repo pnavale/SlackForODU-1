@@ -38,16 +38,16 @@ if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
         $result2 = $connection->query("SELECT * FROM channel");
         if ($result2->num_rows > 0) {
             while ($row = $result2->fetch_assoc()) {
-                $uninvited = $row['uninvited'] . "," . $username;  
+                $uninvited = $row['uninvited'] . "," . $_SESSION['sess_user'];  
                 if($row['channel_name']!='general' && $row['channel_name']!='random'){  
                     $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
                   }
                 if($row['channel_name']=='general'){
-                    $joined=$row['joined']. "," . $username;
+                    $joined=$row['joined']. "," . $_SESSION['sess_user'];
                     $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
                 }
                 if($row['channel_name']=='random'){
-                    $joined=$row['joined']. "," . $username;
+                    $joined=$row['joined']. "," . $_SESSION['sess_user'];
                     $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
                 }
         }

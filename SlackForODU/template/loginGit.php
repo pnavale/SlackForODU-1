@@ -57,7 +57,7 @@ if(isset($_GET['code']))
 //                echo $_SESSION["git_image"];
             $_SESSION['sess_user_fullname'] = $fullname;
             $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$username.'png';
-                redirect_to("member.php");
+            redirect_to("member.php");
             $query = "SELECT * from users where email_id = '".$email_id."'";
             $result = $connection->query($query);
             $row = mysqli_fetch_assoc($result);
