@@ -36,7 +36,6 @@ if (!isset($_SESSION['access_token'])) {
    echo $_SESSION["sess_user"];
    echo $_SESSION["twitter_user"];
    echo $_SESSION['sess_user_fullname'];
-   header("Location: member.php");
   // $query = "SELECT * from users where email_id = '".$email_id."'";
   // echo $query;
   // $result = $connection->query($query);
@@ -53,25 +52,26 @@ if (!isset($_SESSION['access_token'])) {
   //   header("Location: member.php");
   //   }else {
   //       echo "User do not Exists";
-  //       $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
-  //       $result_id = mysqli_query($connection, $query);
-  // //       $result2 = $connection->query("SELECT * FROM channel");
-  // //       if ($result2->num_rows > 0) {
-  // //           while ($row = $result2->fetch_assoc()) {
-  // //             $uninvited = $row['uninvited'] . "," . $username;  
-  // //             if($row['channel_name']!='general' && $row['channel_name']!='random'){  
-  // //                $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
-  // //                 }
-  // //             if($row['channel_name']=='general'){
-  // //                $joined=$row['joined']. "," . $username;
-  // //                $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
-  // //                }
-  // //             if($row['channel_name']=='random'){
-  // //                 $joined=$row['joined']. "," . $username;
-  // //                 $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
-  // //               }
-  // //       }
-  // //     }
+        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('$username', '$fullname','$email_id', NOW(),'twitteruser','{$_SESSION['wkid']}','$profile_pic' ) ";
+        $result_id = mysqli_query($connection, $query);
+        $result2 = $connection->query("SELECT * FROM channel");
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+              $uninvited = $row['uninvited'] . "," . $username;  
+              if($row['channel_name']!='general' && $row['channel_name']!='random'){  
+                 $connection->query("update channel set uninvited='".$uninvited."' where channel_name='".$row['channel_name']."'");
+                  }
+              if($row['channel_name']=='general'){
+                 $joined=$row['joined']. "," . $username;
+                 $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                 }
+              if($row['channel_name']=='random'){
+                  $joined=$row['joined']. "," . $username;
+                  $connection->query("update channel set joined='".$joined."' where channel_name='".$row['channel_name']."'");
+                }
+        }
+      }
+      header("Location: member.php");
   //     $query = "SELECT * from users where email_id = '".$email_id."'";
   //     $result = $connection->query($query);
   //     if ($result->num_rows > 0) {
