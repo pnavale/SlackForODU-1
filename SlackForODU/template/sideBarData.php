@@ -11,7 +11,15 @@ $channels = [];
 $uninvited = [];
 $members = [];
 $uninvitedStr = $invitesStr = '';
-
+if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
+    $query = "SELECT * FROM users where email_id='".$_SESSION['email_id']]."'";
+    $result = $connection->query($query);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $_SESSION['sess_user']=$row['username'];
+        }
+    }
+}
 if ($_SESSION['sess_user'] != 'admin') {
     $query = "SELECT * FROM channel where invites like '%" . $_SESSION['sess_user'] . "%'";
     $result = $connection->query($query);

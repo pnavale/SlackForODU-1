@@ -186,9 +186,7 @@ if( $page > 0 && $left_rec > $limit) {
             echo "<li class='page' id='".$final."'><a href='javascript:void(0);'>Last Page</a></li>";
             echo "</ul>";
          }else if( $page == 0 && $left_rec<=5) {
-            echo '<ul class="pagination text-center" id="pagination"> ';
-            echo "<li class='page' id='".$page."'><a href='javascript:void(0);'></a></li>";
-            echo "</ul>";
+        
          }else if( $page == 0 && $left_rec!=0) {
             echo '<ul class="pagination text-center" id="pagination"> ';
             echo "<li class='page' id='".$page."'><a href='javascript:void(0);'>Next 5 Records</a></li>";
