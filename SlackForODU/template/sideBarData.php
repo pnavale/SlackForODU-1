@@ -11,7 +11,7 @@ $channels = [];
 $uninvited = [];
 $members = [];
 $uninvitedStr = $invitesStr = '';
-if($_SESSION["twitter_user"]){
+if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
     $query = "SELECT * FROM users where email_id='".$_SESSION['email_id']."'";
     $result = $connection->query($query);
     if ($result->num_rows > 0){
