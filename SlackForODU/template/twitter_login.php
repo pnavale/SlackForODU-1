@@ -35,7 +35,7 @@ if (!isset($_SESSION['access_token'])) {
    echo $_SESSION["sess_user"];
    echo $_SESSION["twitter_user"];
    echo $_SESSION['sess_user_fullname'];
-   // header("Location: member.php");
+   header("Location: member.php");
   // $query = "SELECT * from users where email_id = '".$email_id."'";
   // echo $query;
   // $result = $connection->query($query);
