@@ -25,7 +25,7 @@ if($_SESSION["twitter_user"]){
               }
     }else {
         // echo "User do not Exists";
-        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$_SESSION['username']}', '{$_SESSION['sess_user_fullname']}','{$_SESSION['email_id']}', NOW(),'twitteruser','{$_SESSION['wkid']}','{$_SESSION['sess_user_profile_pic']}' ) ";
+        $query  = "INSERT INTO users(username, full_name, email_id, signup_date,group_id, workspace_id, profile_pic) VALUES ('{$_SESSION['sess_user']}', '{$_SESSION['sess_user_fullname']}','{$_SESSION['email_id']}', NOW(),'twitteruser','{$_SESSION['wkid']}','{$_SESSION['sess_user_profile_pic']}' ) ";
         $result_id = mysqli_query($connection, $query);
         $result2 = $connection->query("SELECT * FROM channel");
         if ($result2->num_rows > 0) {
