@@ -102,7 +102,7 @@ if(isset($_GET['code']))
                        redirect_to("member.php");
                 }
                 }
-                redirect_to("member.php");
+                // redirect_to("member.php");
     }
     }
  ?>   

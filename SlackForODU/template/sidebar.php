@@ -3,6 +3,18 @@ include 'includes/db_connection.php';
 if (!isset($_SESSION)) {
     session_start();
 }
+  $query = "SELECT * FROM users where email_id='".$_SESSION['email_id']."'";
+    $result = $connection->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            $_SESSION["sess_user"]=$row["username"];
+            $_SESSION["username"] = $row["username"];
+            $_SESSION["twitter_user"] = 'True';
+            $_SESSION['sess_user_fullname'] = $row["full_name"];
+            //https://twitter.com/TwitterEng/profile_image?size=original 
+            $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+              }
+    }
 ?>
 <div>
     <div class="row">

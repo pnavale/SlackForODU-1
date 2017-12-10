@@ -12,7 +12,6 @@ $uninvited = [];
 $members = [];
 $uninvitedStr = $invitesStr = '';
 if($_SESSION["twitter_user"]){
-    echo "i m here";
     $query = "SELECT * FROM users where email_id='".$_SESSION['email_id']."'";
     $result = $connection->query($query);
     if ($result->num_rows > 0){
@@ -23,7 +22,6 @@ if($_SESSION["twitter_user"]){
             $_SESSION['sess_user_fullname'] = $row["full_name"];
             //https://twitter.com/TwitterEng/profile_image?size=original 
             $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
-            echo $_SESSION["sess_user"];
               }
     }else {
         // echo "User do not Exists";
@@ -185,7 +183,7 @@ if ($_SESSION['sess_user'] != 'admin') {
 $data['newchannels'] = $newchannels;
 $data['members'] = $members;
 $data['channels'] = $channels;
-// ob_end_clean();
+ob_end_clean();
 mysqli_close($connection);
-// header('Content-Type: application/json');
-// echo json_encode($data);
+header('Content-Type: application/json');
+echo json_encode($data);
