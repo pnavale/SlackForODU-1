@@ -93,11 +93,12 @@ if(isset($_GET['code']))
                 {
                     error_log("inside if");
                     while($row = $result->fetch_assoc()) {
-                        $_SESSION["username"] = $row_new["username"];
+                        $_SESSION["sess_user"] = $row_new["username"];
                         echo $_SESSION["username"]; 
                         $_SESSION["git_user"] = 'True';
                         echo $_SESSION["git_user"];
-                        $_SESSION["git_image"] = 'https://github.com/'.$row_new["username"].'.png';
+                        $_SESSION['email_id']=$email_data[0]['email'];
+                        $_SESSION["sess_user_fullname"] = 'https://github.com/'.$row_new["username"].'.png';
                         echo $_SESSION["git_image"];
                        redirect_to("member.php");
                 }
