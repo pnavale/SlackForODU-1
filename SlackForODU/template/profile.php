@@ -194,34 +194,37 @@ if (!$_SESSION['wkid']) {
                         $('.gravatar').html('');
                          userImg='https://github.com/'+user['username']+'.png';
                          localUrl=userImg;
+                         $('.profile-img').attr('src',localUrl);
                          }else if(user['group_id']=="twitteruser"){
                               console.log("twitter");
                         $('.gravatar').html('');
                          userImg='https://twitter.com/'+user['username']+'/profile_image?size=original';
                          localUrl=userImg;
+                        $('.profile-img').attr('src',localUrl);
                          }
                       else if(currentUser==userProfile && user['gravatar_exist'] && user['gravatar_want']==0){
                            console.log("gravatar");
                       userImg=user['gravatar'];
                       gravatarUrl=userImg;
+                    $('.profile-img').attr('src',gravatarUrl);
                       $('.gravatar').html('Set your profile pic instead of gravatar');
                     }else if(user['image']){
                          console.log("user prof");
                       $('.gravatar').html('');
                          userImg="data:image/jpeg;base64,"+user['image'];
                          localUrl=userImg;
+                        $('.profile-img').attr('src',localUrl);
                          }
                       else{
                            console.log("no prof");
                           userImg="../image/person.png";
                           $('.gravatar').html('');
+                          $('.profile-img').attr('src',userImg);
                          }
-                         gravatarUrl=user['gravatar'];
-                         localUrl="data:image/jpeg;base64,"+user['image'];
                          if(localUrl==''){
                           localUrl="../image/person.png";
                          }
-                        $('.profile-img').attr('src',userImg);
+//                        $('.profile-img').attr('src',userImg);
                         $('.username').html(user['username']);
                       currentUser=response['user'];
                         if(currentUser!=user['username']){
