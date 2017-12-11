@@ -36,6 +36,8 @@ if (!empty($_POST['user']) && !empty($_POST['pass'])) {
             $_SESSION['sess_email_id'] = $email_id;
             $_SESSION['sess_user_wk'] = $dbworkspace_id;
             $_SESSION['sess_user_ch'] = $dbchannel;
+            $_SESSION["twitter_user"]=false;
+            $_SESSION["git_user"]=false;
             $data['success'] = true;
             $data['message'] = 'Login Successful.';
         }
