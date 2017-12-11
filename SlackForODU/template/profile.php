@@ -192,13 +192,21 @@ if (!$_SESSION['wkid']) {
                      if(user['group_id']== "gituser"){
                          console.log("git");
                         $('.gravatar').html('');
+                         if(user['screen_name']){
+                             userImg='https://github.com/'+user['screen_name']+'.png';
+                         }else{
                          userImg='https://github.com/'+user['username']+'.png';
+                         }
                          localUrl=userImg;
                          $('.profile-img').attr('src',localUrl);
                          }else if(user['group_id']=="twitteruser"){
                               console.log("twitter");
                         $('.gravatar').html('');
+                        if(user['screen_name']){
+                         userImg='https://twitter.com/'+user['screen_name']+'/profile_image?size=original';
+                        }else{
                          userImg='https://twitter.com/'+user['username']+'/profile_image?size=original';
+                        }
                          localUrl=userImg;
                         $('.profile-img').attr('src',localUrl);
                          }
