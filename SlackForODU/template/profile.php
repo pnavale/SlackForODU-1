@@ -194,7 +194,7 @@ if (!$_SESSION['wkid']) {
                          localUrl=userImg;
                          }else if(user['group_id']== " twitteruser"){
                         $('.gravatar').html('');
-                         userImg='https://twitter.com/'+user['username']+'profile_image?size=original';
+                         userImg='https://twitter.com/'+user['username']+'/profile_image?size=original';
                          localUrl=userImg;
                          }
                       else 

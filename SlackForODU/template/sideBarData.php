@@ -23,7 +23,7 @@ if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
             //https://twitter.com/TwitterEng/profile_image?size=original 
             if($_SESSION["twitter_user"]){
             $connection->query("update users set group_id='twitteruser' where username='".$row["username"]."'");
-            $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'profile_image?size=original';
+            $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'/profile_image?size=original';
             }else{
               $connection->query("update users set group_id='gituser' where username='".$row["username"]."'");
               $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
