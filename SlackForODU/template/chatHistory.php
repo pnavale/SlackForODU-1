@@ -116,14 +116,14 @@ $profile = $_SESSION['sess_user_profile_pic'];
             }
         } 
     } else {
-        $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and channel_id='' and recipient_id='" . $_SESSION['sess_user'] . "'";
+        $query = "SELECT * FROM message WHERE creator_id='" . $cname . "' and recipient_id='" . $_SESSION['sess_user'] . "'";
         $result = $connection->query($query);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 array_push($chats, $row);
             }
         }
-         $query = "SELECT * FROM message WHERE creator_id='" . $_SESSION['sess_user'] . "' and channel_id='' and recipient_id='" . $cname . "'";
+         $query = "SELECT * FROM message WHERE creator_id='" . $_SESSION['sess_user'] . "' and recipient_id='" . $cname . "'";
             $result = $connection->query($query);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -257,3 +257,7 @@ $profile = $_SESSION['sess_user_profile_pic'];
     }
 
 }
+//ob_end_clean();
+//mysqli_close($connection);
+//header('Content-Type: application/json');
+//echo json_encode($data);
