@@ -192,6 +192,10 @@ if (!$_SESSION['wkid']) {
                         $('.gravatar').html('');
                          userImg='https://github.com/'+user['username']+'.png';
                          localUrl=userImg;
+                         }else if(user['group_id']== " twitteruser"){
+                        $('.gravatar').html('');
+                         userImg='https://twitter.com/'+user['username']+'profile_image?size=original';
+                         localUrl=userImg;
                          }
                       else 
                     if(currentUser==userProfile && user['gravatar_exist'] && user['gravatar_want']==0){
