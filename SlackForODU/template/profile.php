@@ -205,6 +205,7 @@ if (!$_SESSION['wkid']) {
                          }
                       else{
                           userImg="../image/person.png";
+                          $('.gravatar').html('');
                          }
                          gravatarUrl=user['gravatar'];
                          localUrl="data:image/jpeg;base64,"+user['image'];
