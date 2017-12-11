@@ -1,5 +1,6 @@
 <?php
 include 'includes/db_connection.php';
+include 'sideBarData.php';
 if (!isset($_SESSION)) {
     session_start();
 }
