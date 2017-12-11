@@ -17,7 +17,8 @@ if (isset($_GET['userProfile'])) {
             $row['image'] = base64_encode($row['image']); 
             $data['user']=$_SESSION['sess_user'];
             $url=get_gravatar($row['email_id']);
-            if($url){
+            echo $url;
+            if($url!=null){
                 $row['gravatar_exist']=true;
                 $row['gravatar']=$url;
             }

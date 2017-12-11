@@ -55,7 +55,22 @@ include("db_connection.php");
     }
 }
 
+function validate_gravatar($email) {
+	// Craft a potential url and test its headers
+	$hash = md5(strtolower(trim($email)));
+	$uri = 'http://www.gravatar.com/avatar/' . $hash . '?d=404';
+	$headers = @get_headers($uri);
+	if (!preg_match("|200|", $headers[0])) {
+		$has_valid_avatar = FALSE;
+	} else {
+		$has_valid_avatar = TRUE;
+	}
+	return $has_valid_avatar;
+}
+
 function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+    $valid=validate_gravatar($email);
+    if($valid){
     $url = 'https://www.gravatar.com/avatar/';
     $url .= md5( strtolower( trim( $email ) ) );
     $url .= "?s=$s&d=$d&r=$r";
@@ -64,6 +79,12 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
         foreach ( $atts as $key => $val )
             $url .= ' ' . $key . '="' . $val . '"';
         //$url .= ' />';
+    }
+    $headers = @get_headers( $url );
+    $result=preg_match( '|200|', $headers[0] ) ? true : false;
+    if(!$result){
+        $url="nil";
+    }
     }
     return $url;
 }
