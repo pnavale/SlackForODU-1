@@ -190,38 +190,38 @@ if (!$_SESSION['wkid']) {
                     console.log(user['gravatar_exist']);
                     console.log(user['group_id']);
                      if(user['group_id']== "gituser"){
-                         console.log("git");
-                        $('.gravatar').html('');
-                         if(user['screen_name']){
-                             userImg='https://github.com/'+user['screen_name']+'.png';
-                         }else{
-                         userImg='https://github.com/'+user['username']+'.png';
-                         }
-                         localUrl=userImg;
-                         $('.profile-img').attr('src',localUrl);
+                            console.log("git");
+                            $('.gravatar').html('');
+                             if(user['screen_name']){
+                                 userImg='https://github.com/'+user['screen_name']+'.png';
+                             }else{
+                             userImg='https://github.com/'+user['username']+'.png';
+                             }
+                             localUrl=userImg;
+                             $('.profile-img').attr('src',localUrl);
                          }else if(user['group_id']=="twitteruser"){
                               console.log("twitter");
-                        $('.gravatar').html('');
-                        if(user['screen_name']){
-                         userImg='https://twitter.com/'+user['screen_name']+'/profile_image?size=original';
-                        }else{
-                         userImg='https://twitter.com/'+user['username']+'/profile_image?size=original';
-                        }
-                         localUrl=userImg;
-                        $('.profile-img').attr('src',localUrl);
-                         }
+                                $('.gravatar').html('');
+                                if(user['screen_name']){
+                                 userImg='https://twitter.com/'+user['screen_name']+'/profile_image?size=original';
+                                }else{
+                                 userImg='https://twitter.com/'+user['username']+'/profile_image?size=original';
+                                }
+                                 localUrl=userImg;
+                                $('.profile-img').attr('src',localUrl);
+                                 }
                       else if(currentUser==userProfile && user['gravatar_exist'] && user['gravatar_want']==0){
-                           console.log("gravatar");
-                      userImg=user['gravatar'];
-                      gravatarUrl=userImg;
-                    $('.profile-img').attr('src',gravatarUrl);
-                      $('.gravatar').html('Set your profile pic instead of gravatar');
+                               console.log("gravatar");
+                          userImg=user['gravatar'];
+                          gravatarUrl=userImg;
+                        $('.profile-img').attr('src',gravatarUrl);
+                          $('.gravatar').html('Set your profile pic instead of gravatar');
                     }else if(user['image']){
-                         console.log("user prof");
-                      $('.gravatar').html('');
-                         userImg="data:image/jpeg;base64,"+user['image'];
-                         localUrl=userImg;
-                        $('.profile-img').attr('src',localUrl);
+                                 console.log("user prof");
+                              $('.gravatar').html('');
+                                 userImg="data:image/jpeg;base64,"+user['image'];
+                                 localUrl=userImg;
+                                $('.profile-img').attr('src',localUrl);
                          }
                       else{
                            console.log("no prof");
