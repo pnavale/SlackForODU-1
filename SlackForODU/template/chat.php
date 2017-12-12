@@ -103,7 +103,7 @@ $result = $connection->query($query);
 $gravatar_url= get_gravatar($row['email_id']);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo $row['group_id']."<br>".$row['screen_name']."<br>".$row['username'];   
+        // echo $row['group_id']."<br>".$row['screen_name']."<br>".$row['username'];   
             if($row['group_id']=='gituser'){
                 if($row['screen_name']){
                     echo '<img width="32" height="32" src="https://github.com/'.$row['screen_name'] . '.png"/>';
