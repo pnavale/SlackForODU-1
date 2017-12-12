@@ -28,17 +28,32 @@ if (strcmp($crfdate, $prevDate1) > 0) {
             ?>
     </p>
     <div class="chat-message clearfix">
-                        <?php 
-           
+    <?php        
                 $query = "SELECT * FROM users where username='" . $value['replied_by'] . "'";
                 $result = $connection->query($query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        if ($row['image']) {
-                            echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';
-                        } else {
-                            echo "<img width='32' height='32' src='../images/" . $row['profile_pic'] . "' alt='profile pic'>";
-                        }
+                        if($row['group_id']=='gituser'){
+                if($row['screen_name']){
+                    echo '<img width="32" height="32" src="https://github.com/'.$row['screen_name'] . '.png"/>';
+                }else{
+                    echo '<img width="32" height="32" src="https://github.com/'.$row['username'] . '.png"/>';
+                }
+            }else if($row['group_id']=='twitteruser'){
+                if($row['screen_name']){
+                    echo '<img width="32" height="32" src="https://twitter.com/'.$row['screen_name'].'/profile_image?size=original"/>';
+                }else{
+                    echo '<img width="32" height="32" src="https://twitter.com/'.$row['username'].'/profile_image?size=original"/>';
+                }
+                 
+            }else if($gravatar_url!=null && $row['gravatar_want']==0){
+                 echo '<img width="32" height="32" src="'.$gravatar_url.'"/>';
+            }
+            else if($row['image']){
+             echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
+            }else{
+                echo '<img width="32" height="32" src="../images/person.png"/>';
+            }
                     }
                 }
             ?>
