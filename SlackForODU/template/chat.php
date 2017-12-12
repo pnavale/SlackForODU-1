@@ -78,10 +78,12 @@ if( isset($_GET['page'] ) ) {
         }
     }
     $result = $connection->query($query);
+    if($chats==[]){
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             array_push($chats, $row);
             }
+    }
     }
 $prevDate = '';
 usort($chats, function ($a, $b) {
