@@ -116,11 +116,13 @@ if ($result->num_rows > 0) {
                     echo '<img width="32" height="32" src="https://twitter.com/'.$row['username'].'/profile_image?size=original"/>';
                 }
                  
-            }else if($row['gravatar_exist'] && $row['gravatar_want']==0){
+            }else if($gravatar_url!=null && $row['gravatar_want']==0){
                  echo '<img width="32" height="32" src="'.$gravatar_url.'"/>';
             }
-            else{
+            else if($row['image']){
              echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
+            }else{
+                echo '<img width="32" height="32" src="../image/person.png"/>';
             }
     }
 }
