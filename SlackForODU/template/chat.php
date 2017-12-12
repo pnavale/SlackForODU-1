@@ -185,7 +185,10 @@ if ($result->num_rows > 0) {
     &nbsp;&nbsp;
     <?php if($_SESSION['sess_user']=='admin'){
     echo "<a href='javascript:void(0);' data-href='member.php?msgid=".$value['msg_id']."' class='delete'>Delete</a>";} ?>
-    <?php include 'replyPartial.php';?>
+    <?php 
+    if ($channelSelected) {
+    include 'replyPartial.php';
+    }?>
     </div>
     </div>
     <!-- end chat-message-content -->
