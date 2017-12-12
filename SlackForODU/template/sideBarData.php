@@ -16,13 +16,15 @@ if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
     $result = $connection->query($query);
     if ($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
-             if($_SESSION["twitter_user"]){
-            $connection->query("update users set group_id='twitteruser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
-            $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'/profile_image?size=original';
-            }else{
-              $connection->query("update users set group_id='gituser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
-              $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
+            if(!$row['group_id']){
+                if($_SESSION["twitter_user"]){
+                    $connection->query("update users set group_id='twitteruser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
+                    $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'/profile_image?size=original';
+                }else if($_SESSION["twitter_user"]){
+                    $connection->query("update users set group_id='gituser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
+                    $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
               }
+          }
             $_SESSION["sess_user"]=$row["username"];
             $_SESSION["username"] = $row["username"];
             $_SESSION["twitter_user"] = 'True';
