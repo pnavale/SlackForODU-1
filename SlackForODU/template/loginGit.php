@@ -65,13 +65,9 @@ if(isset($_GET['code']))
                 echo $row['username'].$row['email_id'];
 //                echo "User Exists";
                 $_SESSION["sess_user"]=$row["username"];
-                $_SESSION["username"] = $row["username"];
-//                echo $_SESSION["username"];
                 $_SESSION["git_user"] = 'True';
                 $_SESSION["email_id"]=$email_id;
-//                echo $_SESSION["git_user"];
                 $_SESSION["git_image"] = 'https://github.com/'.$row["username"].'png';
-//                echo $_SESSION["git_image"];
                 $_SESSION['sess_user_fullname'] = $row["full_name"];
                 $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
                 redirect_to("member.php");
