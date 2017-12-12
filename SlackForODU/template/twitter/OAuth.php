@@ -870,6 +870,5 @@ class OAuthUtil {
     // For each parameter, the name is separated from the corresponding value by an '=' character (ASCII code 61)
     // Each name-value pair is separated by an '&' character (ASCII code 38)
     return implode('&', $pairs);
-  }
-	
+  }	
 }
