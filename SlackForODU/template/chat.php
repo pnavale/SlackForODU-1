@@ -122,7 +122,7 @@ if ($result->num_rows > 0) {
             else if($row['image']){
              echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
             }else{
-                echo '<img width="32" height="32" src="../image/person.png"/>';
+                echo '<img width="32" height="32" src="../images/person.png"/>';
             }
     }
 }

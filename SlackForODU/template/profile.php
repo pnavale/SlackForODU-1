@@ -225,7 +225,7 @@ if (!$_SESSION['wkid']) {
                          }
                       else{
                            console.log("no prof");
-                          userImg="../image/person.png";
+                          userImg="../images/person.png";
                           $('.gravatar').html('');
                           $('.profile-img').attr('src',userImg);
                          }
