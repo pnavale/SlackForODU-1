@@ -80,13 +80,9 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
             $url .= ' ' . $key . '="' . $val . '"';
         //$url .= ' />';
     }
-    $headers = @get_headers( $url );
-    $result=preg_match( '|200|', $headers[0] ) ? true : false;
-    if(!$result){
-        $url="nil";
-    }
-    }
     return $url;
+    }
+    
 }
 
 
