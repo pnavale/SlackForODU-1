@@ -190,7 +190,7 @@ CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `email_id` varchar(30) NOT NULL,
-  `group_id` varchar(20) DEFAULT NULL,
+  `group_id` varchar(20) NOT NULL,
   `full_name` varchar(20) NOT NULL,
   `workspace_id` varchar(20) NOT NULL,
   `channel_id` varchar(20) NOT NULL,
