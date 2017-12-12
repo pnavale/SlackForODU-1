@@ -7,5 +7,4 @@ if [[ -d /proc/cygdrive && $(which php) == $(readlink -n /proc/cygdrive)/* ]]; t
    dir=$(cygpath -m "$dir");
 fi
 
-
 php "${dir}/composer.phar" "$@"
