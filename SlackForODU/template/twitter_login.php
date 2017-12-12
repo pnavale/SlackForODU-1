@@ -33,4 +33,5 @@ if (!isset($_SESSION['access_token'])) {
     //https://twitter.com/TwitterEng/profile_image?size=original 
   $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$username.'profile_image?size=original';
   header("Location: member.php");
+  
 }
