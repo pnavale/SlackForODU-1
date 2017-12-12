@@ -155,7 +155,7 @@ INSERT INTO `message` (`msg_id`, `subject`, `creator_id`, `msg_body`, `create_da
 -- Table structure for table `reply`
 --
 
-CREATE TABLE `reply` (
+CREATE TABLE `Reply` (
   `msg_id` int(11) NOT NULL,
   `reply_msg` text NOT NULL,
   `replied_by` varchar(50) NOT NULL,
@@ -262,7 +262,7 @@ ALTER TABLE `message`
 --
 -- Indexes for table `reply`
 --
-ALTER TABLE `reply`
+ALTER TABLE `Reply`
   ADD PRIMARY KEY (`reply_id`);
 
 --
@@ -294,7 +294,7 @@ ALTER TABLE `message`
 --
 -- AUTO_INCREMENT for table `reply`
 --
-ALTER TABLE `reply`
+ALTER TABLE `Reply`
   MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
