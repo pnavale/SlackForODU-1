@@ -100,11 +100,26 @@ if (strcmp($crfdate, $prevDate) > 0) {
 <?php 
 $query = "SELECT * FROM users where username='" . $value['creator_id'] . "'";
 $result = $connection->query($query);
+$gravatar_url= get_gravatar($row['email_id']);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
             if($row['group_id']=='gituser'){
-                 echo '<img width="32" height="32" src="https://github.com/'.$row['username'] . '.png"/>';
-            }else{
+                if($row['screen_name']){
+                    echo '<img width="32" height="32" src="https://github.com/'.$row['screen_name'] . '.png"/>';
+                }else{
+                    echo '<img width="32" height="32" src="https://github.com/'.$row['username'] . '.png"/>';
+                }
+            }else if($row['group_id']=='twitteruser'){
+                if($row['screen_name']){
+                    echo '<img width="32" height="32" src="https://twitter.com/'.$row['screen_name'].'/profile_image?size=original"/>';
+                }else{
+                    echo '<img width="32" height="32" src="https://twitter.com/'.$row['username'].'/profile_image?size=original"/>';
+                }
+                 
+            }else if($row['gravatar_exist'] && $row['gravatar_want']==0){
+                 echo '<img width="32" height="32" src="'.$gravatar_url.'"/>';
+            }
+            else{
              echo '<img width="32" height="32" src="data:image/jpeg;base64,' . base64_encode($row['image']) . '"/>';   
             }
     }
