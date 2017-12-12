@@ -17,10 +17,10 @@ if($_SESSION["twitter_user"] || $_SESSION["git_user"]){
     if ($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
              if($_SESSION["twitter_user"]){
-            $connection->query("update users set group_id='twitteruser' and screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
+            $connection->query("update users set group_id='twitteruser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
             $_SESSION['sess_user_profile_pic'] = 'https://twitter.com/'.$row["username"].'/profile_image?size=original';
             }else{
-              $connection->query("update users set group_id='gituser' and screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
+              $connection->query("update users set group_id='gituser', screen_name='".$_SESSION['sess_user']."' where username='".$row["username"]."'");
               $_SESSION['sess_user_profile_pic'] = 'https://github.com/'.$row["username"].'png';
               }
             $_SESSION["sess_user"]=$row["username"];
